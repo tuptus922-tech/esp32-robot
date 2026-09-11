@@ -17,9 +17,17 @@
 #define TOUCH_FRONT_PIN 32 // Pasek dotykowy A: Przód głowy (ESP32 Touch 9)
 #define TOUCH_BACK_PIN  33 // Pasek dotykowy B: Tył głowy (ESP32 Touch 8)
 #define TOUCH_THRESHOLD 40 // Próg detekcji zbliżenia dłoni (< 40 = dotyk)
-// 0 = tryb Wokwi i przyciski cyfrowe (zapobiega crashom i freeze Wokwi)
-// 1 = tryb fizycznego ESP32 z folia aluminiowa (uruchamia sprzetowy touchRead)
-#define USE_CAPACITIVE_TOUCH_READ 0
+#include <esp_system.h>
+
+// Flagi automatycznego wykrywania środowiska i sprzętu
+bool isWokwiEnvironment = false;
+bool hasMpuSensor = false;
+
+// Dynamiczna autokalibracja dotyku pojemnościowego na fizycznym ESP32
+int touchBaselineFront = 75;
+int touchBaselineBack = 75;
+int touchThresholdFront = 40;
+int touchThresholdBack = 40;
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 Adafruit_MPU6050 mpu;
@@ -1268,17 +1276,40 @@ void processCommand(String cmd) {
     int df = digitalRead(TOUCH_FRONT_PIN);
     int db = digitalRead(TOUCH_BACK_PIN);
     Serial.println("--- ODCZYT CZUJNIKOW DOTYKU (TOUCH) ---");
-#if USE_CAPACITIVE_TOUCH_READ
-    int tf = touchRead(TOUCH_FRONT_PIN);
-    int tb = touchRead(TOUCH_BACK_PIN);
-    Serial.printf("Pasek A (Przod - GPIO %d): TouchRead=%d | Stan=%s\n", TOUCH_FRONT_PIN, tf, (tf < TOUCH_THRESHOLD || df == LOW) ? "TOUCHED" : "IDLE");
-    Serial.printf("Pasek B (Tyl   - GPIO %d): TouchRead=%d | Stan=%s\n", TOUCH_BACK_PIN, tb, (tb < TOUCH_THRESHOLD || db == LOW) ? "TOUCHED" : "IDLE");
-    Serial.printf("Prog detekcji (THRESHOLD): < %d\n", TOUCH_THRESHOLD);
-#else
-    Serial.printf("Pasek A (Przod - GPIO %d): Stan=%s (klawisz 'f')\n", TOUCH_FRONT_PIN, (df == LOW) ? "TOUCHED" : "IDLE");
-    Serial.printf("Pasek B (Tyl   - GPIO %d): Stan=%s (klawisz 'b')\n", TOUCH_BACK_PIN, (db == LOW) ? "TOUCHED" : "IDLE");
-    Serial.println("(Tryb Wokwi: bezpieczna symulacja cyfrowa bez crashujacego touchRead)");
-#endif
+    if (!isWokwiEnvironment) {
+      int tf = touchRead(TOUCH_FRONT_PIN);
+      int tb = touchRead(TOUCH_BACK_PIN);
+      Serial.printf("Pasek A (Przod - GPIO %d): Odczyt=%d | Prog=%d | Baza=%d -> %s\n",
+                    TOUCH_FRONT_PIN, tf, touchThresholdFront, touchBaselineFront,
+                    (tf < touchThresholdFront || df == LOW) ? "[DOTKNIETY!]" : "wolny");
+      Serial.printf("Pasek B (Tyl   - GPIO %d): Odczyt=%d | Prog=%d | Baza=%d -> %s\n",
+                    TOUCH_BACK_PIN, tb, touchThresholdBack, touchBaselineBack,
+                    (tb < touchThresholdBack || db == LOW) ? "[DOTKNIETY!]" : "wolny");
+    } else {
+      Serial.printf("Pasek A (Przod - GPIO %d): Stan=%s (klawisz 'f')\n", TOUCH_FRONT_PIN, (df == LOW) ? "[DOTKNIETY!]" : "wolny");
+      Serial.printf("Pasek B (Tyl   - GPIO %d): Stan=%s (klawisz 'b')\n", TOUCH_BACK_PIN, (db == LOW) ? "[DOTKNIETY!]" : "wolny");
+      Serial.println("(Tryb Wokwi: bezpieczna symulacja cyfrowa bez crashujacego touchRead)");
+    }
+  } else if (cmd == "calib") {
+    if (!isWokwiEnvironment) {
+      Serial.println("[KALIBRACJA] Kalibrowanie czujnikow dotykowych...");
+      long sumF = 0, sumB = 0;
+      for (int i = 0; i < 20; i++) {
+        sumF += touchRead(TOUCH_FRONT_PIN);
+        sumB += touchRead(TOUCH_BACK_PIN);
+        delay(10);
+      }
+      touchBaselineFront = sumF / 20;
+      touchBaselineBack = sumB / 20;
+      if (touchBaselineFront > 15) touchThresholdFront = (int)(touchBaselineFront * 0.65f);
+      else touchThresholdFront = 40;
+      if (touchBaselineBack > 15) touchThresholdBack = (int)(touchBaselineBack * 0.65f);
+      else touchThresholdBack = 40;
+      Serial.printf("[KALIBRACJA] Gotowe! Przod: prog=%d, baza=%d | Tyl: prog=%d, baza=%d\n",
+                    touchThresholdFront, touchBaselineFront, touchThresholdBack, touchBaselineBack);
+    } else {
+      Serial.println("[KALIBRACJA] Niedostepne w symulatorze Wokwi.");
+    }
   } else if (cmd == "status") {
     Serial.println("--- STATUS ROBOTA ---");
     Serial.printf("Bateria: %.1f%%\n", batteryPercent);
@@ -1305,10 +1336,10 @@ void processCommand(String cmd) {
     Serial.println("  pet        - poglaskaj robota (animacja zadowolenia + mruczenie)");
     Serial.println("  pet rev    - poglaskaj robota pod wlos (zdziwienie)");
     Serial.println("  touch      - sprawdz odczyty pinow dotykowych GPIO 32 i 33");
+    Serial.println("  calib      - skalibruj czujniki dotyku (tylko fizyczny ESP32)");
     Serial.println("  menu       - otwiera menu na ekranie");
-    Serial.println("  pc cpu=..  - wysyla dane komputera (cpu=, ram=, gpu=, temp=)");
     Serial.println("  shake      - potrzasnij robotem (budzi lub usypia)");
-    Serial.println("  bat <0-100>- natychmiast zmien poziom baterii (np. bat 15)");
+    Serial.println("  bat <0-100>- zmien poziom baterii (np. bat 15)");
     Serial.println("  usb on/off - podlacz / odlacz kabel USB-C");
     Serial.println("  status     - wyswietl aktualne parametry");
   } else {
@@ -1394,12 +1425,13 @@ void triggerShake() {
 // ==========================================
 
 bool isPadTouched(int pin) {
-#if USE_CAPACITIVE_TOUCH_READ
-  // Sprawdzenie sprzętowe ESP32 Capacitive Touch (tylko na fizycznej płytce)
-  int val = touchRead(pin);
-  if (val > 0 && val < TOUCH_THRESHOLD) return true;
-#endif
-  // Bezpieczny odczyt cyfrowy dla Wokwi i styków do GND
+  if (!isWokwiEnvironment) {
+    // Sprzętowy odczyt pojemnościowy ESP32 dla pasków folii
+    int val = touchRead(pin);
+    int thresh = (pin == TOUCH_FRONT_PIN) ? touchThresholdFront : touchThresholdBack;
+    if (val > 0 && val < thresh) return true;
+  }
+  // Odczyt cyfrowy (dla Wokwi oraz fizycznych przycisków / zwarcia do GND)
   if (digitalRead(pin) == LOW) return true;
   return false;
 }
@@ -1505,29 +1537,90 @@ void setup() {
   pinMode(TOUCH_FRONT_PIN, INPUT_PULLUP);
   pinMode(TOUCH_BACK_PIN, INPUT_PULLUP);
 
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println("Blad inicjalizacji SSD1306");
-    for (;;);
-  }
-  if (!mpu.begin()) {
-    Serial.println("Blad inicjalizacji MPU6050");
-    for (;;);
-  }
-
-  delay(100);
-  int rawCharger = analogRead(CHARGER_PIN);
-  isUsbConnected = (rawCharger > 2000);
-  wasUsbConnected = isUsbConnected;
-
-  if (isUsbConnected) {
-    currentState = STATE_CHARGING;
-    fullChargeTimestamp = millis();
+  // 1. Wykrywanie srodowiska (Wokwi vs Fizyczny ESP32)
+  uint8_t mac[6];
+  esp_efuse_mac_get_default(mac);
+  if (mac[0] == 0x24 && mac[1] == 0x0a && mac[2] == 0xc4 && mac[3] == 0x00 && mac[4] == 0x01 && mac[5] == 0x10) {
+    isWokwiEnvironment = true;
+    Serial.println("[SYSTEM] Srodowisko: Symulator Wokwi");
   } else {
-    currentState = STATE_SLEEP;
+    isWokwiEnvironment = false;
+    Serial.printf("[SYSTEM] Srodowisko: FIZYCZNY ESP32 (MAC: %02X:%02X:%02X:%02X:%02X:%02X)\n",
+                  mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+  }
+
+  // 2. Ekran OLED SSD1306 (probuje 0x3C, a jak nie ma to 0x3D)
+  bool oledOk = display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  if (!oledOk) {
+    oledOk = display.begin(SSD1306_SWITCHCAPVCC, 0x3D);
+  }
+  if (!oledOk) {
+    Serial.println("\n[BLAD KRYTYCZNY] Nie wykryto ekranu SSD1306 (0x3C ani 0x3D)!");
+    Serial.println("-> Sprawdz kable: SDA->GPIO 21, SCL->GPIO 22, VCC->3.3V, GND->GND\n");
+  } else {
+    Serial.println("[OLED] Ekran SSD1306 128x64 dziala poprawnie!");
+  }
+
+  // 3. Czujnik MPU6050 (0x68 lub 0x69, nie blokuje startu w razie braku)
+  hasMpuSensor = mpu.begin(0x68);
+  if (!hasMpuSensor) {
+    hasMpuSensor = mpu.begin(0x69);
+  }
+  if (!hasMpuSensor) {
+    Serial.println("[MPU6050] Brak czujnika zyr/acc (wybudzanie przyciskami LEWO/OK/PRAWO).");
+  } else {
+    mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+    mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+    Serial.println("[MPU6050] Czujnik ruchu MPU6050 dziala poprawnie!");
+  }
+
+  // 4. Autokalibracja paskow dotykowych na fizycznym ESP32
+  if (!isWokwiEnvironment) {
+    long sumF = 0, sumB = 0;
+    for (int i = 0; i < 15; i++) {
+      sumF += touchRead(TOUCH_FRONT_PIN);
+      sumB += touchRead(TOUCH_BACK_PIN);
+      delay(10);
+    }
+    touchBaselineFront = sumF / 15;
+    touchBaselineBack = sumB / 15;
+    if (touchBaselineFront > 15) touchThresholdFront = (int)(touchBaselineFront * 0.65f);
+    else touchThresholdFront = 40;
+    if (touchBaselineBack > 15) touchThresholdBack = (int)(touchBaselineBack * 0.65f);
+    else touchThresholdBack = 40;
+
+    Serial.printf("[DOTYK] Autokalibracja: Przod (prog=%d, baza=%d), Tyl (prog=%d, baza=%d)\n",
+                  touchThresholdFront, touchBaselineFront, touchThresholdBack, touchBaselineBack);
+  }
+
+  // 5. Inicjalizacja zasilania i start robota
+  if (isWokwiEnvironment) {
+    delay(50);
+    int rawCharger = analogRead(CHARGER_PIN);
+    isUsbConnected = (rawCharger > 2000);
+    wasUsbConnected = isUsbConnected;
+    if (isUsbConnected) {
+      currentState = STATE_CHARGING;
+      fullChargeTimestamp = millis();
+    } else {
+      currentState = STATE_SLEEP;
+      stateChangeTimestamp = millis();
+      isScreenTurnedOff = false;
+      drawSleepEyes(2);
+    }
+  } else {
+    // Na fizycznym ESP32 robot startuje od razu na biurku (100% zasilany z USB)
+    isUsbConnected = true;
+    wasUsbConnected = true;
+    batteryPercent = 100.0f;
+    currentState = STATE_AWAKE;
+    wakeUpTimestamp = millis();
     stateChangeTimestamp = millis();
     isScreenTurnedOff = false;
-    drawSleepEyes(2);
+    drawEyes(36, 0, 0);
+    soundWakeUp();
   }
+
   Serial.println("\n==============================================");
   Serial.println("       DESK BUDDY ROBOT URUCHOMIONY!         ");
   Serial.println(" Wpisz 'help' w konsoli, aby zobaczyc komendy ");
@@ -1549,15 +1642,21 @@ void loop() {
   bool btnOkHit = isOkPressed();
   bool btnRightHit = isRightPressed();
 
-  // 2. Odczyt stanu zasilania / ładowania USB-C (przełącznik: w prawo > 2000, w lewo < 800)
-  int rawCharger = analogRead(CHARGER_PIN);
-  bool physicalUsbOn = (rawCharger > 2000);
-  if (virtualUsb == 1) {
-    isUsbConnected = true;
-  } else if (virtualUsb == 0) {
-    isUsbConnected = false;
+  // 2. Odczyt stanu zasilania / ładowania USB-C
+  if (isWokwiEnvironment) {
+    int rawCharger = analogRead(CHARGER_PIN);
+    bool physicalUsbOn = (rawCharger > 2000);
+    if (virtualUsb == 1) {
+      isUsbConnected = true;
+    } else if (virtualUsb == 0) {
+      isUsbConnected = false;
+    } else {
+      isUsbConnected = physicalUsbOn;
+    }
   } else {
-    isUsbConnected = physicalUsbOn;
+    // Na fizycznym ESP32: zasilany z portu USB
+    if (virtualUsb == 0) isUsbConnected = false;
+    else isUsbConnected = true;
   }
 
   // Wykrycie momentu podłączenia kabla USB-C
@@ -1587,15 +1686,21 @@ void loop() {
   }
 
   // 3. Obsługa akcelerometru MPU6050 (fizyczne potrząsanie)
-  sensors_event_t a, g, temp;
-  mpu.getEvent(&a, &g, &temp);
-  float totalAccel = sqrt(a.acceleration.x * a.acceleration.x +
-                          a.acceleration.y * a.acceleration.y +
-                          a.acceleration.z * a.acceleration.z);
+  bool mpuShake = false;
+  if (hasMpuSensor) {
+    sensors_event_t a, g, temp;
+    mpu.getEvent(&a, &g, &temp);
+    float totalAccel = sqrt(a.acceleration.x * a.acceleration.x +
+                            a.acceleration.y * a.acceleration.y +
+                            a.acceleration.z * a.acceleration.z);
+    if (totalAccel > 15.0) {
+      mpuShake = true;
+    }
+  }
 
   // Wstrząs gdy przeciążenie > 15 m/s² LUB wciśnięto zielony przycisk SHAKE
   bool buttonShake = (digitalRead(SHAKE_BTN_PIN) == LOW);
-  if (totalAccel > 15.0 || buttonShake) {
+  if (mpuShake || buttonShake) {
     triggerShake();
   }
 
@@ -1632,8 +1737,8 @@ void loop() {
         }
       }
 
-      // Rozładowywanie baterii w spoczynku (bardzo powolne: -1% co 6 sekund)
-      if (!isUsbConnected && (now - lastBatteryTick > 6000)) {
+      // Rozładowywanie baterii w spoczynku (tylko w symulatorze Wokwi przy odłączonym kablu)
+      if (isWokwiEnvironment && !isUsbConnected && (now - lastBatteryTick > 6000)) {
         lastBatteryTick = now;
         if (batteryPercent > 0) batteryPercent -= 1.0f;
         if (batteryPercent < 15.0f) {
@@ -1669,8 +1774,8 @@ void loop() {
         drawEyes(36, 0, 0);
       }
 
-      // Rozładowywanie podczas aktywności (tylko gdy NIE jest podłączony do ładowarki!)
-      if (!isUsbConnected && (now - lastBatteryTick > 1500)) {
+      // Rozładowywanie podczas aktywności (tylko w symulatorze Wokwi przy odłączonym kablu)
+      if (isWokwiEnvironment && !isUsbConnected && (now - lastBatteryTick > 1500)) {
         lastBatteryTick = now;
         if (batteryPercent > 0) batteryPercent -= 1.0f;
         Serial.printf("[BATERIA] Pozostalo: %.0f%%\n", batteryPercent);

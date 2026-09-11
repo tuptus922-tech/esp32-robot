@@ -2,7 +2,56 @@
 
 Interaktywny miniaturowy robot biurkowy (Companion Pet) oparty na mikrokontrolerze **ESP32**, wyświetlaczu OLED 0.96" I2C, czujniku ruchu **MPU-6050**, podwójnym czujniku dotyku pojemnościowego do głaskania oraz pasywnym buzzerze.
 
-Projekt zawiera pełną symulację w **Wokwi** (`diagram.json`), dzięki czemu można go uruchamiać i testować zarówno w przeglądarce, jak i na fizycznym sprzęcie.
+Projekt jest w 100% gotowy do natychmiastowego wgrania na fizyczną płytkę ESP32 (Plug & Play), a jednocześnie zawiera pełną symulację w **Wokwi** (`diagram.json`).
+
+---
+
+## ⚡ Szybki start (Quick Start w 3 krokach)
+
+Jeśli sklonowałeś to repozytorium, wystarczy:
+
+```bash
+# 1. Wejdź do katalogu projektu
+cd esp32-robot
+
+# 2. Podłącz ESP32 kablem USB do komputera i wgraj program
+pio run -t upload
+
+# 3. Otwórz monitor portu szeregowego (opcjonalnie, do podglądu i testów)
+pio device monitor -b 115200
+```
+Po wgraniu robot od razu ożyje, wyda powitalny dźwięk i otworzy oczy!
+
+---
+
+## 📌 Schemat Połączeń (Hardware Pinout)
+
+Podłącz komponenty do pinów ESP32 zgodnie z poniższą tabelą:
+
+| Komponent | Pin modułu | Pin ESP32 | Uwagi / Podłączenie |
+| :--- | :--- | :--- | :--- |
+| **OLED 0.96" I2C** (SSD1306) | **SDA** | **GPIO 21** | Szyna danych I2C |
+| | **SCL** | **GPIO 22** | Szyna zegara I2C |
+| | **VCC** | **3.3V** | Zasilanie ekranu |
+| | **GND** | **GND** | Masa |
+| **MPU-6050** (GY-521) | **SDA** | **GPIO 21** | Wspólna szyna I2C z OLED |
+| | **SCL** | **GPIO 22** | Wspólna szyna I2C z OLED |
+| | **VCC** | **3.3V** lub **5V** | Zasilanie czujnika |
+| | **GND** | **GND** | Masa |
+| **Buzzer pasywny** | **+ (Sygnał)** | **GPIO 25** | Generowanie dźwięków PWM |
+| | **-** | **GND** | Masa |
+| **Przycisk LEWO** | Pin 1 | **GPIO 18** | Drugi pin do **GND** (wbudowany PULLUP) |
+| **Przycisk OK** | Pin 1 | **GPIO 19** | Drugi pin do **GND** (wbudowany PULLUP) |
+| **Przycisk PRAWO** | Pin 1 | **GPIO 23** | Drugi pin do **GND** (wbudowany PULLUP) |
+| **Pasek A: Dotyk PRZÓD** | Folia | **GPIO 32** (T9) | Tylko 1 kabelek do paska folii! |
+| **Pasek B: Dotyk TYŁ** | Folia | **GPIO 33** (T8) | Tylko 1 kabelek do paska folii! |
+
+> [!TIP]
+> **Jak zrobić paski do głaskania?**
+> 1. Wytnij dwa małe kawałki zwykłej folii aluminiowej kuchennej (ok. 1.5 cm x 4 cm).
+> 2. Naklej je od spodu dachu obudowy robota: jeden z przodu (czoło), drugi z tyłu głowy (odstęp między nimi ok. 5–10 mm).
+> 3. Przyklej taśmą lub przylutuj po jednym kabelku: przedni do pinu **GPIO 32**, a tylny do pinu **GPIO 33**.
+> 4. ESP32 przy każdym włączeniu **samoczynnie kalibruje czułość** do Twojej folii i grubości plastiku!
 
 ---
 
@@ -12,80 +61,43 @@ Projekt zawiera pełną symulację w **Wokwi** (`diagram.json`), dzięki czemu m
   - Płynne mruganie, naturalne zerkanie na boki, reakcja na bezczynność.
   - 5 kształtów oczu (*Standard, Cat Eyes, Cyber, Hearts, Anime*).
   - 4 motywy graficzne (*Classic, Invert/Cyber, Neon, Scanlines*).
-- 🥰 **Wykrywanie gestu głaskania (Dual Capacitive Touch)**:
-  - Dwa paski folii pod obudową (GPIO 32 i GPIO 33) tworzą strefy dotyku.
-  - Przejechanie dłonią od czoła do tyłu głowy uruchamia **wieloetapową animację zadowolenia**:
-    - Przymrużenie oczek w błogi uśmiech z rzęskami,
-    - Bijące serca w oczodołach (*podwójny puls lub-dub*),
-    - Uroczy pyszczek kotka `ω` i miękkie rumieńce,
-    - Unoszące się serduszka i realistyczny dwufazowy mruk kota (wdech/wydech).
-  - Głaskanie pod włos wywołuje zdziwioną minę z uniesioną brwią i spływającą kropelką.
+  - Blokada zmiany oczu na ekranie głównym – przyciski lewo/prawo powodują interaktywne zerkanie, a styl zmienia się wyłącznie w dedykowanym menu!
+- 🥰 **Wykrywanie prawdziwego gestu głaskania**:
+  - Przejechanie dłonią od czoła do tyłu głowy (A ➔ B) wyzwala **wieloetapową animację zadowolenia**:
+    - Błogi uśmiech z rzęskami,
+    - Bijące serca w oczodołach (*podwójny skurcz serca lub-dub*),
+    - Uroczy mały pyszczek kotka anime `ω` i miękkie rumieńce,
+    - Unoszące się serduszka i **dwufazowy, realistyczny mruk kota** (wdech/wydech).
+  - Głaskanie pod włos (B ➔ A) wywołuje zdziwioną minę z pytajnikiem `?` i spływającą kropelką.
 - 📳 **Czujnik ruchu MPU-6050**:
   - Robot zasypia po dłuższym bezruchu i budzi się po podniesieniu lub potrząśnięciu.
-- 📋 **Kafelkowe Menu Główne**:
-  - Stylizowane na nowoczesne systemy (duże karty z ikonami i animowaną paginacją).
-- 🍅 **Stoper Pomodoro**:
-  - Wbudowany 25-minutowy czasomierz do pracy/nauki.
-- 🦖 **Mini-gra Dino Jump**:
-  - Zręcznościowa gra w skakanie przez przeszkody sterowana przyciskiem robota.
-- 🔋 **System zasilania i baterii**:
-  - Wskaźnik naładowania, animacja podłączenia ładowarki USB oraz powiadomienia o niskim stanie baterii.
+- 📋 **Nowoczesne Menu Kafelkowe**:
+  - 1. Eye Style (wybór stylu oczu i motywu graficznego)
+  - 2. Pomodoro (stoper 25-minutowy)
+  - 3. Dino Jump (mini-gra zręcznościowa)
+  - 4. Exit (powrót do oczu)
+- 🎮 **Pełna symulacja w Wokwi**:
+  - Otwórz `diagram.json` i testuj układ w przeglądarce lub VS Code bez fizycznego sprzętu.
 
 ---
 
-## 📌 Schemat Połączeń (Pinout)
+## 🛠️ Diagnostyka i Konsola Serial (115200 baud)
 
-| Komponent | Pin modułu | Pin ESP32 | Opis |
-| :--- | :--- | :--- | :--- |
-| **OLED 0.96" (SSD1306)** | SDA | **GPIO 21** | Szyna danych I2C |
-| | SCL | **GPIO 22** | Szyna zegara I2C |
-| | VCC / GND | 3.3V / GND | Zasilanie ekranu |
-| **MPU-6050 (GY-521)** | SDA | **GPIO 21** | Szyna danych I2C (wspólna z OLED) |
-| | SCL | **GPIO 22** | Szyna zegara I2C (wspólna z OLED) |
-| | VCC / GND | 3.3V / GND | Zasilanie czujnika |
-| **Buzzer pasywny** | + (Sygnał) | **GPIO 25** | Generowanie tonów PWM |
-| | - | GND | Masa |
-| **Przycisk LEWO** | Pin A | **GPIO 18** | Nawigacja / Zerkanie w lewo |
-| **Przycisk OK** | Pin A | **GPIO 19** | Zatwierdzenie / Wejście do menu |
-| **Przycisk PRAWO** | Pin A | **GPIO 23** | Nawigacja / Zerkanie w prawo |
-| **Dotyk PRZÓD (Głowa)** | Folia A | **GPIO 32** (T9) | Dotyk pojemnościowy czoło |
-| **Dotyk TYŁ (Głowa)** | Folia B | **GPIO 33** (T8) | Dotyk pojemnościowy tył |
+W monitorze portu szeregowego możesz wpisywać przydatne komendy:
+- `touch` – Wyświetla aktualne odczyty z pasków dotykowych (przydatne przy dopasowywaniu folii).
+- `calib` – Wymusza ponowną autokalibrację poziomu spoczynkowego folii.
+- `pet` – Programowe uruchomienie animacji głaskania (Przód ➔ Tył).
+- `pet rev` – Programowe uruchomienie głaskania pod włos (Tył ➔ Przód).
+- `shake` – Wybudzenie lub uśpienie robota.
+- `menu` – Otwarcie menu głównego.
+- `status` – Wyświetlenie aktualnego stanu maszyny stanów.
 
 ---
 
-## 🚀 Jak uruchomić projekt
-
-### Wymagania:
-- [PlatformIO](https://platformio.org/) (jako wtyczka do VS Code lub narzędzie CLI `pio`).
-
-### Kompilacja i wgranie na ESP32:
-```bash
-# Kompilacja projektu
-pio run
-
-# Wgranie kodu na podłączoną płytkę ESP32
-pio run -t upload
-
-# Otwarcie monitora portu szeregowego
-pio device monitor -b 115200
-```
-
-### Uruchomienie w symulatorze Wokwi:
-1. Otwórz plik `diagram.json` w edytorze z zainstalowaną wtyczką Wokwi Simulator.
-2. Kliknij ikonę **Play** (Uruchom).
-3. Sterowanie w symulatorze:
-   - **`s`** – Potrząśnięcie (Wake up),
-   - **`f`** – Dotknięcie paska dotykowego z przodu głowy,
-   - **`b`** – Dotknięcie paska dotykowego z tyłu głowy (wciśnij `f`, a zaraz potem `b`, aby pogłaskać!),
-   - **`ArrowLeft` / `ArrowRight` / `Enter`** – Sterowanie przyciskami robota.
-
----
-
-## 🛠️ Lista części (Hardware BOM)
-- 1x ESP32 DevKit v1 (ESP-WROOM-32 z USB-C lub Micro-USB)
-- 1x Wyświetlacz OLED 0.96" I2C 128x64 SSD1306
-- 1x Akcelerometr / Żyroskop GY-521 (MPU-6050)
-- 1x Pasywny przetwornik piezoelektryczny (Passive Buzzer)
-- 3x Przyciski Tact Switch (np. 6x6 mm lub 12x12 mm)
-- 2x Paski folii aluminiowej / taśmy miedzianej do głaskania
-- Kabelki połączeniowe dupont + płytka stykowa
+## 📦 Lista części (Hardware BOM)
+- 1x ESP32 DevKit v1 (30-pin lub 38-pin, najlepiej z portem USB-C)
+- 1x Wyświetlacz OLED 0.96" I2C (128x64 SSD1306, biały lub niebieski)
+- 1x Akcelerometr / Żyroskop MPU-6050 (GY-521)
+- 1x Pasywny przetwornik piezoelektryczny (Passive Piezo Buzzer)
+- 3x Przyciski micro-switch Tact Switch (np. 6x6 mm lub 12x12 mm)
+- Zwykła folia aluminiowa + kabelki połączeniowe żeńsko-żeńskie (Dupont)
