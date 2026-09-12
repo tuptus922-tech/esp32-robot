@@ -24,6 +24,23 @@ Po wgraniu robot od razu ożyje, wyda powitalny dźwięk i otworzy oczy!
 
 ---
 
+## 🖨️ Przemyślana Obudowa 3D (Design for 3D Printing)
+
+![Podgląd Robota 3D](cad_models/podglad_obudowy_3d.png)
+
+Robot posiada specjalnie zaprojektowaną, dwuczęściową obudowę biurkową zoptymalizowaną pod kątem **łatwego druku 3D (FDM)** bez konieczności trudnych podpór:
+- **Dolne chassis (`obudowa_dol_podstawa.stl`)**: drukowane w 100% płasko na stole roboczym (**0 podpór**). Posiada szyny na ESP32, kanał na piny/przewody, wycięcie na kabel USB oraz 4 ukryte gniazda na śruby M3 i nóżki silikonowe.
+- **Górny korpus / Głowa (`obudowa_gora_glowa.stl`)**: ergonomiczne nachylenie twarzy pod kątem ~80° (tylko 10° od pionu – **brak konieczności podpór** na ścianach!), okno na wyświetlacz OLED 0.96", 5-szczelinowy grill akustyczny dla buzzera oraz dedykowane łoża pod folię dotykową o ściance zredukowanej do **1.0 mm** dla maksymalnej czułości głaskania.
+- **3x Nakładki na przyciski (`przycisk_nakladka.stl`)**: ruchome klawisze z kołnierzem zabezpieczającym przed wypadaniem.
+- **Docisk ekranu OLED (`uchwyt_oled.stl`)**: stabilizacja ekranu od środka bez klejenia.
+
+📂 **Pliki STL gotowe do wrzucenia do slicera:** [`cad_models/stl_print/`](cad_models/stl_print/)  
+📖 **Kompletny poradnik druku i montażu krok po kroku:** [`cad_models/DRUK_I_MONTAZ.md`](cad_models/DRUK_I_MONTAZ.md)  
+🎨 **Projekt 3D Blender:** [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) (PBR, oświetlenie studyjne)  
+📐 **Projekt parametryczny CAD:** [`cad_models/robot_obudowa_3d.FCStd`](cad_models/robot_obudowa_3d.FCStd) oraz pliki STEP
+
+---
+
 ## 📌 Schemat Połączeń (Hardware Pinout)
 
 Podłącz komponenty do pinów ESP32 zgodnie z poniższą tabelą:
