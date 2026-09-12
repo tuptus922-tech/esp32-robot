@@ -24,9 +24,22 @@ Po wgraniu robot od razu ożyje, wyda powitalny dźwięk i otworzy oczy!
 
 ---
 
+## 🧩 Architektura Modułowa: Uniwersalny Stelaż Core + Wymienne Obudowy (Quick-Swap)
+
+Projekt wykorzystuje profesjonalną architekturę **Universal Core Chassis**:
+- **Składasz elektronikę tylko raz**: Płytka ESP32, ekran OLED 0.96" na sztywnym maszcie 80°, buzzer 12mm w górnym koszyku, czujnik MPU-6050 oraz 3 mikroprzełączniki Tact Switch są trwale zamocowane w centralnym stelażu. **Zero wiszących kabli, zero kleju na gorąco!**
+- **Błyskawiczna wymiana obudów (Slide-On)**: Górne pancerze nakładasz i zdejmujesz w 1 sekundę wzdłuż pionowych szyn zatrzaskowych – bez użycia śrubokręta i bez ruszania elektroniki!
+
+| 🧩 Stelaż Centralny z Elektroniką | 🛡️ Szybkie Nasuwanie Pancerza Apex | 🌸 Szybkie Nasuwanie Neko Kawaii |
+| :---: | :---: | :---: |
+| ![Stelaż Core](cad_models/podglad_stelaz_elektronika.png) | ![Nasuwanie Apex](cad_models/podglad_modular_slide_on.png) | ![Nasuwanie Kawaii](cad_models/podglad_modular_kawaii_slide_on.png) |
+| *Wszystkie podzespoły pewnie zablokowane w fizycznych gniazdach stelaża.* | *Głowa Cyber-Titan Apex nasuwana wzdłuż bocznych szyn prowadzących.* | *Głowa Mecha-Kawaii nasuwana na ten sam stelaż bazowy.* |
+
+---
+
 ## 🖨️ Trzy Przemyślane Obudowy 3D do Wyboru (Design for 3D Printing)
 
-Projekt zawiera **trzy kompletne, w 100% przetestowane obudowy biurkowe**, w pełni kompatybilne z tą samą elektroniką i zoptymalizowane pod kątem łatwego druku FDM bez trudnych podpór:
+Projekt zawiera **trzy kompletne, w 100% przetestowane obudowy biurkowe**, w pełni kompatybilne z tą samą platformą stelaża i zoptymalizowane pod kątem łatwego druku FDM bez trudnych podpór:
 
 | 🛡️ Edycja Cyber-Titan Apex (Mecha-Warrior) | 🌸 Edycja Cyber-Capsule Mecha-Kawaii | 📺 Edycja Retro CRT Minimalist |
 | :---: | :---: | :---: |
@@ -34,21 +47,23 @@ Projekt zawiera **trzy kompletne, w 100% przetestowane obudowy biurkowe**, w pe�
 | *Ciężki szturmowy mech bojowy: potężna rozpiętość 72mm, naramienniki z wyrzutniami rakiet, 68mm rogi V-Fin / Kabuto, daszek kokpitu blast-shield, kły bojowe mandibles, podwójne dysze dopalaczy odrzutowych i gąsienice pancerne 63mm.* | *Styl Anime Neko: oktagonalny wizjer 3D, boczne żebra ("szpontery"), kocie wąsy, uszka, kapsuły Audio-Pod, przednie łapki i klawisze serce/łapka.* | *Styl Retro Computer: minimalistyczna bryła biurkowa o gładkich zaokrągleniach, zlicowanym oknie ekranu i klasycznych przyciskach.* |
 
 ### Najważniejsze atuty konstrukcyjne:
-- **Dolne chassis**: drukowane w 100% na płasko na stole roboczym (**0 podpór**). Posiada szyny na ESP32, kanał na piny/przewody, wycięcie na kabel USB oraz 4 ukryte gniazda na śruby M3 i nóżki silikonowe.
-- **Górny korpus / Głowa**: ergonomiczne nachylenie twarzy pod kątem ~80° (tylko ~9.5° od pionu – **brak konieczności podpór** na ścianach!), okno na wyświetlacz OLED 0.96", grill akustyczny buzzera oraz dedykowane łoża pod folię dotykową o ściance zredukowanej do **1.0 mm** dla maksymalnej czułości głaskania.
-- **Ruchome nakładki przycisków**: klawisze z kołnierzem oporowym zabezpieczającym przed wypadaniem.
-- **Boczne żebra i radiatory**: nacięcia pancerza i radiatorów wykonane pod bezpiecznym kątem 45° (drukowalne bez zwisów).
+- **Centralny Stelaż (Core Chassis)**: Drukowany w 100% na płasko (**0 podpór**). Posiada łoże ESP32, sztywny maszt OLED 80°, koszyk buzzera 12mm, gniazdo MPU-6050, belkę mikrostyków oraz szyny ślizgowe z zatrzaskami detent.
+- **Wymienne Obudowy (Głowy)**: Posiadają wewnętrzne rowki prowadzące dopasowane do stelaża, okno ekranu OLED oraz grill akustyczny buzzera.
+- **Ruchome nakładki przycisków**: Każda obudowa ma własne stylizowane nakładki (okrągłe, łapki/serce, reaktor/strzałki) z kołnierzem oporowym zabezpieczającym przed wypadaniem.
+- **Brak trudnych nawisów**: Wszystkie kąty konstrukcyjne wykonane zgodnie z zasadą $\le 45^\circ$.
 
+📂 **Stelaż Centralny (Core):** [`cad_models/stl_print/core_chassis.stl`](cad_models/stl_print/core_chassis.stl)  
 📂 **Pliki STL Cyber-Titan Apex:** [`cad_models/stl_print/dreadnought/`](cad_models/stl_print/dreadnought/)  
 📂 **Pliki STL Mecha-Kawaii:** [`cad_models/stl_print/mecha_kawaii/`](cad_models/stl_print/mecha_kawaii/)  
 📂 **Pliki STL Retro CRT:** [`cad_models/stl_print/`](cad_models/stl_print/)  
 📖 **Kompletny poradnik druku i montażu krok po kroku:** [`cad_models/DRUK_I_MONTAZ.md`](cad_models/DRUK_I_MONTAZ.md)  
 🎨 **Gotowe projekty Blender (.blend):**  
-  - 🛡️ [`cad_models/robot_dreadnought.blend`](cad_models/robot_dreadnought.blend) — dedykowany model Cyber-Titan Apex w kolorze Gunmetal Carbon z podwójnymi dyszami dopalaczy i bursztynowym oświetleniem bojowym!  
-  - 🌸 [`cad_models/robot_mecha_kawaii.blend`](cad_models/robot_mecha_kawaii.blend) — dedykowany model Mecha Kawaii w kolorze Sakura  
-  - 📺 [`cad_models/robot_obudowa_klasyczna.blend`](cad_models/robot_obudowa_klasyczna.blend) — dedykowany model edycji klasycznej  
+  - 🧩 [`cad_models/robot_modular_core.blend`](cad_models/robot_modular_core.blend) — dedykowany projekt stelaża modułowego z osadzoną elektroniką i prezentacją Quick-Swap!  
+  - 🛡️ [`cad_models/robot_dreadnought.blend`](cad_models/robot_dreadnought.blend) — model Cyber-Titan Apex w kolorze Gunmetal Carbon z dyszami dopalaczy!  
+  - 🌸 [`cad_models/robot_mecha_kawaii.blend`](cad_models/robot_mecha_kawaii.blend) — model Mecha Kawaii w kolorze Sakura  
+  - 📺 [`cad_models/robot_obudowa_klasyczna.blend`](cad_models/robot_obudowa_klasyczna.blend) — model edycji klasycznej  
   - 📦 [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) — zbiorczy projekt ze wszystkimi wersjami  
-📐 **Projekty parametryczne FreeCAD i STEP:** [`cad_models/robot_dreadnought_3d.FCStd`](cad_models/robot_dreadnought_3d.FCStd), [`cad_models/robot_mecha_kawaii_3d.FCStd`](cad_models/robot_mecha_kawaii_3d.FCStd) oraz [`cad_models/robot_obudowa_3d.FCStd`](cad_models/robot_obudowa_3d.FCStd)
+📐 **Projekty parametryczne FreeCAD i STEP:** [`cad_models/robot_core_chassis.FCStd`](cad_models/robot_core_chassis.FCStd), [`cad_models/robot_dreadnought_3d.FCStd`](cad_models/robot_dreadnought_3d.FCStd), [`cad_models/robot_mecha_kawaii_3d.FCStd`](cad_models/robot_mecha_kawaii_3d.FCStd) oraz [`cad_models/robot_obudowa_3d.FCStd`](cad_models/robot_obudowa_3d.FCStd)
 
 ---
 

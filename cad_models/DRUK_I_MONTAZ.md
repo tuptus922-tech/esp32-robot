@@ -27,6 +27,21 @@ Możesz wybrać jedną z trzech kompletnych, w 100% kompatybilnych z tą samą e
 
 Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Design for Additive Manufacturing (DFAM)**, są bryłami zamkniętymi (watertight/manifold) i posiadają zoptymalizowane tolerancje pasowania (0.25–0.35 mm).
 
+---
+
+### 🧩 UNIWERSALNY STELAŻ ELEKTRONIKI (Złóż raz i wymieniaj obudowy w sekundę!)
+Plik: [`cad_models/stl_print/core_chassis.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/core_chassis.stl)
+
+| Plik STL | Ilość | Opis / Rola w konstrukcji | Orientacja na stole |
+| :--- | :---: | :--- | :--- |
+| [`core_chassis.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/core_chassis.stl) | **1 szt.** | **Centralny stelaż nośny**: łoże ESP32 z zatrzaskami, maszt OLED 80° z ramką ustalającą, koszyk buzzera 12mm, kieszeń MPU-6050, belka oporowa 3x Tact Switch 6x6mm oraz szyny szybkiego montażu Quick-Swap | Płasko na spodzie (Z=0, 0 podpór) |
+
+> [!IMPORTANT]
+> **Dlaczego stelaż to rewolucja?**  
+> Montujesz i lutujesz całą elektronikę **tylko raz na stelażu**! Każda z trzech obudów górnych (Retro CRT, Mecha-Kawaii, Cyber-Titan Apex) nasuwa się na stelaż od góry wzdłuż pionowych szyn i zatrzaskuje na kulkach detent. Aby zmienić wygląd robota z Kawaii na Titana, po prostu pociągasz głowę w górę i zakładasz nową – bez śrub, bez kabli i bez kleju!
+
+---
+
 ### 🛡️ Wersja 3: Cyber-Titan Apex (Katalog `cad_models/stl_print/dreadnought/`)
 
 | Plik STL | Ilość | Opis / Rola w konstrukcji | Orientacja na stole |
@@ -108,40 +123,47 @@ Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Desig
 
 ---
 
-## 🛠️ Instrukcja Montażu Krok po Kroku
+## 🛠️ Instrukcja Montażu: Architektura Centralnego Stelaża (Złóż raz!)
 
-### Krok 1: Strefy Głaskania (Pojemnościowe sensory dotyku)
-1. Wytnij dwa paski zwykłej kuchennej folii aluminiowej o wymiarach ok. **15 mm x 32 mm**.
-2. Wklej paski w dwie dedykowane kieszenie na wewnętrznej stronie dachu:
-   - Przednia kieszeń: **Czoło** ➔ kabelek do **GPIO 32** (T9).
-   - Tylna kieszeń: **Tył głowy** ➔ kabelek do **GPIO 33** (T8).
-3. Ścianka plastiku nad kieszeniami ma zredukowaną grubość (1.0 mm), co zapewnia natychmiastową, czułą reakcję na dotyk dłoni przez plastik.
+Dzięki nowemu stelażowi **Universal Core Chassis**, całą elektronikę składasz i podłączasz **tylko jeden raz na stelażu**. Od tej pory zmiana obudowy na biurku zajmuje dosłownie sekundę!
 
-### Krok 2: Przyciski Nawigacyjne
-1. Wsuń od środka 3 drukowane nakładki przycisków w otwory na przedniej ścianie.
-2. Ich kołnierz oporowy oprze się o wewnętrzne gniazdo – przyciski nigdy nie wypadną na zewnątrz!
-3. Zamontuj za nimi mikrostyki Tact Switch 6x6 mm podłączone do pinów:
-   - Lewy: **GPIO 18**
-   - Środkowy (OK): **GPIO 19**
-   - Prawy: **GPIO 23**
+### Krok 1: Przyciski Nawigacyjne (Mikrostyki 6x6 mm)
+1. Wsuń 3 mikroprzełączniki Tact Switch 6x6 mm w dedykowane gniazda przedniej belki stelaża.
+2. Ich tylna ścianka opiera się o sztywną ścianę stelaża – nawet mocne klikanie nie ugnie konstrukcji.
+3. Podłącz piny: Lewy ➔ **GPIO 18**, Środkowy (OK) ➔ **GPIO 19**, Prawy ➔ **GPIO 23** (oraz wspólna masa GND).
 
-### Krok 3: Wyświetlacz OLED 0.96" I2C
-1. Wsuń wyświetlacz OLED w wewnętrzną kieszeń ustalającą za oknem frontowym.
-2. Zabezpiecz rogi płytki odrobiną kleju termotopliwego lub elementem dociskowym.
-3. Wyprowadź przewody I2C (**SDA: GPIO 21**, **SCL: GPIO 22**, **VCC: 3.3V**, **GND**).
+### Krok 2: Płytka ESP32 DevKit V1
+1. Wsuń płytkę ESP32 w szyny prowadzące stelaża od góry, aż kliknie w zatrzaski krawędziowe.
+2. Przedni opór uniemożliwia przesunięcie płytki podczas podłączania kabla USB.
+3. Port USB-C / microUSB znajduje się idealnie w tylnym oknie.
 
-### Krok 4: Buzzer Pasywny i Czujnik Ruchu MPU-6050
-1. Umieść przetwornik piezoelektryczny buzzer 12mm w górnej części korpusu (sygnał do **GPIO 25**).
-2. Czujnik MPU-6050 zamocuj poziomo na szynie I2C (SDA 21, SCL 22).
+### Krok 3: Czujnik Ruchu MPU-6050
+1. Umieść płytkę MPU-6050 poziomo w dedykowanej niecce między szynami.
+2. Połącz przewody magistrali I2C (**SDA: GPIO 21**, **SCL: GPIO 22**, zasilanie 3.3V i GND).
 
-### Krok 5: Płytka ESP32 i Zamknięcie Obudowy
-1. Wsuń płytkę ESP32 DevKit V1 w szyny prowadzące dolnego chassis – gniazdo USB idealnie zgra się z tylnym oknem.
-2. Połącz przewody Dupont zgodnie ze schematem z `README.md`.
-3. Nałóż górną obudowę na kołnierz centrujący dolnej podstawy.
-4. Skręć obie części od spodu za pomocą **4 standardowych śrub M3** (długość 8–10 mm).
-5. Wklej 4 silikonowe nóżki antypoślizgowe (fi 8 mm) w gniazda na spodzie – zakryją one łby śrub i ustabilizują robota na biurku!
+### Krok 4: Wyświetlacz OLED 0.96" na Sztywnym Maszcie
+1. Wsuń płytkę OLED w ramkę ukośnego masztu (nachylenie 80°).
+2. Cztery wbudowane kołki ustalające (fi 1.6 mm) wchodzą w otwory montażowe płytki – ekran siedzi sztywno i zlicowany z kątem twarzy.
+3. Wyprowadź 4 przewody I2C przez tylne okno masztu prosto do szyn ESP32.
+
+### Krok 5: Buzzer Piezoelektryczny 12 mm
+1. Wciśnij przetwornik buzzer 12mm od góry w cylindryczny koszyk na szczycie wieży (press-fit na klik).
+2. Przełóż wyprowadzenia przez dolny kanał kablowy prosto do pinu **GPIO 25** i GND.
+3. Buzzer skierowany jest ku górze, wprost w szczeliny akustyczne dachu robota!
+
+### Krok 6: Podklejenie nóżek antypoślizgowych
+1. Wklej 4 silikonowe nóżki (fi 8 mm) w gniazda na spodzie stelaża. Stelaż stoi stabilnie na biurku.
+
+---
+
+## 🎭 Błyskawiczna Wymiana Obudów (Quick-Swap / Slide-On)
+
+1. Wybierz dowolną obudowę górną (**Retro CRT**, **Mecha-Kawaii** lub **Cyber-Titan Apex**).
+2. Wsuń od środka w otwory czołowe danej obudowy jej stylizowane nakładki przycisków (kołnierz zabezpiecza je przed wypadnięciem na zewnątrz).
+3. Nałóż obudowę od góry na stelaż – wewnętrzne szyny prowadzące gładko poprowadzą obudowę w dół, a dolne zatrzaski kulkowe (snap-detents) klikną w dolnym położeniu.
+4. **Chcesz zmienić wygląd robota?** Po prostu pociągnij głowę w górę i nałóż inną! Wszystkie kable, ekran, ESP32 i buzzer zostają nienaruszone na biurku!
 
 ---
 
 ## 🚀 Gotowe!
-Podłącz kabel USB z tyłu robota, wgraj kod (`pio run -t upload`) i ciesz się w pełni funkcjonalnym, niesamowitym robotem biurkowym!
+Podłącz kabel USB z tyłu robota, wgraj kod (`pio run -t upload`) i ciesz się w pełni modułowym, niesamowitym robotem biurkowym!

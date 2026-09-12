@@ -172,10 +172,15 @@ screen_cut_box.rotate(Vector(0,0,0), Vector(1,0,0), 80.0)
 screen_cut_box.translate(oled_center)
 hood = hood.cut(screen_cut_box)
 
-oled_pocket = Part.makeBox(27.4, 2.0, 27.4, Vector(-13.7, 0.0, -13.7))
+oled_pocket = Part.makeBox(28.5, 4.2, 28.5, Vector(-14.25, -1.0, -14.25))
 oled_pocket.rotate(Vector(0,0,0), Vector(1,0,0), 80.0)
-oled_pocket.translate(Vector(0, -20.2, 27.5))
+oled_pocket.translate(Vector(0, -20.8, 27.5))
 hood = hood.cut(oled_pocket)
+
+# Wewnętrzne rowki prowadzące na szyny stelaża (Slide-on guide grooves)
+guide_slot_l = Part.makeBox(2.4, 24.0, 5.0, Vector(-22.4, -12.0, split_z - 0.2))
+guide_slot_r = Part.makeBox(2.4, 24.0, 5.0, Vector( 20.0, -12.0, split_z - 0.2))
+hood = hood.cut(guide_slot_l).cut(guide_slot_r)
 
 # 3.5 Kieszenie na folię dotykową pod dachem (strop o grubości 1.0 mm)
 touch_front_pocket = Part.makeBox(32.0, 11.0, 1.2, Vector(-16.0, -12.5, 45.0))

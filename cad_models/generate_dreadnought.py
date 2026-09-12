@@ -214,10 +214,15 @@ screen_cut.translate(Vector(0, oled_y, oled_z))
 hood = hood.cut(screen_cut)
 
 # Wewnętrzna kieszeń oporowa na płytkę OLED
-oled_pocket = Part.makeBox(27.4, 2.0, 27.4, Vector(-13.7, 0.0, -13.7))
+oled_pocket = Part.makeBox(28.0, 3.8, 28.0, Vector(-14.0, -0.5, -14.0))
 oled_pocket.rotate(Vector(0,0,0), Vector(1,0,0), tilt_angle)
 oled_pocket.translate(Vector(0, -21.8, oled_z))
 hood = hood.cut(oled_pocket)
+
+# Wewnętrzne rowki prowadzące na szyny stelaża (Slide-on guide grooves)
+guide_slot_l = Part.makeBox(2.4, 24.0, 5.0, Vector(-22.4, -12.0, split_z - 0.2))
+guide_slot_r = Part.makeBox(2.4, 24.0, 5.0, Vector( 20.0, -12.0, split_z - 0.2))
+hood = hood.cut(guide_slot_l).cut(guide_slot_r)
 
 # 3.2 Przednie Kły / Mandible Żuchwy (Wysunięte do przodu na Y = -34.5)
 pts_fang = [
