@@ -267,11 +267,11 @@ export_stl(assembly, stl_asm)
 # Eksport STEP
 # -------------------------------------------------------------
 print("\n--- Eksport plików STEP ---")
-Import.export([base], os.path.join(base_dir, 'obudowa_dol_podstawa.step'))
-Import.export([hood], os.path.join(base_dir, 'obudowa_gora_glowa.step'))
-Import.export([button_cap], os.path.join(base_dir, 'przycisk_nakladka.step'))
-Import.export([oled_bracket], os.path.join(base_dir, 'uchwyt_oled.step'))
-Import.export([base, hood], os.path.join(base_dir, 'robot_zlozenie_obudowa.step'))
+Part.export([base], os.path.join(base_dir, 'obudowa_dol_podstawa.step'))
+Part.export([hood], os.path.join(base_dir, 'obudowa_gora_glowa.step'))
+Part.export([button_cap], os.path.join(base_dir, 'przycisk_nakladka.step'))
+Part.export([oled_bracket], os.path.join(base_dir, 'uchwyt_oled.step'))
+Part.export([base, hood], os.path.join(base_dir, 'robot_zlozenie_obudowa.step'))
 print("Pomyślnie wyeksportowano pliki STEP.")
 
 # -------------------------------------------------------------

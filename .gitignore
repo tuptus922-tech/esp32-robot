@@ -8,3 +8,5 @@ compile_commands.json
 .vscode/ipch
 *.FCBak
 *.blend1
+__pycache__/
+*.pyc

@@ -24,20 +24,26 @@ Po wgraniu robot od razu ożyje, wyda powitalny dźwięk i otworzy oczy!
 
 ---
 
-## 🖨️ Przemyślana Obudowa 3D (Design for 3D Printing)
+## 🖨️ Dwie Przemyślane Obudowy 3D do Wyboru (Design for 3D Printing)
 
-![Podgląd Robota 3D](cad_models/podglad_obudowy_3d.png)
+Projekt zawiera **dwie kompletne, w 100% przetestowane obudowy biurkowe**, w pełni kompatybilne z tą samą elektroniką i zoptymalizowane pod kątem łatwego druku FDM bez trudnych podpór:
 
-Robot posiada specjalnie zaprojektowaną, dwuczęściową obudowę biurkową zoptymalizowaną pod kątem **łatwego druku 3D (FDM)** bez konieczności trudnych podpór:
-- **Dolne chassis (`obudowa_dol_podstawa.stl`)**: drukowane w 100% płasko na stole roboczym (**0 podpór**). Posiada szyny na ESP32, kanał na piny/przewody, wycięcie na kabel USB oraz 4 ukryte gniazda na śruby M3 i nóżki silikonowe.
-- **Górny korpus / Głowa (`obudowa_gora_glowa.stl`)**: ergonomiczne nachylenie twarzy pod kątem ~80° (tylko 10° od pionu – **brak konieczności podpór** na ścianach!), okno na wyświetlacz OLED 0.96", 5-szczelinowy grill akustyczny dla buzzera oraz dedykowane łoża pod folię dotykową o ściance zredukowanej do **1.0 mm** dla maksymalnej czułości głaskania.
-- **3x Nakładki na przyciski (`przycisk_nakladka.stl`)**: ruchome klawisze z kołnierzem zabezpieczającym przed wypadaniem.
-- **Docisk ekranu OLED (`uchwyt_oled.stl`)**: stabilizacja ekranu od środka bez klejenia.
+| 🌸 Edycja Cyber-Capsule Mecha-Kawaii | 📺 Edycja Retro CRT Minimalist |
+| :---: | :---: |
+| ![Mecha Kawaii](cad_models/podglad_mecha_kawaii_front.png) | ![Retro CRT](cad_models/podglad_obudowy_3d.png) |
+| *Styl Cyberpunk / Anime Neko: oktagonalny wizjer 3D, 4 boczne żebra ("szpontery"), kocie wąsy, uszka, kapsuły Audio-Pod, przednie łapki i klawisze serce/łapka.* | *Styl Retro Computer: minimalistyczna bryła biurkowa o gładkich zaokrągleniach, zlicowanym oknie ekranu i klasycznych przyciskach.* |
 
-📂 **Pliki STL gotowe do wrzucenia do slicera:** [`cad_models/stl_print/`](cad_models/stl_print/)  
+### Najważniejsze atuty konstrukcyjne:
+- **Dolne chassis**: drukowane w 100% na płasko na stole roboczym (**0 podpór**). Posiada szyny na ESP32, kanał na piny/przewody, wycięcie na kabel USB oraz 4 ukryte gniazda na śruby M3 i nóżki silikonowe.
+- **Górny korpus / Głowa**: ergonomiczne nachylenie twarzy pod kątem ~80° (tylko 9.95° od pionu – **brak konieczności podpór** na ścianach!), okno na wyświetlacz OLED 0.96", grill akustyczny buzzera oraz dedykowane łoża pod folię dotykową o ściance zredukowanej do **1.0 mm** dla maksymalnej czułości głaskania.
+- **Ruchome nakładki przycisków**: klawisze z kołnierzem oporowym zabezpieczającym przed wypadaniem (w wersji Mecha: tłoczone serce i łapki!).
+- **Boczne żebra "szpontery"**: nacięcia pancerza wykonane pod bezpiecznym kątem 45° (drukowalne bez zwisów).
+
+📂 **Pliki STL Mecha-Kawaii:** [`cad_models/stl_print/mecha_kawaii/`](cad_models/stl_print/mecha_kawaii/)  
+📂 **Pliki STL Retro CRT:** [`cad_models/stl_print/`](cad_models/stl_print/)  
 📖 **Kompletny poradnik druku i montażu krok po kroku:** [`cad_models/DRUK_I_MONTAZ.md`](cad_models/DRUK_I_MONTAZ.md)  
-🎨 **Projekt 3D Blender:** [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) (PBR, oświetlenie studyjne)  
-📐 **Projekt parametryczny CAD:** [`cad_models/robot_obudowa_3d.FCStd`](cad_models/robot_obudowa_3d.FCStd) oraz pliki STEP
+🎨 **Projekt 3D Blender:** [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) (obie obudowy z materiałami PBR w dedykowanych kolekcjach)  
+📐 **Projekty parametryczne FreeCAD i STEP:** [`cad_models/robot_mecha_kawaii_3d.FCStd`](cad_models/robot_mecha_kawaii_3d.FCStd) oraz [`cad_models/robot_obudowa_3d.FCStd`](cad_models/robot_obudowa_3d.FCStd)
 
 ---
 

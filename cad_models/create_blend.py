@@ -2,7 +2,7 @@ import bpy
 import os
 import math
 
-print("=== Konfiguracja sceny Blender dla ESP32 Robot Desk Pet ===")
+print("=== Konfiguracja sceny Blender dla ESP32 Robot Desk Pet (Klasyczna + Mecha Kawaii) ===")
 
 # 1. Reset sceny
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -15,6 +15,7 @@ scene.unit_settings.length_unit = 'MILLIMETERS'
 base_dir = '/home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/'
 stl_el_dir = os.path.join(base_dir, 'blender_models')
 stl_enc_dir = os.path.join(base_dir, 'stl_print')
+stl_mecha_dir = os.path.join(base_dir, 'stl_print', 'mecha_kawaii')
 
 # Helper do tworzenia materiałów PBR
 def make_pbr_material(name, base_color, roughness=0.35, metallic=0.0, emission_color=None, emission_strength=1.0, alpha=1.0):
@@ -35,24 +36,33 @@ def make_pbr_material(name, base_color, roughness=0.35, metallic=0.0, emission_c
                 bsdf.inputs['Emission Strength'].default_value = emission_strength
     return mat
 
-# Tworzenie materiałów
-mat_body = make_pbr_material("Mat_Obudowa_PLA", (0.88, 0.89, 0.91, 1.0), roughness=0.32) # Elegancki matowy jasny plastik PLA
-mat_buttons = make_pbr_material("Mat_Klawisze_Akcent", (0.02, 0.65, 0.86, 1.0), roughness=0.22) # Turkusowy / cyan akcent
+# --- Materiały Klasyczne ---
+mat_body_classic = make_pbr_material("Mat_Obudowa_Klasyczna", (0.88, 0.89, 0.91, 1.0), roughness=0.32)
+mat_btn_classic = make_pbr_material("Mat_Klawisze_Klasyczne", (0.02, 0.65, 0.86, 1.0), roughness=0.22)
 mat_bracket = make_pbr_material("Mat_Uchwyt_OLED", (0.2, 0.2, 0.22, 1.0), roughness=0.5)
 
+# --- Materiały Mecha Kawaii (Pastel Sakura Pink & Neon Accents) ---
+mat_body_mecha = make_pbr_material("Mat_Mecha_Sakura", (0.95, 0.68, 0.78, 1.0), roughness=0.30) # Ciepły, uroczy róż Sakura Mecha
+mat_btn_heart = make_pbr_material("Mat_Klawisz_Serce", (0.96, 0.18, 0.42, 1.0), roughness=0.20) # Intensywny neonowy róż fuksja
+mat_btn_paw = make_pbr_material("Mat_Klawisz_Lapka", (0.99, 0.94, 0.96, 1.0), roughness=0.20) # Śmietankowa biel ze szczyptą różu
+
+# --- Materiały Elektroniki ---
 mat_oled_pcb = make_pbr_material("Mat_OLED_PCB", (0.04, 0.06, 0.16, 1.0), roughness=0.4)
 mat_screen_glass = make_pbr_material("Mat_OLED_Szklo", (0.012, 0.012, 0.015, 1.0), roughness=0.04)
-mat_oled_eyes = make_pbr_material("Mat_OLED_Oczy_Emissive", (0.0, 0.0, 0.0, 1.0), emission_color=(0.08, 0.92, 1.0, 1.0), emission_strength=10.0)
+mat_oled_eyes_cyan = make_pbr_material("Mat_OLED_Oczy_Cyan", (0.0, 0.0, 0.0, 1.0), emission_color=(0.08, 0.92, 1.0, 1.0), emission_strength=10.0)
 
 mat_esp = make_pbr_material("Mat_ESP32_PCB", (0.04, 0.14, 0.06, 1.0), roughness=0.45)
 mat_mpu = make_pbr_material("Mat_MPU6050_PCB", (0.05, 0.12, 0.35, 1.0), roughness=0.45)
 mat_buzzer = make_pbr_material("Mat_Buzzer", (0.12, 0.12, 0.14, 1.0), roughness=0.5)
 mat_switches = make_pbr_material("Mat_Switche", (0.45, 0.45, 0.48, 1.0), metallic=0.7, roughness=0.3)
 
-# Kolekcje
-col_enclosure = bpy.data.collections.new("Obudowa_3D")
+# Kolekcje sceny
+col_classic = bpy.data.collections.new("Obudowa_Klasyczna")
+col_mecha = bpy.data.collections.new("Obudowa_Mecha_Kawaii")
 col_electronics = bpy.data.collections.new("Elektronika")
-scene.collection.children.link(col_enclosure)
+
+scene.collection.children.link(col_classic)
+scene.collection.children.link(col_mecha)
 scene.collection.children.link(col_electronics)
 
 # 2. Import Elektroniki
@@ -77,14 +87,40 @@ for filename, obj_name, material in el_parts:
             col.objects.unlink(obj)
         col_electronics.objects.link(obj)
 
-# 3. Import Obudowy 3D
-enc_parts = [
-    ('obudowa_dol_podstawa.stl', 'Obudowa_Dol_Podstawa', mat_body, (0, 0, 0), (0, 0, 0)),
-    ('obudowa_gora_glowa.stl', 'Obudowa_Gora_Glowa', mat_body, (0, 0, 0), (0, 0, 0)),
-    ('uchwyt_oled.stl', 'Uchwyt_Docisk_OLED', mat_bracket, (0, -20.0, 15.0), (math.radians(80.0), 0, 0))
+# Ekran OLED (Czarne szkło + animowane oczy mecha)
+mesh_glass = bpy.data.meshes.new("OLED_Szklo")
+obj_glass = bpy.data.objects.new("OLED_Szklo", mesh_glass)
+col_electronics.objects.link(obj_glass)
+gw, gh = 23.0 / 2.0, 12.5 / 2.0
+verts_g = [(-gw, -gh, 0.0), (gw, -gh, 0.0), (gw, gh, 0.0), (-gw, gh, 0.0)]
+faces_g = [(0, 1, 2, 3)]
+mesh_glass.from_pydata(verts_g, [], faces_g)
+mesh_glass.update()
+obj_glass.rotation_euler = (math.radians(80.0), 0, 0)
+obj_glass.location = (0, -21.1, 27.5)
+obj_glass.data.materials.append(mat_screen_glass)
+
+for eye_name, eye_x in [("Oko_Lewe", -5.5), ("Oko_Prawe", 5.5)]:
+    mesh_eye = bpy.data.meshes.new(eye_name)
+    obj_eye = bpy.data.objects.new(eye_name, mesh_eye)
+    col_electronics.objects.link(obj_eye)
+    ew, eh = 2.6, 3.6
+    verts_e = [(-ew, -eh, 0.08), (ew, -eh, 0.08), (ew, eh, 0.08), (-ew, eh, 0.08)]
+    faces_e = [(0, 1, 2, 3)]
+    mesh_eye.from_pydata(verts_e, [], faces_e)
+    mesh_eye.update()
+    obj_eye.rotation_euler = (math.radians(80.0), 0, 0)
+    obj_eye.location = (eye_x, -21.1, 27.5)
+    obj_eye.data.materials.append(mat_oled_eyes_cyan)
+
+# 3. Import Obudowy Klasycznej (Retro CRT)
+classic_parts = [
+    ('obudowa_dol_podstawa.stl', 'Klasyczna_Podstawa', mat_body_classic, (0, 0, 0), (0, 0, 0)),
+    ('obudowa_gora_glowa.stl', 'Klasyczna_Glowa', mat_body_classic, (0, 0, 0), (0, 0, 0)),
+    ('uchwyt_oled.stl', 'Klasyczny_Uchwyt_OLED', mat_bracket, (0, -20.0, 15.0), (math.radians(80.0), 0, 0))
 ]
 
-for filename, obj_name, material, loc, rot in enc_parts:
+for filename, obj_name, material, loc, rot in classic_parts:
     fpath = os.path.join(stl_enc_dir, filename)
     if os.path.exists(fpath):
         bpy.ops.wm.stl_import(filepath=fpath)
@@ -95,57 +131,74 @@ for filename, obj_name, material, loc, rot in enc_parts:
         obj.data.materials.append(material)
         for col in obj.users_collection:
             col.objects.unlink(obj)
-        col_enclosure.objects.link(obj)
+        col_classic.objects.link(obj)
 
-# 3.1 Import 3 klawiszy przycisków do obudowy
-btn_coords = [
-    ('Przycisk_Klawisz_Lewo', -14.0),
-    ('Przycisk_Klawisz_OK', 0.0),
-    ('Przycisk_Klawisz_Prawo', 14.0)
-]
-btn_stl = os.path.join(stl_enc_dir, 'przycisk_nakladka.stl')
-
-for btn_name, bx in btn_coords:
-    if os.path.exists(btn_stl):
-        bpy.ops.wm.stl_import(filepath=btn_stl)
+# 3.1 Klawisze Klasyczne (3 sztuki niebieskie)
+btn_coords_classic = [('Klasyczny_Klawisz_Lewo', -14.0), ('Klasyczny_Klawisz_OK', 0.0), ('Klasyczny_Klawisz_Prawo', 14.0)]
+btn_stl_classic = os.path.join(stl_enc_dir, 'przycisk_nakladka.stl')
+for btn_name, bx in btn_coords_classic:
+    if os.path.exists(btn_stl_classic):
+        bpy.ops.wm.stl_import(filepath=btn_stl_classic)
         obj = bpy.context.selected_objects[0]
         obj.name = btn_name
         obj.rotation_euler = (math.pi / 2.0, 0, 0)
         obj.location = (bx, -26.0, 5.6)
-        obj.data.materials.append(mat_buttons)
+        obj.data.materials.append(mat_btn_classic)
         for col in obj.users_collection:
             col.objects.unlink(obj)
-        col_enclosure.objects.link(obj)
+        col_classic.objects.link(obj)
 
-# 4. Dodanie wirtualnego świecącego ekranu OLED (Cute Animated Robot Eyes)
-# Czarne tło szkła OLED w płaszczyźnie ekranu (nachylenie 80°)
-mesh_glass = bpy.data.meshes.new("OLED_Szklo")
-obj_glass = bpy.data.objects.new("OLED_Szklo", mesh_glass)
-col_electronics.objects.link(obj_glass)
-gw, gh = 23.0 / 2.0, 12.5 / 2.0
-# Tworzenie w płaszczyźnie XY, obrót o 80° wokół X
-verts_g = [(-gw, -gh, 0.0), (gw, -gh, 0.0), (gw, gh, 0.0), (-gw, gh, 0.0)]
-faces_g = [(0, 1, 2, 3)]
-mesh_glass.from_pydata(verts_g, [], faces_g)
-mesh_glass.update()
-obj_glass.rotation_euler = (math.radians(80.0), 0, 0)
-obj_glass.location = (0, -21.1, 27.5)
-obj_glass.data.materials.append(mat_screen_glass)
+# 4. Import Obudowy Mecha Kawaii (Cyber-Capsule Mecha-Neko z użebrowaniem i wizjerem)
+# 4.1 Podstawa Mecha (zintegrowane łapki z naciętymi pazurkami)
+fpath_mecha_base = os.path.join(stl_mecha_dir, 'mecha_kawaii_podstawa.stl')
+if os.path.exists(fpath_mecha_base):
+    bpy.ops.wm.stl_import(filepath=fpath_mecha_base)
+    obj_base_mecha = bpy.context.selected_objects[0]
+    obj_base_mecha.name = "Mecha_Podstawa"
+    obj_base_mecha.data.materials.append(mat_body_mecha)
+    for col in obj_base_mecha.users_collection:
+        col.objects.unlink(obj_base_mecha)
+    col_mecha.objects.link(obj_base_mecha)
 
-# Świecące oczy robota OLED (dwa animowane kocie/robotyczne oczka)
-for eye_name, eye_x in [("Oko_Lewe", -5.5), ("Oko_Prawe", 5.5)]:
-    mesh_eye = bpy.data.meshes.new(eye_name)
-    obj_eye = bpy.data.objects.new(eye_name, mesh_eye)
-    col_electronics.objects.link(obj_eye)
-    ew, eh = 2.6, 3.6
-    # Odsunięcie o 0.08 mm wzdłuż normalnej ku przodowi (lokalne +Z)
-    verts_e = [(-ew, -eh, 0.08), (ew, -eh, 0.08), (ew, eh, 0.08), (-ew, eh, 0.08)]
-    faces_e = [(0, 1, 2, 3)]
-    mesh_eye.from_pydata(verts_e, [], faces_e)
-    mesh_eye.update()
-    obj_eye.rotation_euler = (math.radians(80.0), 0, 0)
-    obj_eye.location = (eye_x, -21.1, 27.5)
-    obj_eye.data.materials.append(mat_oled_eyes)
+# 4.2 Głowa Mecha (Przestrzenny wizjer 3D, kocie wąsy, żebra "szpontery", cyber-nauszniki, kocie uszka)
+fpath_mecha_hood = os.path.join(stl_mecha_dir, 'mecha_kawaii_glowa.stl')
+if os.path.exists(fpath_mecha_hood):
+    bpy.ops.wm.stl_import(filepath=fpath_mecha_hood)
+    obj_hood_mecha = bpy.context.selected_objects[0]
+    obj_hood_mecha.name = "Mecha_Glowa"
+    obj_hood_mecha.data.materials.append(mat_body_mecha)
+    for col in obj_hood_mecha.users_collection:
+        col.objects.unlink(obj_hood_mecha)
+    col_mecha.objects.link(obj_hood_mecha)
+
+# 4.3 Klawisze Mecha Kawaii (Środek: Serduszko, Boki: Łapki)
+fpath_heart = os.path.join(stl_mecha_dir, 'mecha_kawaii_przycisk_serce.stl')
+fpath_paw = os.path.join(stl_mecha_dir, 'mecha_kawaii_przycisk_lapka.stl')
+
+# Środkowy klawisz serduszko (Y=-28.7 opiera się o switch i wystaje przez front -32.5)
+if os.path.exists(fpath_heart):
+    bpy.ops.wm.stl_import(filepath=fpath_heart)
+    obj_heart = bpy.context.selected_objects[0]
+    obj_heart.name = "Mecha_Klawisz_Serce_OK"
+    obj_heart.rotation_euler = (math.pi / 2.0, 0, 0)
+    obj_heart.location = (0.0, -28.7, 5.6)
+    obj_heart.data.materials.append(mat_btn_heart)
+    for col in obj_heart.users_collection:
+        col.objects.unlink(obj_heart)
+    col_mecha.objects.link(obj_heart)
+
+# Lewa i prawa łapka
+for paw_name, px in [("Mecha_Klawisz_Lapka_Lewo", -14.0), ("Mecha_Klawisz_Lapka_Prawo", 14.0)]:
+    if os.path.exists(fpath_paw):
+        bpy.ops.wm.stl_import(filepath=fpath_paw)
+        obj_paw = bpy.context.selected_objects[0]
+        obj_paw.name = paw_name
+        obj_paw.rotation_euler = (math.pi / 2.0, 0, 0)
+        obj_paw.location = (px, -28.7, 5.6)
+        obj_paw.data.materials.append(mat_btn_paw)
+        for col in obj_paw.users_collection:
+            col.objects.unlink(obj_paw)
+        col_mecha.objects.link(obj_paw)
 
 # 5. Konfiguracja Świata i Oświetlenia studyjnego
 if not scene.world:
@@ -159,7 +212,7 @@ if bg:
 
 # Główne światło słoneczne (Key Light)
 sun_key_data = bpy.data.lights.new(name='Sun_Key', type='SUN')
-sun_key_data.energy = 4.2
+sun_key_data.energy = 4.5
 sun_key_data.angle = math.radians(6.0)
 sun_key_obj = bpy.data.objects.new(name='Sun_Key', object_data=sun_key_data)
 scene.collection.objects.link(sun_key_obj)
@@ -167,53 +220,93 @@ sun_key_obj.rotation_euler = (math.radians(52.0), math.radians(15.0), math.radia
 
 # Wypełniające światło błękitne (Fill Light)
 sun_fill_data = bpy.data.lights.new(name='Sun_Fill', type='SUN')
-sun_fill_data.energy = 1.8
+sun_fill_data.energy = 2.0
 sun_fill_data.color = (0.82, 0.90, 1.0)
 sun_fill_obj = bpy.data.objects.new(name='Sun_Fill', object_data=sun_fill_data)
 scene.collection.objects.link(sun_fill_obj)
 sun_fill_obj.rotation_euler = (math.radians(55.0), math.radians(-25.0), math.radians(45.0))
 
-# Konturowe światło górne (Rim Light na dach i strefę głaskania)
+# Konturowe światło górne (Rim Light na uszka i żebra szpontery)
 sun_rim_data = bpy.data.lights.new(name='Sun_Rim', type='SUN')
-sun_rim_data.energy = 2.0
+sun_rim_data.energy = 2.8
 sun_rim_data.color = (1.0, 0.96, 0.90)
 sun_rim_obj = bpy.data.objects.new(name='Sun_Rim', object_data=sun_rim_data)
 scene.collection.objects.link(sun_rim_obj)
 sun_rim_obj.rotation_euler = (math.radians(65.0), math.radians(10.0), math.radians(165.0))
 
-# 6. Cel kamery (Empty w środku geometrycznym robota)
+# Cel kamery
 target_empty = bpy.data.objects.new("Cel_Kamery", None)
 scene.collection.objects.link(target_empty)
-target_empty.location = (0, -4.5, 23.5)
+target_empty.location = (0, -4.5, 25.0)
 
 # Kamera główna
-cam_data = bpy.data.cameras.new(name="Camera_Główna")
+cam_data = bpy.data.cameras.new(name="Camera_Glowna")
 cam_data.lens = 52.0
-cam_obj = bpy.data.objects.new(name="Camera_Główna", object_data=cam_data)
+cam_obj = bpy.data.objects.new(name="Camera_Glowna", object_data=cam_data)
 scene.collection.objects.link(cam_obj)
 scene.camera = cam_obj
-cam_obj.location = (95, -125, 75)
+cam_obj.location = (95, -125, 78)
 
-# Constraint Track To
 track_con = cam_obj.constraints.new(type='TRACK_TO')
 track_con.target = target_empty
 track_con.track_axis = 'TRACK_NEGATIVE_Z'
 track_con.up_axis = 'UP_Y'
 
-# Ustawienia renderera
 scene.render.resolution_x = 1920
 scene.render.resolution_y = 1080
 scene.render.film_transparent = False
 
+# -------------------------------------------------------------
+# RENDEROWANIE PODGLĄDÓW
+# -------------------------------------------------------------
+
+# A. Render 1: Wersja Klasyczna
+col_classic.hide_render = False
+col_mecha.hide_render = True
+scene.render.filepath = os.path.join(base_dir, 'podglad_obudowy_3d.png')
+bpy.ops.render.render(write_still=True)
+print(f"Wyrenderowano podgląd Klasyczny: {scene.render.filepath}")
+
+# B. Render 2: Wersja Klasyczna Tył USB
+cam_obj.location = (-95, 110, 80)
+bpy.context.view_layer.update()
+scene.render.filepath = os.path.join(base_dir, 'podglad_tyl_usb.png')
+bpy.ops.render.render(write_still=True)
+print(f"Wyrenderowano podgląd Klasyczny Tył: {scene.render.filepath}")
+
+# C. Render 3: Wersja Mecha Kawaii Front (Wizjer, łapki, użebrowanie, kocie wąsy)
+cam_obj.location = (95, -125, 78)
+col_classic.hide_render = True
+col_mecha.hide_render = False
+bpy.context.view_layer.update()
+scene.render.filepath = os.path.join(base_dir, 'podglad_mecha_kawaii_front.png')
+bpy.ops.render.render(write_still=True)
+print(f"Wyrenderowano podgląd Mecha Kawaii Front: {scene.render.filepath}")
+
+# D. Render 4: Wersja Mecha Kawaii Tył (Port USB, kocie uszka, audio-pody, ścieżka głaskania)
+cam_obj.location = (-95, 110, 80)
+bpy.context.view_layer.update()
+scene.render.filepath = os.path.join(base_dir, 'podglad_mecha_kawaii_tyl.png')
+bpy.ops.render.render(write_still=True)
+print(f"Wyrenderowano podgląd Mecha Kawaii Tył: {scene.render.filepath}")
+
+# E. Render 5: Wersja Mecha Kawaii Profil Bok ("Szpontery" - boczne nacięcia pancerza i wizjer)
+cam_obj.location = (-135, -35, 45)
+target_empty.location = (0, -10.0, 25.0)
+bpy.context.view_layer.update()
+scene.render.filepath = os.path.join(base_dir, 'podglad_mecha_kawaii_szpontery.png')
+bpy.ops.render.render(write_still=True)
+print(f"Wyrenderowano podgląd Mecha Kawaii Szpontery/Profil: {scene.render.filepath}")
+
+# Przywrócenie kamery frontowej i domyślnego widoku
+cam_obj.location = (95, -125, 78)
+target_empty.location = (0, -4.5, 25.0)
+col_classic.hide_viewport = False
+col_mecha.hide_viewport = True
+
 # Zapis pliku projektu Blendera
 out_blend = os.path.join(base_dir, 'robot_projekt.blend')
 bpy.ops.wm.save_as_mainfile(filepath=out_blend)
-print(f"Pomyślnie zaktualizowano plik Blendera: {out_blend}")
+print(f"Pomyślnie zaktualizowano plik Blendera z obiema wersjami obudów: {out_blend}")
 
-# Wyrenderowanie podglądu PNG
-render_out = os.path.join(base_dir, 'podglad_obudowy_3d.png')
-scene.render.filepath = render_out
-bpy.ops.render.render(write_still=True)
-print(f"Pomyślnie wyrenderowano podgląd 3D: {render_out} ({os.path.getsize(render_out):,} bajtów)")
-
-print("=== Sukces konfiguracji Blendera! ===")
+print("=== Sukces konfiguracji i renderowania Blendera! ===")
