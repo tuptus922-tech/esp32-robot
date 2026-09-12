@@ -8,14 +8,16 @@ Kompleksowa instrukcja przygotowania plików, ustawień slicera oraz montażu tr
 
 Możesz wybrać jedną z trzech kompletnych, w 100% kompatybilnych z tą samą elektroniką obudów:
 
-| Cecha | Wersja 1: Retro CRT Minimalist | Wersja 2: Cyber-Capsule Mecha-Kawaii | Wersja 3: Cyber-Titan Dreadnought |
+| Cecha | Wersja 1: Retro CRT Minimalist | Wersja 2: Cyber-Capsule Mecha-Kawaii | Wersja 3: Cyber-Titan Apex (Mecha-Warrior) |
 | :--- | :--- | :--- | :--- |
-| **Klimat / Styl** | Klasyczny retro komputer biurkowy, gładki, minimalistyczny | Cyberpunk / Anime Mecha Neko, dynamiczny, uroczy | Ciężki mech bojowy / Stealth Titan, agresywny, pancerny |
-| **Boki obudowy** | Gładkie, opływowe zaokrąglenia R4 | 4 głębokie żebra pancerza ("szpontery") + kapsuły Audio-Pod | Wielopoziomowe radiatory chłodzenia (stepped heat-sinks) + płyty pancerza |
-| **Ekran OLED** | Zlicowane okno w ścianie czołowej | Przestrzenny oktagonalny wizjer 3D + kocie wąsy mecha | Pancerny daszek czołowy (Blast Shield brow) + oktagonalna osłona |
-| **Głowa / Dach** | Płaski, ergonomiczny dach | Fasetowane kocie uszka + wygrawerowana łapka | Podwójne skrzydłowe stateczniki aero + taktyczne spawy pancerza |
-| **Podstawa** | Standardowa niska baza z szynami ESP32 | Baza z przednimi łapkami i pazurkami | Baza z pancernymi płozami narożnymi (skid pods) i wlotem turbiny |
-| **Przyciski** | 3 gładkie, ergonomiczne kopułki | Środek: Serduszko ❤️, Boki: Łapki 🐾 | Środek: Diament `◆`, Boki: Strzałki Chevron `◀` `▶` |
+| **Klimat / Styl** | Klasyczny retro komputer biurkowy, gładki, minimalistyczny | Cyberpunk / Anime Mecha Neko, dynamiczny, uroczy | Ciężki szturmowy mech bojowy / Gundam Titan, agresywny pancerz |
+| **Sylwetka / Wymiary** | 50 x 50 x 48 mm, prostopadłościan z zaokrągleniami | 50 x 50 x 56 mm, kapsuła z uszkami | **72 mm szerokości** (V-Taper), **68 mm wysokości**, podwójne dysze |
+| **Boki obudowy** | Gładkie, opływowe zaokrąglenia R4 | 4 głębokie żebra pancerza ("szpontery") + kapsuły Audio-Pod | **Masywne naramienniki 72mm** z 6-komorowymi wyrzutniami rakiet i żebrami chłodzącymi |
+| **Ekran OLED** | Zlicowane okno w ścianie czołowej | Przestrzenny oktagonalny wizjer 3D + kocie wąsy mecha | Pancerny kokpit: daszek Blast Shield 45°, kły bojowe mandibles i oktagon |
+| **Głowa / Dach** | Płaski, ergonomiczny dach | Fasetowane kocie uszka + wygrawerowana łapka | **Podwójne 68mm rogi bojowe V-Fin / Kabuto** + pancerne spawy dachowe |
+| **Napęd / Tył** | Płaski tył z oknem USB | Płaski tył z oknem USB | **Podwójne wielkie dysze odrzutowe dopalacza (Afterburners)** |
+| **Podstawa** | Standardowa niska baza z szynami ESP32 | Baza z przednimi łapkami i pazurkami | **Ciężkie gąsienice pancerne (Crawler tracks) o szerokości 63mm** |
+| **Przyciski** | 3 gładkie, ergonomiczne kopułki | Środek: Serduszko ❤️, Boki: Łapki 🐾 | Środek: Reaktor/Diament `◆`, Boki: Strzałki Bojowe `◀` `▶` |
 | **Katalog STL** | `cad_models/stl_print/` | `cad_models/stl_print/mecha_kawaii/` | `cad_models/stl_print/dreadnought/` |
 | **Plik Blender** | `robot_obudowa_klasyczna.blend` | `robot_mecha_kawaii.blend` | `robot_dreadnought.blend` |
 
@@ -25,16 +27,16 @@ Możesz wybrać jedną z trzech kompletnych, w 100% kompatybilnych z tą samą e
 
 Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Design for Additive Manufacturing (DFAM)**, są bryłami zamkniętymi (watertight/manifold) i posiadają zoptymalizowane tolerancje pasowania (0.25–0.35 mm).
 
-### 🛡️ Wersja 3: Cyber-Titan Dreadnought (Katalog `cad_models/stl_print/dreadnought/`)
+### 🛡️ Wersja 3: Cyber-Titan Apex (Katalog `cad_models/stl_print/dreadnought/`)
 
 | Plik STL | Ilość | Opis / Rola w konstrukcji | Orientacja na stole |
 | :--- | :---: | :--- | :--- |
-| [`dreadnought_podstawa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_podstawa.stl) | 1 szt. | Dolne chassis z płozami narożnymi, wlotem turbiny i szynami ESP32 | Płasko na spodzie (Z=0) |
-| [`dreadnought_glowa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_glowa.stl) | 1 szt. | Głowa ze statecznikami stealth, daszkiem blast-shield i radiatorami | Płasko dolnym kołnierzem do stołu |
-| [`dreadnought_przycisk_romb.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_przycisk_romb.stl) | 1 szt. | Środkowy przycisk taktyczny (OK) z fasetowanym diamentem `◆` | Płasko kołnierzem do stołu |
+| [`dreadnought_podstawa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_podstawa.stl) | 1 szt. | Dolne chassis o rozpiętości 63mm z segmentami gąsienic czołgowych, szynami ESP32 i portem USB | Płasko na spodzie (Z=0) |
+| [`dreadnought_glowa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_glowa.stl) | 1 szt. | Głowa Apex: 72mm naramienniki z wyrzutniami, 68mm rogi V-Fin, daszek blast-shield, kły mandibles i dysze odrzutowe | Płasko dolnym kołnierzem do stołu |
+| [`dreadnought_przycisk_romb.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_przycisk_romb.stl) | 1 szt. | Środkowy przycisk reaktora rdzenia (OK) z fasetowanym diamentem `◆` | Płasko kołnierzem do stołu |
 | [`dreadnought_przycisk_strzalka_l.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_przycisk_strzalka_l.stl) | 1 szt. | Lewy przycisk nawigacyjny ze strzałką bojową `◀` | Płasko kołnierzem do stołu |
 | [`dreadnought_przycisk_strzalka_p.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_przycisk_strzalka_p.stl) | 1 szt. | Prawy przycisk nawigacyjny ze strzałką bojową `▶` | Płasko kołnierzem do stołu |
-| [`dreadnought_robot_kompletny.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_robot_kompletny.stl) | - | Pełne złożenie modelu (do podglądu w slicerze) | - |
+| [`dreadnought_robot_kompletny.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_robot_kompletny.stl) | - | Pełne złożenie modelu Cyber-Titan Apex (do podglądu w slicerze) | - |
 
 ---
 

@@ -28,10 +28,10 @@ Po wgraniu robot od razu ożyje, wyda powitalny dźwięk i otworzy oczy!
 
 Projekt zawiera **trzy kompletne, w 100% przetestowane obudowy biurkowe**, w pełni kompatybilne z tą samą elektroniką i zoptymalizowane pod kątem łatwego druku FDM bez trudnych podpór:
 
-| 🛡️ Edycja Cyber-Titan Dreadnought | 🌸 Edycja Cyber-Capsule Mecha-Kawaii | 📺 Edycja Retro CRT Minimalist |
+| 🛡️ Edycja Cyber-Titan Apex (Mecha-Warrior) | 🌸 Edycja Cyber-Capsule Mecha-Kawaii | 📺 Edycja Retro CRT Minimalist |
 | :---: | :---: | :---: |
-| ![Dreadnought](cad_models/podglad_dreadnought_front.png) | ![Mecha Kawaii](cad_models/podglad_mecha_kawaii_front.png) | ![Retro CRT](cad_models/podglad_obudowy_3d.png) |
-| *Ciężki mech bojowy / Stealth Titan: daszek blast-shield, radiatory chłodzenia, skrzydłowe stateczniki aero, płozy narożne i klawisze taktyczne `◀` `◆` `▶`.* | *Styl Anime Neko: oktagonalny wizjer 3D, boczne żebra ("szpontery"), kocie wąsy, uszka, kapsuły Audio-Pod, przednie łapki i klawisze serce/łapka.* | *Styl Retro Computer: minimalistyczna bryła biurkowa o gładkich zaokrągleniach, zlicowanym oknie ekranu i klasycznych przyciskach.* |
+| ![Cyber-Titan Apex](cad_models/podglad_dreadnought_front.png) | ![Mecha Kawaii](cad_models/podglad_mecha_kawaii_front.png) | ![Retro CRT](cad_models/podglad_obudowy_3d.png) |
+| *Ciężki szturmowy mech bojowy: potężna rozpiętość 72mm, naramienniki z wyrzutniami rakiet, 68mm rogi V-Fin / Kabuto, daszek kokpitu blast-shield, kły bojowe mandibles, podwójne dysze dopalaczy odrzutowych i gąsienice pancerne 63mm.* | *Styl Anime Neko: oktagonalny wizjer 3D, boczne żebra ("szpontery"), kocie wąsy, uszka, kapsuły Audio-Pod, przednie łapki i klawisze serce/łapka.* | *Styl Retro Computer: minimalistyczna bryła biurkowa o gładkich zaokrągleniach, zlicowanym oknie ekranu i klasycznych przyciskach.* |
 
 ### Najważniejsze atuty konstrukcyjne:
 - **Dolne chassis**: drukowane w 100% na płasko na stole roboczym (**0 podpór**). Posiada szyny na ESP32, kanał na piny/przewody, wycięcie na kabel USB oraz 4 ukryte gniazda na śruby M3 i nóżki silikonowe.
@@ -39,12 +39,12 @@ Projekt zawiera **trzy kompletne, w 100% przetestowane obudowy biurkowe**, w pe�
 - **Ruchome nakładki przycisków**: klawisze z kołnierzem oporowym zabezpieczającym przed wypadaniem.
 - **Boczne żebra i radiatory**: nacięcia pancerza i radiatorów wykonane pod bezpiecznym kątem 45° (drukowalne bez zwisów).
 
-📂 **Pliki STL Dreadnought:** [`cad_models/stl_print/dreadnought/`](cad_models/stl_print/dreadnought/)  
+📂 **Pliki STL Cyber-Titan Apex:** [`cad_models/stl_print/dreadnought/`](cad_models/stl_print/dreadnought/)  
 📂 **Pliki STL Mecha-Kawaii:** [`cad_models/stl_print/mecha_kawaii/`](cad_models/stl_print/mecha_kawaii/)  
 📂 **Pliki STL Retro CRT:** [`cad_models/stl_print/`](cad_models/stl_print/)  
 📖 **Kompletny poradnik druku i montażu krok po kroku:** [`cad_models/DRUK_I_MONTAZ.md`](cad_models/DRUK_I_MONTAZ.md)  
 🎨 **Gotowe projekty Blender (.blend):**  
-  - 🛡️ [`cad_models/robot_dreadnought.blend`](cad_models/robot_dreadnought.blend) — dedykowany model Cyber-Titan Dreadnought w kolorze Gunmetal Carbon z bursztynowym oświetleniem bojowym!  
+  - 🛡️ [`cad_models/robot_dreadnought.blend`](cad_models/robot_dreadnought.blend) — dedykowany model Cyber-Titan Apex w kolorze Gunmetal Carbon z podwójnymi dyszami dopalaczy i bursztynowym oświetleniem bojowym!  
   - 🌸 [`cad_models/robot_mecha_kawaii.blend`](cad_models/robot_mecha_kawaii.blend) — dedykowany model Mecha Kawaii w kolorze Sakura  
   - 📺 [`cad_models/robot_obudowa_klasyczna.blend`](cad_models/robot_obudowa_klasyczna.blend) — dedykowany model edycji klasycznej  
   - 📦 [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) — zbiorczy projekt ze wszystkimi wersjami  
