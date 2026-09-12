@@ -47,7 +47,11 @@ Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Desig
 | [`robot_obudowa_kompletna.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/robot_obudowa_kompletna.stl) | - | Pełne złożenie modelu klasycznego | - |
 
 > [!TIP]
-> W katalogu `cad_models/` znajdują się również pliki źródłowe **STEP** (`.step`), projekty **FreeCAD** (`robot_mecha_kawaii_3d.FCStd`, `robot_obudowa_3d.FCStd`) oraz kompletna scena **Blender** (`robot_projekt.blend`) z gotowymi materiałami PBR.
+> W katalogu `cad_models/` znajdują się dedykowane pliki **Blender**:
+> - [`robot_mecha_kawaii.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_mecha_kawaii.blend) – gotowa scena z modelem Mecha Kawaii, materiałami Sakura i oświetleniem studyjnym!
+> - [`robot_obudowa_klasyczna.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_obudowa_klasyczna.blend) – gotowa scena z modelem Retro CRT
+> - [`robot_projekt.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_projekt.blend) – projekt zawierający obie wersje robota
+> Dostępne są również pliki źródłowe **STEP** (`.step`) oraz parametryczne projekty **FreeCAD** (`robot_mecha_kawaii_3d.FCStd`, `robot_obudowa_3d.FCStd`).
 
 ---
 

@@ -42,7 +42,10 @@ Projekt zawiera **dwie kompletne, w 100% przetestowane obudowy biurkowe**, w pe�
 📂 **Pliki STL Mecha-Kawaii:** [`cad_models/stl_print/mecha_kawaii/`](cad_models/stl_print/mecha_kawaii/)  
 📂 **Pliki STL Retro CRT:** [`cad_models/stl_print/`](cad_models/stl_print/)  
 📖 **Kompletny poradnik druku i montażu krok po kroku:** [`cad_models/DRUK_I_MONTAZ.md`](cad_models/DRUK_I_MONTAZ.md)  
-🎨 **Projekt 3D Blender:** [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) (obie obudowy z materiałami PBR w dedykowanych kolekcjach)  
+🎨 **Gotowe projekty Blender (.blend):**  
+  - 🌸 [`cad_models/robot_mecha_kawaii.blend`](cad_models/robot_mecha_kawaii.blend) — od razu po otwarciu widzisz model Mecha Kawaii w kolorze Sakura z animowanymi oczami i oświetleniem!  
+  - 📺 [`cad_models/robot_obudowa_klasyczna.blend`](cad_models/robot_obudowa_klasyczna.blend) — dedykowany model edycji klasycznej  
+  - 📦 [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) — zbiorczy projekt z obiema wersjami w kolekcjach  
 📐 **Projekty parametryczne FreeCAD i STEP:** [`cad_models/robot_mecha_kawaii_3d.FCStd`](cad_models/robot_mecha_kawaii_3d.FCStd) oraz [`cad_models/robot_obudowa_3d.FCStd`](cad_models/robot_obudowa_3d.FCStd)
 
 ---
