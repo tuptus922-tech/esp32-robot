@@ -1,28 +1,42 @@
 # 🖨️ Przewodnik Druku 3D i Montażu Obudowy Robota ESP32 Pet
 
-Kompleksowa instrukcja przygotowania plików, ustawień slicera oraz montażu dwóch autorskich obudów biurkowych dla robota companion pet.
+Kompleksowa instrukcja przygotowania plików, ustawień slicera oraz montażu trzech unikalnych obudów biurkowych dla robota companion pet.
 
 ---
 
-## 🎭 Dwie Unikalne Wersje Obudowy do Wyboru
+## 🎭 Trzy Unikalne Wersje Obudowy do Wyboru
 
-Możesz wybrać jedną z dwóch kompletnych, w 100% kompatybilnych z tą samą elektroniką obudów:
+Możesz wybrać jedną z trzech kompletnych, w 100% kompatybilnych z tą samą elektroniką obudów:
 
-| Cecha | Wersja 1: Retro CRT Minimalist | Wersja 2: Cyber-Capsule Mecha-Kawaii |
-| :--- | :--- | :--- |
-| **Klimat / Styl** | Klasyczny retro komputer biurkowy, gładki, minimalistyczny | Cyberpunk / Anime Mecha Neko, dynamiczny, bogaty w detale |
-| **Boki obudowy** | Gładkie, opływowe zaokrąglenia R4 | 4 głębokie żebra pancerza ("szpontery" 45° V-grooves) + kapsuły Audio-Pod |
-| **Ekran OLED** | Zlicowane okno w ścianie czołowej | Przestrzenny oktagonalny wizjer 3D (Cyber Goggles) + kocie wąsy |
-| **Głowa / Uszy** | Płaski, ergonomiczny dach ze wskaźnikami dotyku | Fasetowane kocie uszka + wygrawerowana kocia łapka na torze głaskania |
-| **Podstawa** | Standardowa niska baza z szynami ESP32 | Baza ze zintegrowanymi przednimi łapkami i pazurkami mecha |
-| **Przyciski** | 3 gładkie, ergonomiczne kopułki | Środek: Klawisz z Serduszkiem ❤️, Boki: Klawisze z Kocimi Łapkami 🐾 |
-| **Katalog STL** | `cad_models/stl_print/` | `cad_models/stl_print/mecha_kawaii/` |
+| Cecha | Wersja 1: Retro CRT Minimalist | Wersja 2: Cyber-Capsule Mecha-Kawaii | Wersja 3: Cyber-Titan Dreadnought |
+| :--- | :--- | :--- | :--- |
+| **Klimat / Styl** | Klasyczny retro komputer biurkowy, gładki, minimalistyczny | Cyberpunk / Anime Mecha Neko, dynamiczny, uroczy | Ciężki mech bojowy / Stealth Titan, agresywny, pancerny |
+| **Boki obudowy** | Gładkie, opływowe zaokrąglenia R4 | 4 głębokie żebra pancerza ("szpontery") + kapsuły Audio-Pod | Wielopoziomowe radiatory chłodzenia (stepped heat-sinks) + płyty pancerza |
+| **Ekran OLED** | Zlicowane okno w ścianie czołowej | Przestrzenny oktagonalny wizjer 3D + kocie wąsy mecha | Pancerny daszek czołowy (Blast Shield brow) + oktagonalna osłona |
+| **Głowa / Dach** | Płaski, ergonomiczny dach | Fasetowane kocie uszka + wygrawerowana łapka | Podwójne skrzydłowe stateczniki aero + taktyczne spawy pancerza |
+| **Podstawa** | Standardowa niska baza z szynami ESP32 | Baza z przednimi łapkami i pazurkami | Baza z pancernymi płozami narożnymi (skid pods) i wlotem turbiny |
+| **Przyciski** | 3 gładkie, ergonomiczne kopułki | Środek: Serduszko ❤️, Boki: Łapki 🐾 | Środek: Diament `◆`, Boki: Strzałki Chevron `◀` `▶` |
+| **Katalog STL** | `cad_models/stl_print/` | `cad_models/stl_print/mecha_kawaii/` | `cad_models/stl_print/dreadnought/` |
+| **Plik Blender** | `robot_obudowa_klasyczna.blend` | `robot_mecha_kawaii.blend` | `robot_dreadnought.blend` |
 
 ---
 
 ## 📂 Pliki STL do Druku
 
 Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Design for Additive Manufacturing (DFAM)**, są bryłami zamkniętymi (watertight/manifold) i posiadają zoptymalizowane tolerancje pasowania (0.25–0.35 mm).
+
+### 🛡️ Wersja 3: Cyber-Titan Dreadnought (Katalog `cad_models/stl_print/dreadnought/`)
+
+| Plik STL | Ilość | Opis / Rola w konstrukcji | Orientacja na stole |
+| :--- | :---: | :--- | :--- |
+| [`dreadnought_podstawa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_podstawa.stl) | 1 szt. | Dolne chassis z płozami narożnymi, wlotem turbiny i szynami ESP32 | Płasko na spodzie (Z=0) |
+| [`dreadnought_glowa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_glowa.stl) | 1 szt. | Głowa ze statecznikami stealth, daszkiem blast-shield i radiatorami | Płasko dolnym kołnierzem do stołu |
+| [`dreadnought_przycisk_romb.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_przycisk_romb.stl) | 1 szt. | Środkowy przycisk taktyczny (OK) z fasetowanym diamentem `◆` | Płasko kołnierzem do stołu |
+| [`dreadnought_przycisk_strzalka_l.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_przycisk_strzalka_l.stl) | 1 szt. | Lewy przycisk nawigacyjny ze strzałką bojową `◀` | Płasko kołnierzem do stołu |
+| [`dreadnought_przycisk_strzalka_p.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_przycisk_strzalka_p.stl) | 1 szt. | Prawy przycisk nawigacyjny ze strzałką bojową `▶` | Płasko kołnierzem do stołu |
+| [`dreadnought_robot_kompletny.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dreadnought/dreadnought_robot_kompletny.stl) | - | Pełne złożenie modelu (do podglądu w slicerze) | - |
+
+---
 
 ### 🌸 Wersja 2: Cyber-Capsule Mecha-Kawaii (Katalog `cad_models/stl_print/mecha_kawaii/`)
 
@@ -48,10 +62,11 @@ Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Desig
 
 > [!TIP]
 > W katalogu `cad_models/` znajdują się dedykowane pliki **Blender**:
-> - [`robot_mecha_kawaii.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_mecha_kawaii.blend) – gotowa scena z modelem Mecha Kawaii, materiałami Sakura i oświetleniem studyjnym!
+> - [`robot_dreadnought.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_dreadnought.blend) – gotowa scena z modelem Cyber-Titan Dreadnought w kolorze Gunmetal Carbon z bursztynowym oświetleniem!
+> - [`robot_mecha_kawaii.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_mecha_kawaii.blend) – gotowa scena z modelem Mecha Kawaii w kolorze Sakura!
 > - [`robot_obudowa_klasyczna.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_obudowa_klasyczna.blend) – gotowa scena z modelem Retro CRT
-> - [`robot_projekt.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_projekt.blend) – projekt zawierający obie wersje robota
-> Dostępne są również pliki źródłowe **STEP** (`.step`) oraz parametryczne projekty **FreeCAD** (`robot_mecha_kawaii_3d.FCStd`, `robot_obudowa_3d.FCStd`).
+> - [`robot_projekt.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_projekt.blend) – projekt zawierający wszystkie wersje robota
+> Dostępne są również pliki źródłowe **STEP** (`.step`) oraz parametryczne projekty **FreeCAD** (`robot_dreadnought_3d.FCStd`, `robot_mecha_kawaii_3d.FCStd`, `robot_obudowa_3d.FCStd`).
 
 ---
 
@@ -63,23 +78,27 @@ Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Desig
 - **Średnica dyszy (Nozzle)**: `0.4 mm`
 - **Wysokość warstwy (Layer height)**:
   - Obudowy (baza i głowa): `0.20 mm`
-  - Przyciski (nakładki serce/łapka) oraz uszka: `0.16 mm` (dla perfekcyjnej gładkości krzywizn)
-- **Ścianki / Obrysy (Perimeters / Wall loops)**: `3 lub 4` (min. 1.2–1.6 mm grubości) — gwarantuje, że podświetlenie wewnętrzne ESP32/OLED nie przebija przez ścianki.
+  - Przyciski taktyczne oraz detale: `0.16 mm` (dla perfekcyjnej ostrości krawędzi)
+- **Ścianki / Obrysy (Perimeters / Wall loops)**: `3 lub 4` (min. 1.2–1.6 mm grubości) — gwarantuje pełną szczelność optyczną.
 - **Warstwy górne i dolne (Top/Bottom layers)**: `4-5 warstw` (min. 0.8–1.0 mm).
 - **Wypełnienie (Infill)**: `15% – 20%` (Zalecany wzór: **Gyroid**).
 - **Podpory (Supports)**:
-  - **Podstawa (Base)**: **BEZ PODPÓR (Supports: OFF)** — model drukuje się w 100% na płasko.
-  - **Głowa (Hood)**: Boczne żebra "szpontery" wykonano pod bezpiecznym kątem **45°**, a czoło odchylone jest o zaledwie **9.95° od pionu**, co drukuje się czysto bez podpór. W razie potrzeby można włączyć lekkie podpory organiczne/drzewiaste (**Tree Supports: touching buildplate only**) pod górną krawędzią okna wizjera.
-  - **Przyciski nawigacyjne**: **BEZ PODPÓR** (drukowane kołnierzem do dołu na stole).
+  - **Podstawa (Base)**: **BEZ PODPÓR (Supports: OFF)** — drukuje się w 100% na płasko.
+  - **Głowa (Hood)**: Daszek blast-shield oraz boczne radiatory zaprojektowano pod bezpiecznym kątem **45°**, co drukuje się czysto bez podpór na każdej drukarce FDM.
+  - **Przyciski taktyczne**: **BEZ PODPÓR** (drukowane kołnierzem do dołu na stole).
 
 ---
 
-## 🎨 Sugestie Kolorystyczne (Multi-Color lub Osobne Wydruki)
+## 🎨 Sugestie Kolorystyczne
+
+### 🛡️ Wersja Cyber-Titan Dreadnought
+1. **Pancerz (Baza i Głowa)**: Matowy grafit / czerń węglowa (Matte Charcoal / Carbon Black) lub tytanowy szary (Gunmetal Grey).
+2. **Klawisz Środkowy (Diament)**: Cyberpunkowy pomarańcz (Hazard Orange / Amber) lub złoty metalik.
+3. **Klawisze Boczne (Strzałki)**: Ciemny tytan (Dark Titanium).
 
 ### 🌸 Wersja Mecha-Kawaii
 1. **Korpus (Baza i Głowa)**: Pastel Sakura Pink (pudrowy róż) lub perłowa biel (Pearl White).
-2. **Klawisz Środkowy (Serce)**: Fuksja / Neon Rose lub intensywny malinowy róż.
-3. **Klawisze Boczne (Łapki)**: Śmietankowy biały (Milk White) lub pastelowy błękit / mięta.
+2. **Klawisze**: Neon fuksja (serduszko) + śmietankowa biel (łapki).
 
 ### 📺 Wersja Klasyczna Retro
 1. **Korpus**: Matowy jasnoszary lub kość słoniowa (Vintage Off-White / Industrial Grey).
@@ -91,7 +110,7 @@ Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Desig
 
 ### Krok 1: Strefy Głaskania (Pojemnościowe sensory dotyku)
 1. Wytnij dwa paski zwykłej kuchennej folii aluminiowej o wymiarach ok. **15 mm x 32 mm**.
-2. Wklej paski (za pomocą cienkiej taśmy dwustronnej lub kropli kleju) w dwie dedykowane kieszenie na wewnętrznej stronie dachu:
+2. Wklej paski w dwie dedykowane kieszenie na wewnętrznej stronie dachu:
    - Przednia kieszeń: **Czoło** ➔ kabelek do **GPIO 32** (T9).
    - Tylna kieszeń: **Tył głowy** ➔ kabelek do **GPIO 33** (T8).
 3. Ścianka plastiku nad kieszeniami ma zredukowaną grubość (1.0 mm), co zapewnia natychmiastową, czułą reakcję na dotyk dłoni przez plastik.
@@ -123,4 +142,4 @@ Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Desig
 ---
 
 ## 🚀 Gotowe!
-Podłącz kabel USB z tyłu robota, wgraj kod (`pio run -t upload`) i ciesz się w pełni funkcjonalnym, uroczym robotem biurkowym!
+Podłącz kabel USB z tyłu robota, wgraj kod (`pio run -t upload`) i ciesz się w pełni funkcjonalnym, niesamowitym robotem biurkowym!

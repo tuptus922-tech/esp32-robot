@@ -24,29 +24,31 @@ Po wgraniu robot od razu ożyje, wyda powitalny dźwięk i otworzy oczy!
 
 ---
 
-## 🖨️ Dwie Przemyślane Obudowy 3D do Wyboru (Design for 3D Printing)
+## 🖨️ Trzy Przemyślane Obudowy 3D do Wyboru (Design for 3D Printing)
 
-Projekt zawiera **dwie kompletne, w 100% przetestowane obudowy biurkowe**, w pełni kompatybilne z tą samą elektroniką i zoptymalizowane pod kątem łatwego druku FDM bez trudnych podpór:
+Projekt zawiera **trzy kompletne, w 100% przetestowane obudowy biurkowe**, w pełni kompatybilne z tą samą elektroniką i zoptymalizowane pod kątem łatwego druku FDM bez trudnych podpór:
 
-| 🌸 Edycja Cyber-Capsule Mecha-Kawaii | 📺 Edycja Retro CRT Minimalist |
-| :---: | :---: |
-| ![Mecha Kawaii](cad_models/podglad_mecha_kawaii_front.png) | ![Retro CRT](cad_models/podglad_obudowy_3d.png) |
-| *Styl Cyberpunk / Anime Neko: oktagonalny wizjer 3D, 4 boczne żebra ("szpontery"), kocie wąsy, uszka, kapsuły Audio-Pod, przednie łapki i klawisze serce/łapka.* | *Styl Retro Computer: minimalistyczna bryła biurkowa o gładkich zaokrągleniach, zlicowanym oknie ekranu i klasycznych przyciskach.* |
+| 🛡️ Edycja Cyber-Titan Dreadnought | 🌸 Edycja Cyber-Capsule Mecha-Kawaii | 📺 Edycja Retro CRT Minimalist |
+| :---: | :---: | :---: |
+| ![Dreadnought](cad_models/podglad_dreadnought_front.png) | ![Mecha Kawaii](cad_models/podglad_mecha_kawaii_front.png) | ![Retro CRT](cad_models/podglad_obudowy_3d.png) |
+| *Ciężki mech bojowy / Stealth Titan: daszek blast-shield, radiatory chłodzenia, skrzydłowe stateczniki aero, płozy narożne i klawisze taktyczne `◀` `◆` `▶`.* | *Styl Anime Neko: oktagonalny wizjer 3D, boczne żebra ("szpontery"), kocie wąsy, uszka, kapsuły Audio-Pod, przednie łapki i klawisze serce/łapka.* | *Styl Retro Computer: minimalistyczna bryła biurkowa o gładkich zaokrągleniach, zlicowanym oknie ekranu i klasycznych przyciskach.* |
 
 ### Najważniejsze atuty konstrukcyjne:
 - **Dolne chassis**: drukowane w 100% na płasko na stole roboczym (**0 podpór**). Posiada szyny na ESP32, kanał na piny/przewody, wycięcie na kabel USB oraz 4 ukryte gniazda na śruby M3 i nóżki silikonowe.
-- **Górny korpus / Głowa**: ergonomiczne nachylenie twarzy pod kątem ~80° (tylko 9.95° od pionu – **brak konieczności podpór** na ścianach!), okno na wyświetlacz OLED 0.96", grill akustyczny buzzera oraz dedykowane łoża pod folię dotykową o ściance zredukowanej do **1.0 mm** dla maksymalnej czułości głaskania.
-- **Ruchome nakładki przycisków**: klawisze z kołnierzem oporowym zabezpieczającym przed wypadaniem (w wersji Mecha: tłoczone serce i łapki!).
-- **Boczne żebra "szpontery"**: nacięcia pancerza wykonane pod bezpiecznym kątem 45° (drukowalne bez zwisów).
+- **Górny korpus / Głowa**: ergonomiczne nachylenie twarzy pod kątem ~80° (tylko ~9.5° od pionu – **brak konieczności podpór** na ścianach!), okno na wyświetlacz OLED 0.96", grill akustyczny buzzera oraz dedykowane łoża pod folię dotykową o ściance zredukowanej do **1.0 mm** dla maksymalnej czułości głaskania.
+- **Ruchome nakładki przycisków**: klawisze z kołnierzem oporowym zabezpieczającym przed wypadaniem.
+- **Boczne żebra i radiatory**: nacięcia pancerza i radiatorów wykonane pod bezpiecznym kątem 45° (drukowalne bez zwisów).
 
+📂 **Pliki STL Dreadnought:** [`cad_models/stl_print/dreadnought/`](cad_models/stl_print/dreadnought/)  
 📂 **Pliki STL Mecha-Kawaii:** [`cad_models/stl_print/mecha_kawaii/`](cad_models/stl_print/mecha_kawaii/)  
 📂 **Pliki STL Retro CRT:** [`cad_models/stl_print/`](cad_models/stl_print/)  
 📖 **Kompletny poradnik druku i montażu krok po kroku:** [`cad_models/DRUK_I_MONTAZ.md`](cad_models/DRUK_I_MONTAZ.md)  
 🎨 **Gotowe projekty Blender (.blend):**  
-  - 🌸 [`cad_models/robot_mecha_kawaii.blend`](cad_models/robot_mecha_kawaii.blend) — od razu po otwarciu widzisz model Mecha Kawaii w kolorze Sakura z animowanymi oczami i oświetleniem!  
+  - 🛡️ [`cad_models/robot_dreadnought.blend`](cad_models/robot_dreadnought.blend) — dedykowany model Cyber-Titan Dreadnought w kolorze Gunmetal Carbon z bursztynowym oświetleniem bojowym!  
+  - 🌸 [`cad_models/robot_mecha_kawaii.blend`](cad_models/robot_mecha_kawaii.blend) — dedykowany model Mecha Kawaii w kolorze Sakura  
   - 📺 [`cad_models/robot_obudowa_klasyczna.blend`](cad_models/robot_obudowa_klasyczna.blend) — dedykowany model edycji klasycznej  
-  - 📦 [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) — zbiorczy projekt z obiema wersjami w kolekcjach  
-📐 **Projekty parametryczne FreeCAD i STEP:** [`cad_models/robot_mecha_kawaii_3d.FCStd`](cad_models/robot_mecha_kawaii_3d.FCStd) oraz [`cad_models/robot_obudowa_3d.FCStd`](cad_models/robot_obudowa_3d.FCStd)
+  - 📦 [`cad_models/robot_projekt.blend`](cad_models/robot_projekt.blend) — zbiorczy projekt ze wszystkimi wersjami  
+📐 **Projekty parametryczne FreeCAD i STEP:** [`cad_models/robot_dreadnought_3d.FCStd`](cad_models/robot_dreadnought_3d.FCStd), [`cad_models/robot_mecha_kawaii_3d.FCStd`](cad_models/robot_mecha_kawaii_3d.FCStd) oraz [`cad_models/robot_obudowa_3d.FCStd`](cad_models/robot_obudowa_3d.FCStd)
 
 ---
 
