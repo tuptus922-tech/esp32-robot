@@ -2,13 +2,13 @@
 
 Interaktywny miniaturowy robot biurkowy (**Desk Companion Pet**) oparty na mikrokontrolerze **ESP32**, wyświetlaczu OLED 0.96", akcelerometrze/żyroskopie **MPU-6050**, podwójnym pojemnościowym czujniku głaskania oraz pasywnym buzzerze piezo.
 
-Dzięki **modułowej architekturze Core-and-Armor** całą elektronikę montujesz i podłączasz **tylko jeden raz** w centralnym stelażu, a wygląd zewnętrzny robota możesz zmieniać w sekundę, nasuwając wybraną obudowę (**Cyber-Titan Apex**, **Mecha-Kawaii** lub **Retro CRT**) bez rozkręcania śrub i bez dotykania kabli!
+Dzięki **modułowej architekturze Core-and-Armor** całą elektronikę montujesz i podłączasz **tylko jeden raz** w centralnym stelażu, a wygląd zewnętrzny robota możesz zmieniać w sekundę, nasuwając wybraną obudowę (**Cyber-Titan Apex**, **Mecha-Kawaii**, **Retro CRT** lub **Steam-Titan Nautilus**) bez rozkręcania śrub i bez dotykania kabli!
 
 ---
 
 ## ⚡ Spis Treści
 1. [KROK 1: Flashowanie ESP32 (Wgrywanie programu)](#-krok-1-flashowanie-esp32-wgrywanie-programu)
-2. [KROK 2: Druk 3D — Dokładna lista plików STL](#-krok-2-druk-3d--dokładna-lista-plików-stl)
+2. [KROK 2: Druk 3D — Dokładna lista plików STL (4 style)](#-krok-2-druk-3d--dokładna-lista-plików-stl)
 3. [KROK 3: Schemat połączeń przewodów (Hardware Pinout)](#-krok-3-schemat-połączeń-przewodów-hardware-pinout)
 4. [KROK 4: Montaż elektroniki w stelażu (Złóż raz i zapomnij!)](#-krok-4-montaż-elektroniki-w-stelażu-złóż-raz-i-zapomnij)
 5. [KROK 5: Błyskawiczna wymiana obudów (Quick-Swap Slide-On)](#-krok-5-błyskawiczna-wymiana-obudów-quick-swap-slide-on)
@@ -129,6 +129,19 @@ Projekt wykorzystuje modułowy system **Core-and-Armor**:
 
 ---
 
+#### ⚙️ Opcja D: Steam-Titan Nautilus (Industrial Steampunk / Parowy Kocioł Bojowy)
+*Klimat: Victorian Industrial / BioShock Nautilus. Zaokrąglona czasza kotła parowego z 32 nitami 3D, potrójna klatka ochronna iluminatora (roll-cage), podwójne wiktoriańskie kominy z kryzami, boczne manometry ciśnienia pary ze wskazówkami w czerwonej strefie, miedziane rurociągi oraz mosiężne koło zaworowe jako przycisk.*
+
+| Plik STL | Ilość | Ścieżka do pliku | Zalecany kolor filamentu |
+| :--- | :---: | :--- | :--- |
+| **`dieselpunk_glowa.stl`** | **1 szt.** | [`cad_models/stl_print/dieselpunk/dieselpunk_glowa.stl`](cad_models/stl_print/dieselpunk/dieselpunk_glowa.stl) | Stal kotłowa / Ciemny grafit / Mosiądz Silk |
+| **`dieselpunk_przycisk_zawor.stl`** | **1 szt.** | [`cad_models/stl_print/dieselpunk/dieselpunk_przycisk_zawor.stl`](cad_models/stl_print/dieselpunk/dieselpunk_przycisk_zawor.stl) | Złoty Mosiądz / Polerowany brąz |
+| **`dieselpunk_przycisk_ryfel_l.stl`** | **1 szt.** | [`cad_models/stl_print/dieselpunk/dieselpunk_przycisk_ryfel_l.stl`](cad_models/stl_print/dieselpunk/dieselpunk_przycisk_ryfel_l.stl) | Oksydowana stal / Gunmetal |
+| **`dieselpunk_przycisk_ryfel_p.stl`** | **1 szt.** | [`cad_models/stl_print/dieselpunk/dieselpunk_przycisk_ryfel_p.stl`](cad_models/stl_print/dieselpunk/dieselpunk_przycisk_ryfel_p.stl) | Oksydowana stal / Gunmetal |
+| *`dieselpunk_podstawa.stl`* | *(opcjonalnie)* | [`cad_models/stl_print/dieselpunk/dieselpunk_podstawa.stl`](cad_models/stl_print/dieselpunk/dieselpunk_podstawa.stl) | *Opcjonalna baza kotła ze stopami śrubowymi* |
+
+---
+
 ### ⚙️ Rekomendowane Ustawienia Slicera (Bambu Studio / OrcaSlicer / PrusaSlicer / Cura):
 
 * **Materiał**: PLA lub PETG.
@@ -190,14 +203,14 @@ Stelaż z podłączonym kablem USB stoi teraz stabilnie na Twoim biurku!
 
 ## 🎭 KROK 5: Błyskawiczna wymiana obudów (Quick-Swap Slide-On)
 
-| 🧩 1. Gotowy Stelaż z Elektroniką | 🛡️ 2. Nasuwanie Pancerza Titan Apex | 🌸 3. Nasuwanie Pancerza Neko Kawaii |
-| :---: | :---: | :---: |
-| ![Stelaż Core](cad_models/podglad_stelaz_elektronika.png) | ![Nasuwanie Apex](cad_models/podglad_modular_slide_on.png) | ![Nasuwanie Kawaii](cad_models/podglad_modular_kawaii_slide_on.png) |
+| 🧩 1. Stelaż Core | 🛡️ 2. Titan Apex | 🌸 3. Neko Kawaii | ⚙️ 4. Steam Nautilus |
+| :---: | :---: | :---: | :---: |
+| ![Stelaż Core](cad_models/podglad_stelaz_elektronika.png) | ![Nasuwanie Apex](cad_models/podglad_modular_slide_on.png) | ![Nasuwanie Kawaii](cad_models/podglad_modular_kawaii_slide_on.png) | ![Nasuwanie Nautilus](cad_models/podglad_modular_dieselpunk_slide_on.png) |
 
-1. Weź wybraną obudowę (np. **Cyber-Titan Apex** lub **Mecha-Kawaii**).
-2. Wsuń od środka w jej przednie otwory 3 dedykowane nakładki przycisków (kołnierz zabezpiecza je przed wypadnięciem).
+1. Weź wybraną obudowę (np. **Cyber-Titan Apex**, **Mecha-Kawaii** lub **Steam-Titan Nautilus**).
+2. Wsuń od środka w jej przednie otwory dedykowane nakładki przycisków (kołnierz zabezpiecza je przed wypadnięciem).
 3. **Nasuń obudowę od góry na stelaż**: wewnętrzne szyny prowadzące gładko poprowadzą obudowę w dół, a dolne zatrzaski kulkowe klikną na dole.
-4. **Chcesz zmienić robota w kotka lub tytana bojowego?**  
+4. **Chcesz zmienić robota w kotka, mecha bojowego lub parowy kocioł?**  
    Po prostu chwyć obudowę, pociągnij w górę i załóż inną! Zero śrubokrętów, zero odpinania kabli!
 
 ---
@@ -220,11 +233,12 @@ Stelaż z podłączonym kablem USB stoi teraz stabilnie na Twoim biurku!
 ## 🎨 Gotowe Projekty 3D i Blender
 
 Wszystkie pliki źródłowe znajdziesz w katalogu [`cad_models/`](cad_models/):
-* 🧩 **Projekt Blendera Stelaża i Slide-On:** [`cad_models/robot_modular_core.blend`](cad_models/robot_modular_core.blend)
+* ⚙️ **Projekt Blendera Steam-Titan Nautilus:** [`cad_models/robot_dieselpunk.blend`](cad_models/robot_dieselpunk.blend)
 * 🛡️ **Projekt Blendera Cyber-Titan Apex:** [`cad_models/robot_dreadnought.blend`](cad_models/robot_dreadnought.blend)
 * 🌸 **Projekt Blendera Mecha-Kawaii:** [`cad_models/robot_mecha_kawaii.blend`](cad_models/robot_mecha_kawaii.blend)
 * 📺 **Projekt Blendera Retro CRT:** [`cad_models/robot_obudowa_klasyczna.blend`](cad_models/robot_obudowa_klasyczna.blend)
-* 📐 **Parametryczne modele FreeCAD i pliki STEP:** [`cad_models/core_chassis.step`](cad_models/core_chassis.step), [`cad_models/robot_core_chassis.FCStd`](cad_models/robot_core_chassis.FCStd)
+* 🧩 **Projekt Blendera Stelaża i Slide-On:** [`cad_models/robot_modular_core.blend`](cad_models/robot_modular_core.blend)
+* 📐 **Parametryczne modele FreeCAD i pliki STEP:** [`cad_models/robot_dieselpunk_3d.FCStd`](cad_models/robot_dieselpunk_3d.FCStd), [`cad_models/core_chassis.step`](cad_models/core_chassis.step), [`cad_models/robot_core_chassis.FCStd`](cad_models/robot_core_chassis.FCStd)
 
 ---
 

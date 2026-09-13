@@ -4,22 +4,22 @@ Kompleksowa instrukcja przygotowania plików, ustawień slicera oraz montażu tr
 
 ---
 
-## 🎭 Trzy Unikalne Wersje Obudowy do Wyboru
+## 🎭 Cztery Unikalne Wersje Obudowy do Wyboru
 
-Możesz wybrać jedną z trzech kompletnych, w 100% kompatybilnych z tą samą elektroniką obudów:
+Możesz wybrać jedną z czterech kompletnych, w 100% kompatybilnych z tą samą elektroniką obudów:
 
-| Cecha | Wersja 1: Retro CRT Minimalist | Wersja 2: Cyber-Capsule Mecha-Kawaii | Wersja 3: Cyber-Titan Apex (Mecha-Warrior) |
-| :--- | :--- | :--- | :--- |
-| **Klimat / Styl** | Klasyczny retro komputer biurkowy, gładki, minimalistyczny | Cyberpunk / Anime Mecha Neko, dynamiczny, uroczy | Ciężki szturmowy mech bojowy / Gundam Titan, agresywny pancerz |
-| **Sylwetka / Wymiary** | 50 x 50 x 48 mm, prostopadłościan z zaokrągleniami | 50 x 50 x 56 mm, kapsuła z uszkami | **72 mm szerokości** (V-Taper), **68 mm wysokości**, podwójne dysze |
-| **Boki obudowy** | Gładkie, opływowe zaokrąglenia R4 | 4 głębokie żebra pancerza ("szpontery") + kapsuły Audio-Pod | **Masywne naramienniki 72mm** z 6-komorowymi wyrzutniami rakiet i żebrami chłodzącymi |
-| **Ekran OLED** | Zlicowane okno w ścianie czołowej | Przestrzenny oktagonalny wizjer 3D + kocie wąsy mecha | Pancerny kokpit: daszek Blast Shield 45°, kły bojowe mandibles i oktagon |
-| **Głowa / Dach** | Płaski, ergonomiczny dach | Fasetowane kocie uszka + wygrawerowana łapka | **Podwójne 68mm rogi bojowe V-Fin / Kabuto** + pancerne spawy dachowe |
-| **Napęd / Tył** | Płaski tył z oknem USB | Płaski tył z oknem USB | **Podwójne wielkie dysze odrzutowe dopalacza (Afterburners)** |
-| **Podstawa** | Standardowa niska baza z szynami ESP32 | Baza z przednimi łapkami i pazurkami | **Ciężkie gąsienice pancerne (Crawler tracks) o szerokości 63mm** |
-| **Przyciski** | 3 gładkie, ergonomiczne kopułki | Środek: Serduszko ❤️, Boki: Łapki 🐾 | Środek: Reaktor/Diament `◆`, Boki: Strzałki Bojowe `◀` `▶` |
-| **Katalog STL** | `cad_models/stl_print/` | `cad_models/stl_print/mecha_kawaii/` | `cad_models/stl_print/dreadnought/` |
-| **Plik Blender** | `robot_obudowa_klasyczna.blend` | `robot_mecha_kawaii.blend` | `robot_dreadnought.blend` |
+| Cecha | Wersja 1: Retro CRT Minimalist | Wersja 2: Cyber-Capsule Mecha-Kawaii | Wersja 3: Cyber-Titan Apex (Mecha) | Wersja 4: Steam-Titan Nautilus (Dieselpunk) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Klimat / Styl** | Klasyczny retro komputer biurkowy | Cyberpunk / Anime Mecha Neko | Ciężki szturmowy mech bojowy / Gundam | Industrial Steampunk / BioShock Nautilus |
+| **Sylwetka / Wymiary** | 50 x 50 x 48 mm, zaokrąglony prostopadłościan | 50 x 50 x 56 mm, kapsuła z uszkami | **72 mm szerokości**, **68 mm wysokości** | **54 mm kocioł ciśnieniowy**, podwójne kominy 58 mm |
+| **Boki obudowy** | Gładkie zaokrąglenia R4 | 4 głębokie żebra ("szpontery") + Audio-Pod | Naramienniki 72mm z wyrzutniami rakiet | **Wielkie manometry parowe (fi 21mm)** + rurociągi miedziane |
+| **Ekran OLED** | Zlicowane okno | Oktagonalny wizjer 3D + wąsy mecha | Pancerny kokpit, blast-shield 45° i kły | **Potrójna klatka ochronna iluminatora (roll-cage)** |
+| **Głowa / Dach** | Płaski dach | Fasetowane uszka + kocia łapka | Rogi bojowe V-Fin 68mm | **Podwójne wiktoriańskie kominy z kryzami i radiatorami** |
+| **Napęd / Tył** | Płaski tył | Płaski tył | Podwójne dysze odrzutowe dopalaczy | Półkolisty zbiornik z kołem ryglowym włazu inspekcyjnego |
+| **Podstawa** | Standardowa niska baza | Baza z przednimi łapkami i pazurkami | Ciężkie gąsienice pancerne crawler 63mm | Baza kotła z 4 kołnierzami śrubowymi i żaluzją |
+| **Przyciski** | 3 gładkie kopułki | Środek: Serduszko ❤️, Boki: Łapki 🐾 | Środek: Diament `◆`, Boki: Strzałki `◀` `▶` | Środek: Koło zaworu parowego, Boki: Płyty ryflowane |
+| **Katalog STL** | `cad_models/stl_print/` | `cad_models/stl_print/mecha_kawaii/` | `cad_models/stl_print/dreadnought/` | `cad_models/stl_print/dieselpunk/` |
+| **Plik Blender** | `robot_obudowa_klasyczna.blend` | `robot_mecha_kawaii.blend` | `robot_dreadnought.blend` | `robot_dieselpunk.blend` |
 
 ---
 
@@ -77,13 +77,27 @@ Plik: [`cad_models/stl_print/core_chassis.stl`](file:///home/tuptus/Dokumenty/Pl
 | [`uchwyt_oled.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/uchwyt_oled.stl) | 1 szt. | Wewnętrzny wspornik dociskowy ekranu OLED | Płasko na stole |
 | [`robot_obudowa_kompletna.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/robot_obudowa_kompletna.stl) | - | Pełne złożenie modelu klasycznego | - |
 
+---
+
+### ⚙️ Wersja 4: Steam-Titan Nautilus (Katalog `cad_models/stl_print/dieselpunk/`)
+
+| Plik STL | Ilość | Opis / Rola w konstrukcji | Orientacja na stole |
+| :--- | :---: | :--- | :--- |
+| [`dieselpunk_podstawa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_podstawa.stl) | 1 szt. | Dolne chassis kotła z 4 stopami śrubowymi, dolną żaluzją pary i szynami ESP32 | Płasko na spodzie (Z=0) |
+| [`dieselpunk_glowa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_glowa.stl) | 1 szt. | Głowa Nautilus: 54mm kocioł parowy, 32 nity 3D, klatka ochronna iluminatora, podwójne kominy parowe z kryzami, boczne manometry (fi 21mm), rurociągi miedziane i tylny właz inspekcyjny z kołem ryglowym | Płasko dolnym kołnierzem do stołu |
+| [`dieselpunk_przycisk_zawor.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_przycisk_zawor.stl) | 1 szt. | Środkowy przycisk: 6-ramienne mosiężne koło zaworu parowego z wieńcem i centralną nakrętką | Płasko kołnierzem do stołu |
+| [`dieselpunk_przycisk_ryfel_l.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_przycisk_ryfel_l.stl) | 1 szt. | Lewy przycisk nawigacyjny: płyta z industrialną blachą ryflowaną i chevronem `◀` | Płasko kołnierzem do stołu |
+| [`dieselpunk_przycisk_ryfel_p.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_przycisk_ryfel_p.stl) | 1 szt. | Prawy przycisk nawigacyjny: płyta z industrialną blachą ryflowaną i chevronem `▶` | Płasko kołnierzem do stołu |
+| [`dieselpunk_robot_kompletny.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_robot_kompletny.stl) | - | Pełne złożenie modelu Steam-Titan Nautilus (do podglądu w slicerze) | - |
+
 > [!TIP]
 > W katalogu `cad_models/` znajdują się dedykowane pliki **Blender**:
-> - [`robot_dreadnought.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_dreadnought.blend) – gotowa scena z modelem Cyber-Titan Dreadnought w kolorze Gunmetal Carbon z bursztynowym oświetleniem!
+> - [`robot_dieselpunk.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_dieselpunk.blend) – gotowa scena z modelem Steam-Titan Nautilus w stylu industrial steampunk (mosiądz, miedź, patynowana stal)!
+> - [`robot_dreadnought.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_dreadnought.blend) – gotowa scena z modelem Cyber-Titan Dreadnought w kolorze Gunmetal Carbon!
 > - [`robot_mecha_kawaii.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_mecha_kawaii.blend) – gotowa scena z modelem Mecha Kawaii w kolorze Sakura!
 > - [`robot_obudowa_klasyczna.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_obudowa_klasyczna.blend) – gotowa scena z modelem Retro CRT
-> - [`robot_projekt.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_projekt.blend) – projekt zawierający wszystkie wersje robota
-> Dostępne są również pliki źródłowe **STEP** (`.step`) oraz parametryczne projekty **FreeCAD** (`robot_dreadnought_3d.FCStd`, `robot_mecha_kawaii_3d.FCStd`, `robot_obudowa_3d.FCStd`).
+> - [`robot_modular_core.blend`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/robot_modular_core.blend) – demonstracja stelaża Universal Core i beznarzędziowej wymiany obudów
+> Dostępne są również pliki źródłowe **STEP** (`.step`) oraz parametryczne projekty **FreeCAD** (`robot_dieselpunk_3d.FCStd`, `robot_dreadnought_3d.FCStd`, `robot_mecha_kawaii_3d.FCStd`, `robot_obudowa_3d.FCStd`, `robot_core_chassis.FCStd`).
 
 ---
 
