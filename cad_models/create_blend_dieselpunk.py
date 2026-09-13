@@ -79,7 +79,7 @@ for filename, obj_name, material in el_parts:
         obj = bpy.context.selected_objects[0]
         obj.name = obj_name
         if filename == 'Buzzer.stl':
-            obj.location = (0.0, -2.5, 8.8)  # Osadzenie w dedykowanym gnieździe akustycznym stelaża
+            obj.location = (0.0, -4.0, 8.0)  # Osadzenie w dedykowanym gnieździe akustycznym stelaża
         obj.data.materials.append(material)
         for c in obj.users_collection:
             c.objects.unlink(obj)

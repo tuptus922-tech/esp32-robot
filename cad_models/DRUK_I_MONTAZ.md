@@ -29,23 +29,30 @@ Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Desig
 
 ---
 
-### 🧩 UNIWERSALNY STELAŻ ELEKTRONIKI v2.0 (Pro Precision Edition)
+### 🧩 UNIWERSALNY STELAŻ ELEKTRONIKI v2.2 (Free Rail Edition)
 Plik: [`cad_models/stl_print/core_chassis.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/core_chassis.stl)
 
 | Plik STL | Ilość | Opis / Rola w konstrukcji | Orientacja na stole |
 | :--- | :---: | :--- | :--- |
-| [`core_chassis.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/core_chassis.stl) | **1 szt.** | **Centralny stelaż nośny v2.0**: Dedykowane gniazdo ESP32 DevKit V1 z 2 głębokimi kanałami na 2x15 pinów goldpin + centralny tunel kablowy; maszt OLED 80° z ramką 27.4x27.4mm i otworami M2 (rozstaw 23.5x23.5mm); dedykowany kubek buzzera fi 12.4x9.5mm z otworami na piny; dedykowana kieszeń MPU-6050 21.2x16.0mm z 2 otworami M2.5; 3 kieszenie 6.5x6.5mm na switche 6x6mm z otworami na nóżki; boczne szyny Quick-Swap z zatrzaskami kulkowymi | Płasko na spodzie (Z=0, 0 podpór) |
+| [`core_chassis.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/core_chassis.stl) | **1 szt.** | **Centralny stelaż nośny v2.3 (Free Rail & Reinforced OLED Edition)**: W 100% odsłonięta, całkowicie drożna szyna montażowa ESP32 DevKit V1 (szerokość 29.2mm) z 2 głębokimi kanałami na piny goldpin (4.1x4.7mm) i tunelem kablowym; boczne pylony nośne umieszczone poza obrysem płytki (X = ±15.0..19.5mm); mostek MPU-6050 wyniesiony na Z=12.0mm ponad ESP32 z otworami M2.5 (rozstaw 15.2mm); wzmocniony maszt OLED 80° z ramką 27.6x27.6mm, 4 otworami gwintowanymi M2 (23.5x23.5mm), oknem SMD (20x16mm), slotem I2C (14x5.5mm) i szczeliną na taśmę FPC (16x2.5mm); podwójne zastrzały kratownicowe (truss); wiszący kubek buzzera fi 12.4x9.0mm podparty z pylonów bocznych; 3 kieszenie 7.2x4.5x6.8mm na switche 6x6mm ze zderzakiem ESP32 na Y=-26.0mm; szyny Quick-Swap z zatrzaskami kulkowymi | Płasko na spodzie (Z=0, 0 podpór) |
 
 > [!IMPORTANT]
-> **Dlaczego stelaż v2.0 to rewolucja?**  
-> Wcześniej elektronika w wielu projektach DIY wisiała w powietrzu lub opierała się o ścianki obudowy. W nowym stelażu **Universal Core Chassis v2.0**:
-> - **ESP32 DevKit V1**: Płytka leży na ramiakach oporowych na Z=5.8mm, a pod spodem znajdują się **dwa głębokie kanały (4.0mm szerokości x 4.5mm głębokości)** — piny goldpin lutowane od spodu nie opierają się o podłogę!
-> - **OLED 0.96" SSD1306**: Kieszeń o wymiarach 27.4 x 27.4 mm mieści standardowy laminat 27x27 mm, a 4 słupki montażowe mają fabryczny rozstaw **23.5 x 23.5 mm** (standard otworów M2 w wyświetlaczach SSD1306).
-> - **MPU-6050 (GY-521)**: Posiada własne, stabilne gniazdo na mostku konsoli z 2 otworami montażowymi M2.5 (rozstaw 15.2mm) i oknem na złącze 8-pin.
-> - **Buzzer 12mm**: Zamknięty w cylindrycznym kubku akustycznym fi 12.4 x 9.5 mm z 2 otworami na nóżki (raster 7.6mm) w dnie.
-> - **3x Tact Switch 6x6mm**: Każdy przycisk ma własną kieszeń 6.5 x 6.5 x 4.2 mm z oknem na nóżki lutownicze i otworem fi 3.4mm na trzpień.
+> **Dlaczego stelaż v2.3 to rewolucja?**  
+> Całkowicie wyeliminowano problem blokowania szyn przez pylony czy podpory oraz ułamujących się bolców OLED. W nowym stelażu **Universal Core Chassis v2.3**:
+> - **ESP32 DevKit V1**: Szyna ma pełne 29.2 mm szerokości (tolerancja na druk FDM) i jest **w 100% otwarta od góry i od tyłu**. Płytka wsuwa się gładko w prowadnice aż do przedniego zderzaka (Y=-26.0mm) i zatrzaskuje w bocznych wypustkach sprężystych na Z=7.1mm.
+> - **Głębokie kanały na piny goldpin**: Dwa kanały o szerokości 4.1 mm i głębokości 4.7 mm (od Z=5.5 do Z=0.8 mm) zapewniają, że dolne piny 2x15 goldpin wiszą swobodnie w powietrzu i nie dotykają dna!
+> - **Pylony nośne poza obrysem ESP32**: Kolumny konstrukcyjne stelaża zostały odsunięte na zewnątrz (X = ±15.0 do ±19.5 mm) – zero słupków stojących na pinach czy laminacie ESP32 (0.0000 mm³ kolizji)!
+> - **Mostek MPU-6050 (GY-521)**: Wyniesiony na Z = 12.0 mm ponad ESP32 (6.5 mm prześwitu nad płytką bazową). Płytka czujnika spoczywa stabilnie na konsoli z otworami M2.5 (rozstaw 15.2 mm) i przednim oknem kablowym na magistralę I2C.
+> - **Komora akustyczna Buzzera 12mm**: Kubek rezonansowy fi 12.4 mm wisi na Z = 23.0 mm podparty poprzecznymi ramionami z bocznych pylonów. Zero kolizji z MPU i ESP32.
+> - **Wzmocniony Maszt OLED 0.96" SSD1306 (v2.3)**: 
+>   - Gruba kieszeń nośna 3.8 mm (dla stabilności gwintów),
+>   - 4 otwory pilotowe pod wkręty M2 (fi 1.8 mm x 4.5 mm) w rozstawie 23.5 x 23.5 mm (zamiast łamliwych plastikowych bolców),
+>   - Tylne okno odciążające SMD (20.0 x 16.0 mm),
+>   - Dolne wycięcie ochronne na taśmę giętką FPC (16.0 x 2.5 mm),
+>   - Górny szeroki przepust kątowy na wtyk/złącze 4-pin I2C (14.0 x 5.5 mm),
+>   - Podwójne zastrzały kratownicowe (truss) po bokach — maszt jest sztywny jak skała!
 > - **Zarządzanie kablami**: Centralny kanał kablowy pod ESP32 pozwala schować wszystkie przewody połączeniowe. Zero wiszących kabli!
-> Montujesz i lutujesz całą elektronikę **tylko raz na stelażu**! Każda z trzech obudów górnych (Retro CRT, Mecha-Kawaii, Cyber-Titan Apex) nasuwa się na stelaż od góry wzdłuż pionowych szyn i zatrzaskuje na kulkach detent. Aby zmienić wygląd robota z Kawaii na Titana, po prostu pociągasz głowę w górę i zakładasz nową – bez śrub, bez kabli i bez kleju!
+> Montujesz i lutujesz całą elektronikę **tylko raz na stelażu**! Każda z czterech obudów górnych (Classic CRT, Mecha-Kawaii, Cyber-Titan Apex, Steam-Titan Nautilus ULTRA) nasuwa się na stelaż od góry wzdłuż szyn Quick-Swap i zatrzaskuje na kulkach detent. Aby zmienić wygląd robota, po prostu pociągasz głowę w górę i zakładasz nową – bez śrub, bez rozłączania kabli i bez kleju!
 
 ---
 
@@ -177,7 +184,8 @@ Poniższa tabela przedstawia wyniki dokładnych obliczeń booleańskich wykonany
 - **Kieszeń buzzera 12mm**:
   - Średnica cylindra stelaża: `14.4 mm`, kieszeń w głowie: `17.2 mm` (luz promieniowy `1.4 mm`).
 - **Prowadnice przycisków**:
-  - Trzpień przycisku: `fi 5.2 mm`, otwór w obudowie: `fi 5.6 mm` (precyzyjny luz suwliwy `0.2 mm` na promieniu).
+  - Trzpień przycisku: `fi 4.8 mm`, otwór w obudowie: `fi 6.2 mm` (**duży, płynny luz roboczy `0.7 mm` na stronę / `1.4 mm` na średnicy** — przyciski nie zakleszczają się w druku FDM, a otwory mieszczą również fabryczne nakładki 6.0 mm).
+  - Oparcie kołnierza: podtoczenie `fi 8.4 mm` (kołnierz klawisza `fi 7.2 mm` nie ma prawa wypaść na zewnątrz).
 
 ---
 
@@ -186,23 +194,27 @@ Poniższa tabela przedstawia wyniki dokładnych obliczeń booleańskich wykonany
 Dzięki nowemu stelażowi **Universal Core Chassis**, całą elektronikę składasz i podłączasz **tylko jeden raz na stelażu**. Od tej pory zmiana obudowy na biurku zajmuje dosłownie sekundę!
 
 ### Krok 1: Przyciski Nawigacyjne (Mikrostyki 6x6 mm)
-1. Wsuń 3 mikroprzełączniki Tact Switch 6x6 mm w dedykowane gniazda przedniej belki stelaża.
-2. Ich tylna ścianka opiera się o sztywną ścianę stelaża – nawet mocne klikanie nie ugnie konstrukcji.
-3. Podłącz piny: Lewy ➔ **GPIO 18**, Środkowy (OK) ➔ **GPIO 19**, Prawy ➔ **GPIO 23** (oraz wspólna masa GND).
+1. Wsuń 3 mikroprzełączniki Tact Switch 6x6 mm **od góry w otwarte kieszenie** przedniej belki stelaża (szerokość kieszeni 7.2 mm z bocznymi rowkami 8.6 mm na piny).
+2. Trzpienie przełączników wsuwają się gładko w przednie pionowe okna U-kształtne (szerokość 4.8 mm).
+3. Piny i przewody opadają wprost przez dolne okna (6.4 x 4.0 mm) do centralnego tunelu kablowego.
+4. Tylna ścianka kieszeni opiera się o sztywną ścianę zderzaka – klikanie jest precyzyjne i twarde.
+5. Podłącz piny: Lewy ➔ **GPIO 18**, Środkowy (OK) ➔ **GPIO 19**, Prawy ➔ **GPIO 23** (oraz wspólna masa GND).
 
 ### Krok 2: Płytka ESP32 DevKit V1
-1. Wsuń płytkę ESP32 w szyny prowadzące stelaża od góry, aż kliknie w zatrzaski krawędziowe.
-2. Przedni opór uniemożliwia przesunięcie płytki podczas podłączania kabla USB.
-3. Port USB-C / microUSB znajduje się idealnie w tylnym oknie.
+1. Wsuń płytkę ESP32 wzdłuż szyn prowadzących od tyłu (lub opuść od góry w otwarty korytarz 30mm), aż oprze się o przedni zderzak oporowy (Y=-26.0mm) i kliknie w boczne zatrzaski sprężyste na Z=7.1mm.
+2. Dwa rzędy pinów goldpin (2x15) wiszą swobodnie w głębokich kanałach (4.7mm głębokości, od Z=5.5 do 0.8mm) — zero oporu i zero kolizji.
+3. Przedni zderzak oporowy uniemożliwia przesunięcie płytki podczas podłączania kabla USB.
+4. Port microUSB / USB-C znajduje się idealnie w tylnym oknie z fazą naprowadzającą.
 
 ### Krok 3: Czujnik Ruchu MPU-6050
-1. Umieść płytkę MPU-6050 poziomo w dedykowanej niecce między szynami.
-2. Połącz przewody magistrali I2C (**SDA: GPIO 21**, **SCL: GPIO 22**, zasilanie 3.3V i GND).
+1. Umieść płytkę MPU-6050 (GY-521) poziomo na mostku sensorycznym stelaża (Z=12.0mm ponad ESP32) i opcjonalnie zabezpiecz 2 śrubkami M2.5 (rozstaw 15.2mm).
+2. Wyprowadź przewody magistrali I2C (**SDA: GPIO 21**, **SCL: GPIO 22**, zasilanie 3.3V i GND) przez przedni przepust kablowy prosto do centralnego kanału pod ESP32.
 
-### Krok 4: Wyświetlacz OLED 0.96" na Sztywnym Maszcie
-1. Wsuń płytkę OLED w ramkę ukośnego masztu (nachylenie 80°).
-2. Cztery wbudowane kołki ustalające (fi 1.6 mm) wchodzą w otwory montażowe płytki – ekran siedzi sztywno i zlicowany z kątem twarzy.
-3. Wyprowadź 4 przewody I2C przez tylne okno masztu prosto do szyn ESP32.
+### Krok 4: Wyświetlacz OLED 0.96" na Wzmocnionym Maszcie (v2.3)
+1. Włóż moduł OLED 0.96" SSD1306 do dedykowanej kieszeni (27.6 x 27.6 mm) ukośnego masztu (nachylenie 80° / -10° od pionu).
+2. Płytka lica opiera się gładko w gnieździe — tylne okno (20.0 x 16.0 mm) chroni drobne rezystory/kondensatory SMD przed jakimkolwiek dociskiem mechanicznym, a dolna szczelina (16.0 x 2.5 mm) całkowicie zabezpiecza taśmę giętką FPC szkła OLED przed załamaniem.
+3. Przykręć płytkę 2 lub 4 krótkimi wkrętami samogwintującymi **M2** (długość 4–6 mm) w fabryczne otwory pilotowe (fi 1.8 mm x 4.5 mm, rozstaw standardowy 23.5 x 23.5 mm). Koniec z ułamywaniem plastikowych bolców!
+4. Podłącz przewody I2C (**VCC**, **GND**, **SCL: GPIO 22**, **SDA: GPIO 21**) przez górne poszerzone wycięcie (14.0 x 5.5 mm) – swobodnie mieszczą się tam zarówno złącza żeńskie goldpin, jak i piny kątowe.
 
 ### Krok 5: Buzzer Piezoelektryczny 12 mm
 1. Wciśnij przetwornik buzzer 12mm od góry w cylindryczny koszyk na szczycie wieży (press-fit na klik).

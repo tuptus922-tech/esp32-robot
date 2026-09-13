@@ -87,7 +87,7 @@ for fname, oname, omat in el_items:
         obj = bpy.context.selected_objects[0]
         obj.name = oname
         if fname == 'Buzzer.stl':
-            obj.location = (0.0, -2.5, 8.8)  # Osadzenie w dedykowanym gnieździe akustycznym stelaża
+            obj.location = (0.0, -4.0, 8.0)  # Osadzenie w dedykowanym gnieździe akustycznym stelaża
         obj.data.materials.append(omat)
         for col in obj.users_collection:
             col.objects.unlink(obj)

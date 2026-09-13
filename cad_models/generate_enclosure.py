@@ -94,17 +94,22 @@ hood_raw = hollow_shell.common(box_upper_cutter)
 # -------------------------------------------------------------
 base = base_raw
 
-# 2.1 Szyny i łoże dla ESP32 DevKit V1
-rail_left = Part.makeBox(2.2, 50.0, 2.5, Vector(-16.0, -29.0, 2.0))
-rail_right = Part.makeBox(2.2, 50.0, 2.5, Vector(13.8, -29.0, 2.0))
-ledge_left = Part.makeBox(1.5, 48.0, 1.2, Vector(-14.5, -28.0, 2.0))
-ledge_right = Part.makeBox(1.5, 48.0, 1.2, Vector(13.0, -28.0, 2.0))
-front_stop = Part.makeBox(28.0, 2.0, 2.5, Vector(-14.0, -29.5, 2.0))
-
+# 2.1 Szyny i łoże dla ESP32 DevKit V1 (Szerokość 29.2 mm, piny wiszą swobodnie w kanałach)
+rail_left = Part.makeBox(2.2, 50.0, 3.5, Vector(-16.8, -29.0, 2.0))
+rail_right = Part.makeBox(2.2, 50.0, 3.5, Vector(14.6, -29.0, 2.0))
+ledge_left = Part.makeBox(1.4, 48.0, 1.5, Vector(-14.6, -28.0, 2.0))
+ledge_right = Part.makeBox(1.4, 48.0, 1.5, Vector(13.2, -28.0, 2.0))
+front_stop = Part.makeBox(29.2, 2.0, 3.5, Vector(-14.6, -29.5, 2.0))
 base = base.fuse(rail_left).fuse(rail_right).fuse(ledge_left).fuse(ledge_right).fuse(front_stop)
 
+# Kanały na piny goldpin pod ESP32 i kanał kablowy:
+pin_cut_l = Part.makeBox(3.8, 46.0, 2.8, Vector(-14.4, -28.0, 0.7))
+pin_cut_r = Part.makeBox(3.8, 46.0, 2.8, Vector( 10.6, -28.0, 0.7))
+cable_cut = Part.makeBox(13.0, 46.0, 1.8, Vector(-6.5, -28.0, 1.2))
+base = base.cut(pin_cut_l).cut(pin_cut_r).cut(cable_cut)
+
 # 2.2 Wycięcie na port USB
-usb_cut_base = Part.makeBox(13.0, 6.0, split_z - 2.8 + 0.5, Vector(-6.5, 21.0, 2.8))
+usb_cut_base = Part.makeBox(14.0, 8.0, split_z - 2.8 + 0.5, Vector(-7.0, 21.0, 2.8))
 base = base.cut(usb_cut_base)
 
 # 2.3 Kołnierz centrujący (Interlocking Lip) w kształcie U wzdłuż boków i tyłu
@@ -135,10 +140,10 @@ for fx, fy in [(-16.0, -21.0), (16.0, -21.0), (-16.0, 13.0), (16.0, 13.0)]:
     foot_pocket = Part.makeCylinder(4.1, 0.8, Vector(fx, fy, -0.1), Vector(0,0,1))
     base = base.cut(foot_pocket)
 
-# 2.6 Otwory na 3 przyciski w dolnej brodzie
+# 2.6 Otwory na 3 przyciski w dolnej brodzie (Średnica 6.2 mm z luzem suwliwym)
 for bx in [-14.0, 0.0, 14.0]:
-    btn_cut = Part.makeCylinder(2.8, 6.0, Vector(bx, -35.0, 5.6), Vector(0, 1, 0))
-    btn_shoulder = Part.makeCylinder(3.8, 2.0, Vector(bx, -31.5, 5.6), Vector(0, 1, 0))
+    btn_cut = Part.makeCylinder(3.1, 8.0, Vector(bx, -36.5, 5.6), Vector(0, 1, 0))
+    btn_shoulder = Part.makeCylinder(4.2, 2.5, Vector(bx, -32.5, 5.6), Vector(0, 1, 0))
     base = base.cut(btn_cut).cut(btn_shoulder)
 
 # -------------------------------------------------------------
@@ -202,11 +207,11 @@ hood = hood.cut(touch_indicator_1).cut(touch_indicator_2)
 # 4. KLAWISZ PRZYCISKU (Button Cap x3)
 # -------------------------------------------------------------
 btn_flange = Part.makeCylinder(3.6, 1.2, Vector(0,0,0), Vector(0,0,1))
-btn_stem = Part.makeCylinder(2.6, 4.0, Vector(0,0,1.2), Vector(0,0,1))
-btn_dome = Part.makeSphere(2.6, Vector(0,0,5.2))
-dome_box = Part.makeBox(6, 6, 3, Vector(-3, -3, 5.2))
+btn_stem = Part.makeCylinder(2.4, 4.2, Vector(0,0,1.2), Vector(0,0,1))
+btn_dome = Part.makeSphere(2.4, Vector(0,0,5.4))
+dome_box = Part.makeBox(6, 6, 3, Vector(-3, -3, 5.4))
 btn_dome = btn_dome.common(dome_box)
-btn_pusher = Part.makeCylinder(1.1, 1.5, Vector(0,0,-1.5), Vector(0,0,1))
+btn_pusher = Part.makeCylinder(1.2, 1.5, Vector(0,0,-1.5), Vector(0,0,1))
 
 button_cap = btn_flange.fuse(btn_stem).fuse(btn_dome).fuse(btn_pusher)
 button_cap.translate(Vector(0, 0, 1.5))
