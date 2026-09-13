@@ -78,6 +78,8 @@ for filename, obj_name, material in el_parts:
         bpy.ops.wm.stl_import(filepath=fpath)
         obj = bpy.context.selected_objects[0]
         obj.name = obj_name
+        if filename == 'Buzzer.stl':
+            obj.location = (0.0, -2.5, 8.8)  # Osadzenie w dedykowanym gnieździe akustycznym stelaża
         obj.data.materials.append(material)
         for c in obj.users_collection:
             c.objects.unlink(obj)

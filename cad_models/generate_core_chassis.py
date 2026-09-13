@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generator Uniwersalnego Stelaża Elektroniki (Universal Core Chassis v2.0 - Pro Precision Edition)
+Generator Uniwersalnego Stelaża Elektroniki (Universal Core Chassis v2.1 - Open Bay Edition)
 Zaprojektowany od zera pod DOKŁADNE WYMIARY każdego podzespołu elektronicznego:
 1. Dedykowane gniazdo ESP32 DevKit V1 (30-pin, 28.5 mm):
    - Wymiary gniazda: 51.8 x 28.7 mm, ramy oporowe PCB na Z=5.8 mm
@@ -8,14 +8,16 @@ Zaprojektowany od zera pod DOKŁADNE WYMIARY każdego podzespołu elektroniczneg
    - Centralny tunel kablowy pod ESP32 (13.0 mm szer. x 3.2 mm gł.) dla wiązek przewodów
    - Zatrzaski sprężyste (snap-fit) i zderzak przedni
    - Port USB z fazą wprowadzającą 45° dla kabli micro-USB / USB-C
-2. Dedykowana konsola czujnika ruchu MPU-6050 (GY-521):
-   - Precyzyjna kieszeń: 21.2 x 16.0 x 2.2 mm (PCB 20.8 x 15.6 mm)
-   - 2x otwory montażowe M2.5 w standardowym rozstawie GY-521 (15.2 mm)
-   - Przepust na złącze 8-pin I2C do głównego kanału kablowego
+2. Dedykowana, W PEŁNI ODSŁONIĘTA KONSOLA MPU-6050 (GY-521: 20.8 x 15.6 mm):
+   - Moduł żyroskopu/akcelerometru NIE JEST ZATOPIONY W ŻADNYCH ŚCIANACH (0.0 mm³ kolizji)!
+   - Nogi podpierające mostek umieszczone na zewnątrz modułu (X = ±11.0 do ±13.5 mm)
+   - Kolumna buzzera umieszczona CAŁKOWICIE ZA MODUŁEM (Y = +11.2 do +15.0 mm)
+   - Płaska półka pod moduł z 2 otworami M2.5 w standardowym rozstawie GY-521 (15.2 mm)
+   - Przednie okno na złącze 8-pin I2C wprost do kanału kablowego
 3. Dedykowana komora akustyczna Buzzera 12mm:
    - Cylindryczne gniazdo: fi 12.4 mm x 9.5 mm głębokości (buzzer chowa się na równo)
    - 2x otwory na nóżki buzzera w dnie (rozstaw 7.6 mm standard)
-   - Boczny kanał wyprowadzenia przewodów do GPIO 25
+   - Pylon nośny wychodzący z tylnej części stelaża za czujnikiem MPU
 4. Precyzyjne gniazdo ekranu OLED 0.96" I2C SSD1306:
    - Kieszeń na laminat: 27.4 x 27.4 x 1.8 mm (dla standardowej płytki 27.0 x 27.0 mm)
    - 4x słupki montażowe z kołkami fi 1.8 mm w dokładnym rozstawie 23.5 x 23.5 mm (standard M2 OLED)
@@ -42,7 +44,7 @@ import Import
 import MeshPart
 from FreeCAD import Vector, Rotation, Placement
 
-print("=== Generowanie Nowego Stelaża Elektroniki: Universal Core Chassis v2.0 ===")
+print("=== Generowanie Nowego Stelaża Elektroniki: Universal Core Chassis v2.1 ===")
 
 base_dir = '/home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/'
 stl_dir = os.path.join(base_dir, 'stl_print')
@@ -133,25 +135,25 @@ for bx in [-14.0, 0.0, 14.0]:
     core = core.cut(sw_pocket).cut(sw_hole).cut(sw_wire_drop)
 
 # -------------------------------------------------------------
-# 4. DEDYKOWANA KONSOLA CZUJNIKA MPU-6050 (GY-521: 20.8 x 15.6 mm)
+# 4. DEDYKOWANA, ODSŁONIĘTA KONSOLA CZUJNIKA MPU-6050 (GY-521)
 # -------------------------------------------------------------
-# Mostek konsoli z nogami nośnymi podpierającymi konstrukcję
-leg_l = Part.makeBox(2.5, 18.0, 7.5, Vector(-13.5, -7.0, 1.8))
-leg_r = Part.makeBox(2.5, 18.0, 7.5, Vector( 11.0, -7.0, 1.8))
-mpu_bridge = Part.makeBox(27.0, 18.0, 3.5, Vector(-13.5, -7.0, 8.5))
-core = core.fuse(leg_l).fuse(leg_r).fuse(mpu_bridge)
+# Płytka MPU-6050 ma wymiary 20.8 x 15.6 mm (X: [-10.25, 10.25], Y: [-5.0, 10.6], Z: [10.0, 12.6])
+# Nogi wspornikowe umieszczamy CAŁKOWICIE NA ZEWNĄTRZ MPU (X: -13.5 do -10.8 i +10.8 do +13.5):
+mpu_leg_l = Part.makeBox(2.7, 16.0, 8.0, Vector(-13.5, -5.5, 1.8))
+mpu_leg_r = Part.makeBox(2.7, 16.0, 8.0, Vector( 10.8, -5.5, 1.8))
+# Półka pod MPU-6050 na wysokości Z = 8.5 do 10.0 mm (płytka leży na Z = 10.0 mm)
+mpu_shelf_floor = Part.makeBox(27.0, 16.5, 1.5, Vector(-13.5, -5.5, 8.5))
+core = core.fuse(mpu_leg_l).fuse(mpu_leg_r).fuse(mpu_shelf_floor)
 
-# Precyzyjna kieszeń na płytkę GY-521: 21.2 x 16.0 x 2.2 mm
-mpu_pocket = Part.makeBox(21.2, 16.0, 2.2, Vector(-10.6, -6.0, 10.0))
-# 2 otwory montażowe M2.5 w standardowym rozstawie 15.2 mm
-mpu_h1 = Part.makeCylinder(1.3, 5.0, Vector(-7.6, 7.5, 8.0), Vector(0, 0, 1))
-mpu_h2 = Part.makeCylinder(1.3, 5.0, Vector( 7.6, 7.5, 8.0), Vector(0, 0, 1))
-# Przepust na 8-pinowy header I2C
-mpu_wire_slot = Part.makeBox(20.4, 3.5, 4.0, Vector(-10.2, -5.5, 8.0))
-core = core.cut(mpu_pocket).cut(mpu_h1).cut(mpu_h2).cut(mpu_wire_slot)
+# 2 otwory montażowe M2.5 w standardowym rozstawie GY-521 (15.2 mm, czyli X = ±7.6 mm)
+mpu_h1 = Part.makeCylinder(1.3, 4.0, Vector(-7.6, 7.5, 7.5), Vector(0, 0, 1))
+mpu_h2 = Part.makeCylinder(1.3, 4.0, Vector( 7.6, 7.5, 7.5), Vector(0, 0, 1))
+# Przepust kablowy z przodu na złącze 8-pin I2C wprost do kanału kablowego
+mpu_wire_drop = Part.makeBox(18.0, 3.0, 4.0, Vector(-9.0, -5.2, 7.5))
+core = core.cut(mpu_h1).cut(mpu_h2).cut(mpu_wire_drop)
 
 # -------------------------------------------------------------
-# 5. DEDYKOWANA KOMORA BUZZERA 12mm (Acoustic Resonance Cup)
+# 5. DEDYKOWANA KOMORA BUZZERA 12mm (Podparta Z TYŁU za MPU!)
 # -------------------------------------------------------------
 buzzer_mount_pos = Vector(0.0, 7.5, 23.0)
 # Kubek zewnętrzny fi 14.6 mm, wewnętrzny fi 12.4 mm x 9.5 mm głębokości
@@ -162,12 +164,15 @@ buzzer_pin1 = Part.makeCylinder(0.9, 3.0, buzzer_mount_pos + Vector(-3.8, 0, -1.
 buzzer_pin2 = Part.makeCylinder(0.9, 3.0, buzzer_mount_pos + Vector( 3.8, 0, -1.0), Vector(0, 0, 1))
 # Szczelina na przewody
 buzzer_wire_notch = Part.makeBox(3.5, 8.0, 6.0, buzzer_mount_pos + Vector(-1.75, -4.0, 0.5))
-buzzer_chamber = buzzer_cup_outer.cut(buzzer_cup_inner).cut(buzzer_pin1).cut(buzzer_pin2).cut(buzzer_wire_notch)
+# Masywny pylon tylny umieszczony przy Y = 11.2 do 15.0 mm (CAŁKOWICIE ZA MPU-6050, które kończy się na Y = 10.6 mm!)
+buzzer_rear_arch = Part.makeBox(13.0, 3.8, 22.0, Vector(-6.5, 11.2, 1.8))
+# Ramiona nośne łączące pylon tylny z kubkiem buzzera (od Z = 20.0 mm w górę - daleko ponad MPU!)
+buzzer_arm_l = Part.makeBox(2.5, 7.5, 6.0, Vector(-6.0, 7.5, 20.0))
+buzzer_arm_r = Part.makeBox(2.5, 7.5, 6.0, Vector( 3.5, 7.5, 20.0))
 
-# Masywne kolumny nośne buzzera (nie cienkie patyki!)
-buzzer_col_l = Part.makeBox(2.5, 14.0, 23.0, Vector(-7.0, 0.5, 1.8))
-buzzer_col_r = Part.makeBox(2.5, 14.0, 23.0, Vector( 4.5, 0.5, 1.8))
-core = core.fuse(buzzer_chamber).fuse(buzzer_col_l).fuse(buzzer_col_r)
+buzzer_structure = buzzer_cup_outer.fuse(buzzer_rear_arch).fuse(buzzer_arm_l).fuse(buzzer_arm_r)
+buzzer_chamber = buzzer_structure.cut(buzzer_cup_inner).cut(buzzer_pin1).cut(buzzer_pin2).cut(buzzer_wire_notch)
+core = core.fuse(buzzer_chamber)
 
 # -------------------------------------------------------------
 # 6. DEDYKOWANY MASZT I GNIAZDO EKRANU OLED 0.96" SSD1306 (27x27 mm)
@@ -232,7 +237,7 @@ for fx, fy in [(-16.0, -21.0), (16.0, -21.0), (-16.0, 13.0), (16.0, 13.0)]:
 # -------------------------------------------------------------
 # WALIDACJA GEOMETRII I EKSPORT
 # -------------------------------------------------------------
-print("\n--- Walidacja Nowego Stelaża Universal Core Chassis v2.0 ---")
+print("\n--- Walidacja Nowego Stelaża Universal Core Chassis v2.1 ---")
 is_valid = core.isValid()
 is_closed = core.isClosed()
 num_solids = len(core.Solids)
@@ -262,4 +267,4 @@ Import.export([obj], step_out)
 print(f"Zapisano nowy STEP: {step_out}")
 doc.saveAs(fcstd_out)
 print(f"Zapisano nowy projekt FreeCAD: {fcstd_out}")
-print("=== Zakończono generowanie Nowego Stelaża Elektroniki v2.0! ===")
+print("=== Zakończono generowanie Nowego Stelaża Elektroniki v2.1! ===")
