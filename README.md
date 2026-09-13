@@ -78,16 +78,16 @@ pio device monitor -b 115200
 ## 🖨️ KROK 2: Druk 3D — Dokładna lista plików STL
 
 Projekt wykorzystuje modułowy system **Core-and-Armor**:
-1. **Drukujesz ZAWSZE 1x Stelaż Centralny (Core Chassis)** — to w nim na stałe mieszka cała elektronika.
-2. **Wybierasz 1 z 3 obudów zewnętrznych (Głowa + Klawisze)** — nasuwasz ją od góry na stelaż!
+1. **Drukujesz ZAWSZE 1x Stelaż Centralny (Universal Core Chassis v2.0 - Pro Precision Edition)** — to w nim na stałe mieszka cała elektronika w dedykowanych gniazdach pod dokładne wymiary fabryczne podzespołów.
+2. **Wybierasz 1 z 4 obudów zewnętrznych (Głowa + Klawisze)** — nasuwasz ją od góry na stelaż (**Quick-Swap Slide-On**)!
 
 ---
 
 ### 🧩 CZĘŚĆ 1: Centralny Stelaż (Drukujesz ZAWSZE, 1 raz dla każdego robota)
 
-| Plik STL | Ilość | Ścieżka do pliku | Uwagi montażowe |
+| Plik STL | Ilość | Ścieżka do pliku | Dedykowane gniazda i wymiary |
 | :--- | :---: | :--- | :--- |
-| **`core_chassis.stl`** | **1 szt.** | [`cad_models/stl_print/core_chassis.stl`](cad_models/stl_print/core_chassis.stl) | Płasko na spodzie (Z=0). Mieści ESP32, OLED pod kątem 80°, buzzer 12mm, MPU6050 i 3 switche. |
+| **`core_chassis.stl`** | **1 szt.** | [`cad_models/stl_print/core_chassis.stl`](cad_models/stl_print/core_chassis.stl) | **Stelaż v2.0 z dedykowanymi gniazdami:**<br>• **ESP32 DevKit V1**: gniazdo 51.8x28.7mm z 2 głębokimi kanałami na 2x15 pinów goldpin + tunel kablowy<br>• **OLED 0.96" I2C**: kieszeń 27.4x27.4mm, standardowe otwory M2 w rozstawie **23.5x23.5mm**, kąt 80° z kratownicą<br>• **MPU-6050 (GY-521)**: kieszeń 21.2x16.0mm, 2x otwory M2.5 (rozstaw 15.2mm) i okno na piny<br>• **Buzzer 12mm**: kubek akustyczny fi 12.4x9.5mm z 2 otworami na piny (rozstaw 7.6mm)<br>• **3x Switche 6x6mm**: 3 kieszenie 6.5x6.5x4.2mm z przepustami na nóżki |
 
 ---
 

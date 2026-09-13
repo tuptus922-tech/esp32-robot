@@ -29,15 +29,22 @@ Wszystkie modele zostały zaprojektowane w pełnej zgodności z zasadami **Desig
 
 ---
 
-### 🧩 UNIWERSALNY STELAŻ ELEKTRONIKI (Złóż raz i wymieniaj obudowy w sekundę!)
+### 🧩 UNIWERSALNY STELAŻ ELEKTRONIKI v2.0 (Pro Precision Edition)
 Plik: [`cad_models/stl_print/core_chassis.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/core_chassis.stl)
 
 | Plik STL | Ilość | Opis / Rola w konstrukcji | Orientacja na stole |
 | :--- | :---: | :--- | :--- |
-| [`core_chassis.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/core_chassis.stl) | **1 szt.** | **Centralny stelaż nośny**: łoże ESP32 z zatrzaskami, maszt OLED 80° z ramką ustalającą, koszyk buzzera 12mm, kieszeń MPU-6050, belka oporowa 3x Tact Switch 6x6mm oraz szyny szybkiego montażu Quick-Swap | Płasko na spodzie (Z=0, 0 podpór) |
+| [`core_chassis.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/core_chassis.stl) | **1 szt.** | **Centralny stelaż nośny v2.0**: Dedykowane gniazdo ESP32 DevKit V1 z 2 głębokimi kanałami na 2x15 pinów goldpin + centralny tunel kablowy; maszt OLED 80° z ramką 27.4x27.4mm i otworami M2 (rozstaw 23.5x23.5mm); dedykowany kubek buzzera fi 12.4x9.5mm z otworami na piny; dedykowana kieszeń MPU-6050 21.2x16.0mm z 2 otworami M2.5; 3 kieszenie 6.5x6.5mm na switche 6x6mm z otworami na nóżki; boczne szyny Quick-Swap z zatrzaskami kulkowymi | Płasko na spodzie (Z=0, 0 podpór) |
 
 > [!IMPORTANT]
-> **Dlaczego stelaż to rewolucja?**  
+> **Dlaczego stelaż v2.0 to rewolucja?**  
+> Wcześniej elektronika w wielu projektach DIY wisiała w powietrzu lub opierała się o ścianki obudowy. W nowym stelażu **Universal Core Chassis v2.0**:
+> - **ESP32 DevKit V1**: Płytka leży na ramiakach oporowych na Z=5.8mm, a pod spodem znajdują się **dwa głębokie kanały (4.0mm szerokości x 4.5mm głębokości)** — piny goldpin lutowane od spodu nie opierają się o podłogę!
+> - **OLED 0.96" SSD1306**: Kieszeń o wymiarach 27.4 x 27.4 mm mieści standardowy laminat 27x27 mm, a 4 słupki montażowe mają fabryczny rozstaw **23.5 x 23.5 mm** (standard otworów M2 w wyświetlaczach SSD1306).
+> - **MPU-6050 (GY-521)**: Posiada własne, stabilne gniazdo na mostku konsoli z 2 otworami montażowymi M2.5 (rozstaw 15.2mm) i oknem na złącze 8-pin.
+> - **Buzzer 12mm**: Zamknięty w cylindrycznym kubku akustycznym fi 12.4 x 9.5 mm z 2 otworami na nóżki (raster 7.6mm) w dnie.
+> - **3x Tact Switch 6x6mm**: Każdy przycisk ma własną kieszeń 6.5 x 6.5 x 4.2 mm z oknem na nóżki lutownicze i otworem fi 3.4mm na trzpień.
+> - **Zarządzanie kablami**: Centralny kanał kablowy pod ESP32 pozwala schować wszystkie przewody połączeniowe. Zero wiszących kabli!
 > Montujesz i lutujesz całą elektronikę **tylko raz na stelażu**! Każda z trzech obudów górnych (Retro CRT, Mecha-Kawaii, Cyber-Titan Apex) nasuwa się na stelaż od góry wzdłuż pionowych szyn i zatrzaskuje na kulkach detent. Aby zmienić wygląd robota z Kawaii na Titana, po prostu pociągasz głowę w górę i zakładasz nową – bez śrub, bez kabli i bez kleju!
 
 ---
