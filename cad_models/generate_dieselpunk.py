@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
 """
-Generator parametrycznej obudowy robota ESP32: Wersja 4 - Steam-Titan Nautilus
-Ciężki Industrial Dieselpunk / Parowy Golem / Steampunk Nautilus:
+Generator parametrycznej obudowy robota ESP32: Wersja 4 - Steam-Titan Nautilus ULTRA
+Ciężki Industrial Dieselpunk / Parowy Golem / Steampunk Nautilus - WERSJA MAKSYMALNA:
 - Czasza wysokociśnieniowego kotła parowego (High-Pressure Steam Boiler Hull)
-- Podwójne wiktoriańskie kominy parowe z kryzami i radiatorami (Twin Steam Smokestacks)
-- Pancerne pałąki ochronne klatki bezpieczeństwa / iluminatora batyskafu (Roll-Cage Viewport)
-- Dwa wielkie boczne analogowe manometry ciśnienia pary (Side Pressure Gauges) ze wskazówkami w czerwonej strefie
-- Zewnętrzne rurociągi parowe wysokiego ciśnienia ze złączkami kołnierzowymi (Steam Conduits & Flanges)
-- Pasy pancerne z 32 trójwymiarowymi nitami kotłowymi (Riveted Armor Straps)
-- Dedykowane przyciski industrialne: 6-ramienne koło zaworu parowego (Valve Wheel) oraz płyty ryflowane z chevronami
+- Podwójne wiktoriańskie kominy parowe z kryzami chłodzącymi i kołnierzami kotwiczącymi (Twin Victorian Smokestacks)
+- Pancerne pałąki ochronne klatki bezpieczeństwa / iluminatora batyskafu (Roll-Cage Crash Bars)
+- Dwa wielkie boczne analogowe manometry ciśnienia pary (Side Pressure Gauges) ze wskaźnikami
+- Zewnętrzne rurociągi parowe wysokiego ciśnienia z kołnierzami śrubowymi (Steam Conduits & Flanges)
+- Pasy pancerne z 29 trójwymiarowymi nitami kotłowymi (Riveted Armor Straps)
+- Odsłonięte koła zębate napędowe po bokach (Exposed Drive Gears / Cogs)
+- Boczne iluminatory okrętowe z pierścieniami mosiężnymi i śrubami (Brass Portholes)
+- Pancerne kratki wentylacyjne z żaluzjami pod kątem 30° (Armored Louvered Vents)
+- Podwójne zawory bezpieczeństwa nadciśnieniowe na dachu kotła (Pressure Relief Valves)
+- Wieżyczka peryskopowa z soczewką i pierścieniami (Periscope Tower)
+- Śruby sześciokątne zorientowane prostopadle na panelach i pasach (Hex Bolt Heads)
+- Tabliczka identyfikacyjna z nitami mocującymi (Armored Nameplate)
+- Dedykowane przyciski industrialne: 6-ramienne koło zaworu parowego + płyty ryflowane z chevronami
 - 100% kompatybilność z modułowym stelażem Universal Core Chassis (Slide-On, 0 kolizji, 0 podpór)
 """
 
@@ -23,7 +30,7 @@ import Mesh
 import MeshPart
 from FreeCAD import Vector
 
-print("=== Generowanie bryły: STEAM-TITAN NAUTILUS (Industrial Dieselpunk / Steampunk) ===")
+print("=== Generowanie bryły: STEAM-TITAN NAUTILUS ULTRA (Industrial Dieselpunk Max) ===")
 
 base_dir = '/home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models'
 stl_diesel_dir = os.path.join(base_dir, 'stl_print', 'dieselpunk')
@@ -185,7 +192,7 @@ for fx, fy in [(-16.0, -21.0), (16.0, -21.0), (-16.0, 13.0), (16.0, 13.0)]:
     base = base.cut(foot_pocket)
 
 # -------------------------------------------------------------
-# 3. WYMIENNA GŁOWA STEAM-TITAN NAUTILUS (Slide-On Hood)
+# 3. WYMIENNA GŁOWA STEAM-TITAN NAUTILUS ULTRA (Slide-On Hood)
 # -------------------------------------------------------------
 hood = hood_raw
 
@@ -208,7 +215,7 @@ o_pts = [
     Vector(-how + oc, 0,  hoh)
 ]
 o_wire = Part.Wire([Part.makeLine(o_pts[i], o_pts[i+1]) for i in range(len(o_pts)-1)])
-o_solid = Part.Face(o_wire).extrude(Vector(0, -6.0, 0)).translate(Vector(0, 1.0, 0))
+o_solid = Part.Face(o_wire).extrude(Vector(0, -7.0, 0)).translate(Vector(0, 1.5, 0))
 
 iw, ih = 23.6, 12.6
 hiw, hih = iw / 2.0, ih / 2.0
@@ -250,15 +257,21 @@ hood = hood.fuse(rollcage_group)
 # 3.3 PODWÓJNE WIKTORIAŃSKIE KOMINY PAROWE (Twin Victorian Smokestacks)
 chimneys_group = None
 for sx in [-9.5, 9.5]:
-    stack_base = Part.makeCone(6.4, 5.4, 4.0, Vector(sx, 8.0, 44.5), Vector(0,0,1))
-    stack_stem = Part.makeCylinder(5.4, 9.0, Vector(sx, 8.0, 48.0), Vector(0,0,1))
+    anchor_flange = Part.makeCylinder(7.2, 1.5, Vector(sx, 8.0, 44.0), Vector(0,0,1))
+    stack_base = Part.makeCone(6.8, 5.4, 4.0, Vector(sx, 8.0, 44.5), Vector(0,0,1))
+    stack_stem = Part.makeCylinder(5.4, 9.5, Vector(sx, 8.0, 48.0), Vector(0,0,1))
     ring1 = Part.makeTorus(5.4, 0.9, Vector(sx, 8.0, 49.5), Vector(0,0,1))
     ring2 = Part.makeTorus(5.4, 0.9, Vector(sx, 8.0, 52.5), Vector(0,0,1))
-    flare = Part.makeCone(5.4, 7.2, 3.5, Vector(sx, 8.0, 54.5), Vector(0,0,1))
-    lip_crown = Part.makeCylinder(7.2, 1.2, Vector(sx, 8.0, 57.0), Vector(0,0,1))
-    stack_bore = Part.makeCylinder(3.6, 17.0, Vector(sx, 8.0, 42.0), Vector(0,0,1))
+    ring3 = Part.makeTorus(5.4, 0.8, Vector(sx, 8.0, 54.5), Vector(0,0,1))
+    flare = Part.makeCone(5.4, 7.4, 3.5, Vector(sx, 8.0, 55.0), Vector(0,0,1))
+    lip_crown = Part.makeCylinder(7.4, 1.4, Vector(sx, 8.0, 58.0), Vector(0,0,1))
+    crown_lip = Part.makeTorus(7.4, 0.8, Vector(sx, 8.0, 58.0), Vector(0,0,1))
+    stack_bore = Part.makeCylinder(3.6, 20.0, Vector(sx, 8.0, 42.0), Vector(0,0,1))
     
-    stack_solid = stack_base.fuse(stack_stem).fuse(ring1).fuse(ring2).fuse(flare).fuse(lip_crown).cut(stack_bore)
+    stack_solid = (anchor_flange.fuse(stack_base).fuse(stack_stem)
+                   .fuse(ring1).fuse(ring2).fuse(ring3)
+                   .fuse(flare).fuse(lip_crown).fuse(crown_lip)
+                   .cut(stack_bore))
     chimneys_group = stack_solid if chimneys_group is None else chimneys_group.fuse(stack_solid)
 
 hood = hood.fuse(chimneys_group)
@@ -266,14 +279,16 @@ hood = hood.fuse(chimneys_group)
 # 3.4 BOCZNE ANALOGOWE MANOMETRY CIŚNIENIA PARY (Steam Pressure Gauges)
 gauges_group = None
 for side_x, normal_x in [(-26.5, -1.0), (26.5, 1.0)]:
-    # Zewnętrzny pierścień wysunięty o 4.5 mm na zewnątrz
-    gauge_body = Part.makeCylinder(10.5, 4.5, Vector(side_x, 1.0, 27.5), Vector(normal_x, 0, 0))
-    # Tarcza cofnięta o 2.0 mm
-    gauge_cut = Part.makeCylinder(8.0, 2.0, Vector(side_x + (4.6 * normal_x), 1.0, 27.5), Vector(-normal_x, 0, 0))
+    gauge_body = Part.makeCylinder(10.5, 4.8, Vector(side_x, 1.0, 27.5), Vector(normal_x, 0, 0))
+    gauge_cut = Part.makeCylinder(8.0, 2.0, Vector(side_x + (4.9 * normal_x), 1.0, 27.5), Vector(-normal_x, 0, 0))
     gauge_bezel = gauge_body.cut(gauge_cut)
     
+    # Rant zewnętrzny
+    gauge_rim = Part.makeTorus(10.5, 0.7, Vector(side_x + (4.8 * normal_x), 1.0, 27.5), Vector(normal_x, 0, 0))
+    gauge_bezel = gauge_bezel.fuse(gauge_rim)
+    
     # Piasta wskazówki
-    hub = Part.makeCylinder(2.0, 1.2, Vector(side_x + (2.5 * normal_x), 1.0, 27.5), Vector(normal_x, 0, 0))
+    hub = Part.makeCylinder(2.0, 1.4, Vector(side_x + (2.5 * normal_x), 1.0, 27.5), Vector(normal_x, 0, 0))
     gauge_bezel = gauge_bezel.fuse(hub)
     
     # Wskazówka w czerwonej strefie (kąt -45°)
@@ -297,10 +312,18 @@ hood = hood.fuse(gauges_group)
 pipes_group = None
 for px in [-27.2, 27.2]:
     pipe = Part.makeCylinder(1.8, 38.0, Vector(px, -18.0, 14.5), Vector(0, 1, 0))
-    flange1 = Part.makeCylinder(2.6, 2.0, Vector(px, -11.0, 14.5), Vector(0, 1, 0))
-    flange2 = Part.makeCylinder(2.6, 2.0, Vector(px,  10.0, 14.5), Vector(0, 1, 0))
-    p_solid = pipe.fuse(flange1).fuse(flange2)
+    flange1 = Part.makeCylinder(2.6, 2.0, Vector(px, -14.0, 14.5), Vector(0, 1, 0))
+    flange2 = Part.makeCylinder(2.6, 2.0, Vector(px,   2.0, 14.5), Vector(0, 1, 0))
+    flange3 = Part.makeCylinder(2.6, 2.0, Vector(px,  16.0, 14.5), Vector(0, 1, 0))
+    p_solid = pipe.fuse(flange1).fuse(flange2).fuse(flange3)
     pipes_group = p_solid if pipes_group is None else pipes_group.fuse(p_solid)
+
+# Górne rurociągi po dachu kotła
+for py_off in [-5.0, 5.0]:
+    top_pipe = Part.makeCylinder(1.3, 34.0, Vector(-17.0, py_off, 46.5), Vector(1, 0, 0))
+    top_flange1 = Part.makeCylinder(2.0, 1.5, Vector(-12.0, py_off, 46.5), Vector(1, 0, 0))
+    top_flange2 = Part.makeCylinder(2.0, 1.5, Vector( 8.0, py_off, 46.5), Vector(1, 0, 0))
+    pipes_group = pipes_group.fuse(top_pipe).fuse(top_flange1).fuse(top_flange2)
 
 hood = hood.fuse(pipes_group)
 
@@ -314,32 +337,10 @@ strap_f = strap_front.common(strap_shell)
 strap_b = strap_back.common(strap_shell)
 hood = hood.fuse(strap_f).fuse(strap_b)
 
-# 3D nity kotłowe
-rivet_positions = [
-    Vector(-18.0, -14.0, 46.2),
-    Vector( -6.0, -14.0, 46.4),
-    Vector(  6.0, -14.0, 46.4),
-    Vector( 18.0, -14.0, 46.2),
-    Vector(-18.0,  17.0, 46.2),
-    Vector( -4.0,  17.0, 46.4),
-    Vector(  4.0,  17.0, 46.4),
-    Vector( 18.0,  17.0, 46.2),
-    Vector(-27.0, -14.0, 20.0),
-    Vector(-27.0, -14.0, 36.0),
-    Vector(-27.0,  17.0, 20.0),
-    Vector(-27.0,  17.0, 36.0),
-    Vector( 27.0, -14.0, 20.0),
-    Vector( 27.0, -14.0, 36.0),
-    Vector( 27.0,  17.0, 20.0),
-    Vector( 27.0,  17.0, 36.0),
-    Vector(-12.0, -25.5, 39.5),
-    Vector(  0.0, -26.0, 39.8),
-    Vector( 12.0, -25.5, 39.5)
-]
-
-for r_pos in rivet_positions:
-    r_solid = Part.makeSphere(1.5, r_pos)
-    hood = hood.fuse(r_solid)
+# Środkowy pas pancerny (Mid Armor Belt)
+strap_mid_box = Part.makeBox(55.0, 60.0, 3.5, Vector(-27.5, -30.0, 28.0))
+strap_mid = strap_mid_box.common(strap_shell)
+hood = hood.fuse(strap_mid)
 
 # 3.7 TYLNY ZBIORNIK CIŚNIENIOWY I WŁAZ INSPEKCYJNY (Rear Hatch)
 hatch_frame = Part.makeCylinder(11.0, 1.8, Vector(0, 23.5, 26.0), Vector(0, 1, 0))
@@ -352,10 +353,138 @@ hatch_hub = Part.makeCylinder(1.5, 1.6, Vector(0, 24.8, 26.0), Vector(0, 1, 0))
 hatch_assembly = hatch_frame.cut(hatch_cut).fuse(hatch_plate).fuse(hatch_wheel).fuse(hatch_spoke1).fuse(hatch_spoke2).fuse(hatch_hub)
 hood = hood.fuse(hatch_assembly)
 
+# 3.8 ODSŁONIĘTE KOŁA ZĘBATE NAPĘDOWE (Exposed Drive Gears / Cogs)
+gears_group = None
+for side_x, normal_x in [(-25.5, -1), (25.5, 1)]:
+    mount_stub_big = Part.makeCylinder(4.0, 4.0, Vector(side_x - 2.0*normal_x, -6.0, 17.5), Vector(normal_x, 0, 0))
+    gear_big = Part.makeCylinder(7.0, 2.2, Vector(side_x, -6.0, 17.5), Vector(normal_x, 0, 0))
+    gear_big_bore = Part.makeCylinder(3.0, 3.0, Vector(side_x - normal_x, -6.0, 17.5), Vector(normal_x, 0, 0))
+    gear_big_hub = Part.makeCylinder(3.5, 2.8, Vector(side_x, -6.0, 17.5), Vector(normal_x, 0, 0))
+    for i in range(12):
+        ang = math.radians(30 * i)
+        tx = -6.0 + 7.0 * math.cos(ang)
+        tz = 17.5 + 7.0 * math.sin(ang)
+        tooth = Part.makeBox(1.8, 2.2, 2.2, Vector(side_x, tx - 1.1, tz - 1.1))
+        tooth.rotate(Vector(side_x, -6.0, 17.5), Vector(normal_x, 0, 0), math.degrees(ang))
+        gear_big = gear_big.fuse(tooth)
+    gear_big = gear_big.cut(gear_big_bore).fuse(gear_big_hub).fuse(mount_stub_big)
+    
+    mount_stub_small = Part.makeCylinder(2.5, 4.0, Vector(side_x - 2.0*normal_x, -6.0, 28.0), Vector(normal_x, 0, 0))
+    gear_small = Part.makeCylinder(4.0, 2.2, Vector(side_x, -6.0, 28.0), Vector(normal_x, 0, 0))
+    gear_small_bore = Part.makeCylinder(1.5, 3.0, Vector(side_x - normal_x, -6.0, 28.0), Vector(normal_x, 0, 0))
+    for i in range(8):
+        ang = math.radians(45 * i + 22.5)
+        tx = -6.0 + 4.0 * math.cos(ang)
+        tz = 28.0 + 4.0 * math.sin(ang)
+        tooth = Part.makeBox(1.5, 2.2, 1.5, Vector(side_x, tx - 0.75, tz - 0.75))
+        tooth.rotate(Vector(side_x, -6.0, 28.0), Vector(normal_x, 0, 0), math.degrees(ang))
+        gear_small = gear_small.fuse(tooth)
+    gear_small = gear_small.cut(gear_small_bore).fuse(mount_stub_small)
+    
+    gear_pair = gear_big.fuse(gear_small)
+    gears_group = gear_pair if gears_group is None else gears_group.fuse(gear_pair)
+
+hood = hood.fuse(gears_group)
+
+# 3.9 BOCZNE ILUMINATORY OKRĘTOWE (Brass Portholes)
+portholes_group = None
+for side_x, normal_x in [(-25.5, -1), (25.5, 1)]:
+    for py in [-18.0, 10.0]:
+        port_mount = Part.makeCylinder(4.2, 3.5, Vector(side_x - 1.5*normal_x, py, 38.0), Vector(normal_x, 0, 0))
+        port_rim = Part.makeCylinder(4.2, 2.0, Vector(side_x + 1.0*normal_x, py, 38.0), Vector(normal_x, 0, 0))
+        port_glass = Part.makeCylinder(2.8, 3.0, Vector(side_x + 1.2*normal_x, py, 38.0), Vector(normal_x, 0, 0))
+        port_frame = port_mount.fuse(port_rim).cut(port_glass)
+        for pi in range(4):
+            pang = math.radians(90 * pi + 45)
+            py2 = py + 3.4 * math.cos(pang)
+            pz2 = 38.0 + 3.4 * math.sin(pang)
+            port_screw = Part.makeCylinder(0.6, 1.2, Vector(side_x + 1.8*normal_x, py2, pz2), Vector(normal_x, 0, 0))
+            port_frame = port_frame.fuse(port_screw)
+        portholes_group = port_frame if portholes_group is None else portholes_group.fuse(port_frame)
+
+hood = hood.fuse(portholes_group)
+
+# 3.10 ZAWORY BEZPIECZEŃSTWA NADCIŚNIENIOWE (Pressure Relief Valves)
+valves_group = None
+for vy in [-3.0, 14.0]:
+    v_base = Part.makeCylinder(2.6, 3.5, Vector(0, vy, 45.0), Vector(0, 0, 1))
+    v_stem = Part.makeCylinder(1.4, 5.0, Vector(0, vy, 48.0), Vector(0, 0, 1))
+    v_cap = Part.makeCone(2.2, 1.2, 2.0, Vector(0, vy, 53.0), Vector(0, 0, 1))
+    v_ring = Part.makeTorus(1.4, 0.4, Vector(0, vy, 51.5), Vector(0, 0, 1))
+    v_assy = v_base.fuse(v_stem).fuse(v_cap).fuse(v_ring)
+    hood = hood.fuse(v_assy)
+    valves_group = v_assy if valves_group is None else valves_group.fuse(v_assy)
+
+# 3.11 WIEŻYCZKA PERYSKOPOWA / TELEGRAFICZNA (Periscope Tower)
+peri_base = Part.makeCylinder(3.2, 3.0, Vector(-17.0, 5.0, 45.0), Vector(0, 0, 1))
+peri_stem = Part.makeCylinder(1.8, 10.0, Vector(-17.0, 5.0, 47.0), Vector(0, 0, 1))
+peri_head = Part.makeCylinder(2.8, 3.0, Vector(-17.0, 5.0, 57.0), Vector(0, 0, 1))
+peri_lens = Part.makeCylinder(1.6, 2.0, Vector(-17.0, 5.0, 57.5), Vector(0, -1, 0))
+peri_ring = Part.makeTorus(1.8, 0.4, Vector(-17.0, 5.0, 53.0), Vector(0, 0, 1))
+periscope = peri_base.fuse(peri_stem).fuse(peri_head).fuse(peri_lens).fuse(peri_ring)
+hood = hood.fuse(periscope)
+
+# 3.12 PANCERNE KRATKI WENTYLACYJNE Z ŻALUZJAMI (Armored Louvered Vents)
+vents_group = None
+for side_x, normal_x in [(-25.5, -1), (25.5, 1)]:
+    v_mount = Part.makeBox(3.0, 9.0, 7.0, Vector(side_x - 1.0*normal_x if normal_x==1 else side_x + 1.0*normal_x - 3.0, -28.0, 14.0))
+    for vi in range(3):
+        louver = Part.makeBox(2.0, 7.5, 0.8, Vector(side_x, -27.5, 15.0 + vi * 2.0))
+        louver.rotate(Vector(side_x, -27.5, 15.0 + vi * 2.0), Vector(1, 0, 0), 30.0)
+        v_mount = v_mount.fuse(louver)
+    hood = hood.fuse(v_mount)
+    vents_group = v_mount if vents_group is None else vents_group.fuse(v_mount)
+
+# 3.13 ŚRUBY SZEŚCIOKĄTNE NA PANELACH I PASACH (Hex Bolt Heads)
+# Śruby dachowe (axis = Z)
+for hx, hy in [(-20.0, -16.0), (20.0, -16.0), (-20.0, 15.0), (20.0, 15.0)]:
+    hbolt = make_hex_prism(1.3, 2.5, Vector(hx, hy, 45.0), axis=Vector(0, 0, 1))
+    hood = hood.fuse(hbolt)
+
+# Śruby tylne (axis = Y)
+for hx, hz in [(-14.0, 38.0), (14.0, 38.0)]:
+    hbolt = make_hex_prism(1.3, 2.5, Vector(hx, 23.0, hz), axis=Vector(0, 1, 0))
+    hood = hood.fuse(hbolt)
+
+# Śruby boczne (axis = X)
+for side_x, normal_x in [(-25.5, -1), (25.5, 1)]:
+    for sy, sz in [(-22.0, 20.0), (10.0, 20.0)]:
+        hbolt = make_hex_prism(1.3, 3.0, Vector(side_x - 1.5*normal_x, sy, sz), axis=Vector(normal_x, 0, 0))
+        hood = hood.fuse(hbolt)
+
+# 3.14 TABLICZKA IDENTYFIKACYJNA NA DASZKU (Armored Nameplate)
+np_base = Part.makeBox(18.0, 2.5, 4.5, Vector(-9.0, -26.5, 36.5))
+np_bezel = Part.makeBox(19.0, 0.6, 5.5, Vector(-9.5, -27.0, 36.0))
+nameplate = np_base.fuse(np_bezel)
+for nx in [-8.0, 8.0]:
+    for nz in [37.0, 40.0]:
+        n_riv = Part.makeSphere(0.7, Vector(nx, -27.0, nz))
+        nameplate = nameplate.fuse(n_riv)
+hood = hood.fuse(nameplate)
+
+# 3.15 3D NITY KOTŁOWE (29 Heavy Boiler Rivets)
+rivet_positions = [
+    Vector(-18.0, -14.0, 46.2), Vector( -6.0, -14.0, 46.4), Vector(  6.0, -14.0, 46.4), Vector( 18.0, -14.0, 46.2),
+    Vector(-18.0,  17.0, 46.2), Vector( -4.0,  17.0, 46.4), Vector(  4.0,  17.0, 46.4), Vector( 18.0,  17.0, 46.2),
+    Vector(-26.5, -14.0, 20.0), Vector(-26.5, -14.0, 36.0), Vector(-26.5,  17.0, 20.0), Vector(-26.5,  17.0, 36.0),
+    Vector( 26.5, -14.0, 20.0), Vector( 26.5, -14.0, 36.0), Vector( 26.5,  17.0, 20.0), Vector( 26.5,  17.0, 36.0),
+    Vector(-12.0, -25.5, 39.5), Vector(  0.0, -26.0, 39.8), Vector( 12.0, -25.5, 39.5),
+    # Nity boczne na pasie środkowym
+    Vector(-26.5, -8.0, 29.0), Vector(-26.5, 3.0, 29.0), Vector(-26.5, 12.0, 29.0),
+    Vector( 26.5, -8.0, 29.0), Vector( 26.5, 3.0, 29.0), Vector( 26.5, 12.0, 29.0),
+    # Nity dachowe
+    Vector(-10.0, 0.0, 46.2), Vector(10.0, 0.0, 46.2),
+    Vector(-10.0, 8.0, 46.2), Vector(10.0, 8.0, 46.2),
+]
+
+for r_pos in rivet_positions:
+    r_solid = Part.makeSphere(1.4, r_pos)
+    hood = hood.fuse(r_solid)
+
 # -------------------------------------------------------------
-# 3.8 PRZESTRZELENIE OKNA I KIESZENIE MONTAŻOWE DLA CORE CHASSIS
+# 3.90 PRZESTRZELENIE OKNA I KIESZENIE MONTAŻOWE DLA CORE CHASSIS
 # -------------------------------------------------------------
-# Przestrzelenie okna OLED na wylot (w kierunku ujemnego Y, całkowicie otwiera okno!)
+# Przestrzelenie okna OLED na wylot
 screen_cut = Part.Face(i_wire).extrude(Vector(0, -25.0, 0)).translate(Vector(0, 8.0, 0))
 screen_cut.rotate(Vector(0,0,0), Vector(1,0,0), tilt_angle)
 screen_cut.translate(Vector(0, oled_y, oled_z))
@@ -450,7 +579,7 @@ parts_to_verify = [
     ("Klawisz Ryfel Prawo", tread_p_cap)
 ]
 
-print("\n--- Walidacja brył CAD Steam-Titan Nautilus ---")
+print("\n--- Walidacja brył CAD Steam-Titan Nautilus ULTRA ---")
 all_valid = True
 for name, p in parts_to_verify:
     valid = p.isValid() and p.isClosed() and len(p.Solids) == 1
@@ -475,7 +604,7 @@ else:
 # -------------------------------------------------------------
 # 6. EKSPORT STL I STEP
 # -------------------------------------------------------------
-print("\n--- Eksport plików STL Nautilus do druku 3D ---")
+print("\n--- Eksport plików STL Nautilus ULTRA do druku 3D ---")
 
 def export_stl(shape, filename):
     mesh = MeshPart.meshFromShape(Shape=shape, LinearDeflection=0.04, AngularDeflection=0.17)
@@ -500,6 +629,8 @@ export_stl(chimneys_group, os.path.join(stl_comp_dir, 'nautilus_kominy.stl'))
 export_stl(gauges_group, os.path.join(stl_comp_dir, 'nautilus_manometry.stl'))
 export_stl(pipes_group, os.path.join(stl_comp_dir, 'nautilus_rurociagi.stl'))
 export_stl(rollcage_group, os.path.join(stl_comp_dir, 'nautilus_klatka_okna.stl'))
+export_stl(gears_group, os.path.join(stl_comp_dir, 'nautilus_kola_zebate.stl'))
+export_stl(portholes_group, os.path.join(stl_comp_dir, 'nautilus_iluminatory.stl'))
 
 # Złożenie pełnego robota
 robot_full = base.fuse(hood)
@@ -532,7 +663,7 @@ print("Zapisano wszystkie pliki STEP.")
 # 7. ZAPIS PROJEKTU FreeCAD (.FCStd)
 # -------------------------------------------------------------
 doc_path = os.path.join(base_dir, 'robot_dieselpunk_3d.FCStd')
-doc = FreeCAD.newDocument("Robot_Steam_Titan_Nautilus")
+doc = FreeCAD.newDocument("Robot_Steam_Titan_Nautilus_ULTRA")
 
 o_base = doc.addObject("Part::Feature", "Nautilus_Podstawa")
 o_base.Shape = base
@@ -552,4 +683,4 @@ o_tread_p.Shape = tread_p_cap
 doc.recompute()
 doc.saveAs(doc_path)
 print(f"Zapisano projekt FreeCAD: {os.path.basename(doc_path)} ({os.path.getsize(doc_path):,} bajtów)")
-print("\n=== Sukces! Wersja 4: Steam-Titan Nautilus wygenerowana perfekcyjnie! ===")
+print("\n=== Sukces! Wersja 4 ULTRA: Steam-Titan Nautilus MAXED OUT! ===")

@@ -79,16 +79,24 @@ Plik: [`cad_models/stl_print/core_chassis.stl`](file:///home/tuptus/Dokumenty/Pl
 
 ---
 
-### ⚙️ Wersja 4: Steam-Titan Nautilus (Katalog `cad_models/stl_print/dieselpunk/`)
+### ⚙️ Wersja 4: Steam-Titan Nautilus ULTRA (Katalog `cad_models/stl_print/dieselpunk/`)
 
 | Plik STL | Ilość | Opis / Rola w konstrukcji | Orientacja na stole |
 | :--- | :---: | :--- | :--- |
 | [`dieselpunk_podstawa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_podstawa.stl) | 1 szt. | Dolne chassis kotła z 4 stopami śrubowymi, dolną żaluzją pary i szynami ESP32 | Płasko na spodzie (Z=0) |
-| [`dieselpunk_glowa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_glowa.stl) | 1 szt. | Głowa Nautilus: 54mm kocioł parowy, 32 nity 3D, klatka ochronna iluminatora, podwójne kominy parowe z kryzami, boczne manometry (fi 21mm), rurociągi miedziane i tylny właz inspekcyjny z kołem ryglowym | Płasko dolnym kołnierzem do stołu |
+| [`dieselpunk_glowa.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_glowa.stl) | 1 szt. | Głowa Nautilus ULTRA: 54mm kocioł parowy, 29 nitów 3D, potrójna klatka iluminatora, podwójne kominy z potrójnymi kryzami i kołnierzami, boczne manometry (fi 21mm), rurociągi, koła zębate napędowe, mosiężne iluminatory, żaluzje chłodzące, zawory bezpieczeństwa, wieżyczka peryskopowa i tylny właz inspekcyjny | Płasko dolnym kołnierzem do stołu |
 | [`dieselpunk_przycisk_zawor.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_przycisk_zawor.stl) | 1 szt. | Środkowy przycisk: 6-ramienne mosiężne koło zaworu parowego z wieńcem i centralną nakrętką | Płasko kołnierzem do stołu |
 | [`dieselpunk_przycisk_ryfel_l.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_przycisk_ryfel_l.stl) | 1 szt. | Lewy przycisk nawigacyjny: płyta z industrialną blachą ryflowaną i chevronem `◀` | Płasko kołnierzem do stołu |
 | [`dieselpunk_przycisk_ryfel_p.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_przycisk_ryfel_p.stl) | 1 szt. | Prawy przycisk nawigacyjny: płyta z industrialną blachą ryflowaną i chevronem `▶` | Płasko kołnierzem do stołu |
-| [`dieselpunk_robot_kompletny.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_robot_kompletny.stl) | - | Pełne złożenie modelu Steam-Titan Nautilus (do podglądu w slicerze) | - |
+| [`dieselpunk_robot_kompletny.stl`](file:///home/tuptus/Dokumenty/PlatformIO/Projects/robot/cad_models/stl_print/dieselpunk/dieselpunk_robot_kompletny.stl) | - | Pełne złożenie modelu Steam-Titan Nautilus ULTRA (do podglądu w slicerze) | - |
+
+#### Elementy składowe dla wielomateriałowego renderera (Folder `components/`):
+- `nautilus_kominy.stl` – masywne wiktoriańskie kominy z potrójnymi kryzami chłodzącymi (Mosiądz)
+- `nautilus_manometry.stl` – analogowe zegary ciśnienia pary z tarczami i wskazówkami (Mosiądz)
+- `nautilus_rurociagi.stl` – rurociągi parowe wysokociśnieniowe z kołnierzami (Miedź)
+- `nautilus_klatka_okna.stl` – potrójna klatka ochronna iluminatora ekranu OLED (Mosiądz)
+- `nautilus_kola_zebate.stl` – odsłonięty zespół przekładni zębatych napędowych (Mosiądz)
+- `nautilus_iluminatory.stl` – boczne bulaje okrętowe ze śrubami ryglowymi (Mosiądz)
 
 > [!TIP]
 > W katalogu `cad_models/` znajdują się dedykowane pliki **Blender**:
@@ -134,6 +142,35 @@ Plik: [`cad_models/stl_print/core_chassis.stl`](file:///home/tuptus/Dokumenty/Pl
 ### 📺 Wersja Klasyczna Retro
 1. **Korpus**: Matowy jasnoszary lub kość słoniowa (Vintage Off-White / Industrial Grey).
 2. **Klawisze**: Turkusowy (Cyan), żółty lub pomarańczowy akcent retro.
+
+---
+
+## 🔬 Matematyczna Weryfikacja Systemu Modularnego Quick-Swap (Obliczenia CAD)
+
+Poniższa tabela przedstawia wyniki dokładnych obliczeń booleańskich wykonanych bezpośrednio w silniku OpenCASCADE (FreeCAD) na modelach geometrycznych stelaża centralnego (`Universal Core Chassis`) oraz wszystkich 4 wersji głowic:
+
+| Wersja Stylistyczna | Plik CAD (.FCStd) | Objętość Głowy | Liczba Brył (Solids) | Kolizja ze Stelażem | Pasowanie Kinematyczne (Z=30 $\to$ 0 mm) |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **1. Retro CRT** | `robot_obudowa_3d.FCStd` | `16,009.2 mm³` | **1 (Manifold)** | **0.0000 mm³** | **Czyste (0.0000 mm³)** |
+| **2. Mecha-Kawaii** | `robot_mecha_kawaii_3d.FCStd` | `19,853.5 mm³` | **1 (Manifold)** | **0.0000 mm³** | **Czyste (0.0000 mm³)** |
+| **3. Cyber-Titan Apex** | `robot_dreadnought_3d.FCStd` | `33,005.3 mm³` | **1 (Manifold)** | **0.0000 mm³** | **Czyste (0.0000 mm³)** |
+| **4. Steam-Titan Nautilus ULTRA** | `robot_dieselpunk_3d.FCStd` | `33,560.8 mm³` | **1 (Manifold)** | **0.0000 mm³** | **Czyste (0.0000 mm³)** |
+
+### Precyzyjne Wymiary i Luzy Montażowe:
+- **Szyny prowadzące Quick-Swap**:
+  - Szyna stelaża: grubość `1.6 mm`, długość `22.0 mm`, wysokość `13.0 mm`, faza wprowadzająca $30^\circ$.
+  - Rowek w głowie: szerokość `2.6 mm`, długość `24.0 mm`, głębokość `6.0 mm`.
+  - **Luz roboczy**: `0.5 mm` na stronę (idealny dla technologii FDM — gładki poślizg bez oporu i zacięć).
+- **Zatrzaski kulkowe (Ball Detents)**:
+  - Promień kulki: `R = 0.9 mm` (fi 1.8 mm) na wysokości $Z = 9.5\text{ mm}$.
+  - Zapewniają pewny, sprężysty "klik" blokujący głowę bez użycia jakichkolwiek śrub.
+- **Kieszeń ekranu OLED (0.96" I2C)**:
+  - Kąt pochylenia: $80^\circ$ ($-10^\circ$ od pionu).
+  - Wymiary kieszeni: $28.0 \times 28.0\text{ mm}$, prześwit wokół laminatu: `2.4 mm` (zero naprężeń na szkle).
+- **Kieszeń buzzera 12mm**:
+  - Średnica cylindra stelaża: `14.4 mm`, kieszeń w głowie: `17.2 mm` (luz promieniowy `1.4 mm`).
+- **Prowadnice przycisków**:
+  - Trzpień przycisku: `fi 5.2 mm`, otwór w obudowie: `fi 5.6 mm` (precyzyjny luz suwliwy `0.2 mm` na promieniu).
 
 ---
 

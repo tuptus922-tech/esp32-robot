@@ -118,6 +118,8 @@ d_parts = [
     (os.path.join(stl_comp_dir, 'nautilus_manometry.stl'), 'Nautilus_Manometry_Mosiadz', mat_brass, (0, 0, 0), (0, 0, 0)),
     (os.path.join(stl_comp_dir, 'nautilus_rurociagi.stl'), 'Nautilus_Rury_Miedz', mat_copper, (0, 0, 0), (0, 0, 0)),
     (os.path.join(stl_comp_dir, 'nautilus_klatka_okna.stl'), 'Nautilus_Klatka_Iluminatora', mat_brass, (0, 0, 0), (0, 0, 0)),
+    (os.path.join(stl_comp_dir, 'nautilus_kola_zebate.stl'), 'Nautilus_Kola_Zebate', mat_brass, (0, 0, 0), (0, 0, 0)),
+    (os.path.join(stl_comp_dir, 'nautilus_iluminatory.stl'), 'Nautilus_Iluminatory', mat_brass, (0, 0, 0), (0, 0, 0)),
     (os.path.join(stl_diesel_dir, 'dieselpunk_przycisk_zawor.stl'), 'Klawisz_Kolo_Zaworu', mat_brass, (math.radians(-90.0), 0, 0), (0, -32.5, 5.6)),
     (os.path.join(stl_diesel_dir, 'dieselpunk_przycisk_ryfel_l.stl'), 'Klawisz_Ryfel_Lewo', mat_treadplate, (math.radians(-90.0), 0, 0), (-14.0, -32.5, 5.6)),
     (os.path.join(stl_diesel_dir, 'dieselpunk_przycisk_ryfel_p.stl'), 'Klawisz_Ryfel_Prawo', mat_treadplate, (math.radians(-90.0), 0, 0), (14.0, -32.5, 5.6))
@@ -217,7 +219,9 @@ hood_objs = [
     bpy.data.objects.get("Nautilus_Kominy_Mosiadz"),
     bpy.data.objects.get("Nautilus_Manometry_Mosiadz"),
     bpy.data.objects.get("Nautilus_Rury_Miedz"),
-    bpy.data.objects.get("Nautilus_Klatka_Iluminatora")
+    bpy.data.objects.get("Nautilus_Klatka_Iluminatora"),
+    bpy.data.objects.get("Nautilus_Kola_Zebate"),
+    bpy.data.objects.get("Nautilus_Iluminatory")
 ]
 for ho in hood_objs:
     if ho:

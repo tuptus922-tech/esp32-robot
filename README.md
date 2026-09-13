@@ -129,8 +129,8 @@ Projekt wykorzystuje modułowy system **Core-and-Armor**:
 
 ---
 
-#### ⚙️ Opcja D: Steam-Titan Nautilus (Industrial Steampunk / Parowy Kocioł Bojowy)
-*Klimat: Victorian Industrial / BioShock Nautilus. Zaokrąglona czasza kotła parowego z 32 nitami 3D, potrójna klatka ochronna iluminatora (roll-cage), podwójne wiktoriańskie kominy z kryzami, boczne manometry ciśnienia pary ze wskazówkami w czerwonej strefie, miedziane rurociągi oraz mosiężne koło zaworowe jako przycisk.*
+#### ⚙️ Opcja D: Steam-Titan Nautilus ULTRA (Industrial Steampunk / Ciężki Parowy Kocioł Bojowy)
+*Klimat: Heavy Victorian Industrial / BioShock Nautilus. Zaokrąglona czasza kotła parowego, potrójna klatka ochronna iluminatora (roll-cage), podwójne wiktoriańskie kominy z potrójnymi kryzami chłodzącymi, boczne manometry ciśnienia pary ze wskazówkami w czerwonej strefie, odsłonięte koła zębate napędowe po bokach, okrętowe mosiężne iluminatory, pancerne żaluzje wentylacyjne, zawory bezpieczeństwa na dachu, wieżyczka peryskopowa, 29 trójwymiarowych nitów kotłowych, śruby sześciokątne oraz mosiężne 6-ramienne koło zaworowe jako przycisk.*
 
 | Plik STL | Ilość | Ścieżka do pliku | Zalecany kolor filamentu |
 | :--- | :---: | :--- | :--- |
